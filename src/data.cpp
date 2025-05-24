@@ -1,0 +1,1 @@
+// Leitura do diretório e carregamento dos arquivos
