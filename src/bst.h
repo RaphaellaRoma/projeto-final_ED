@@ -18,11 +18,29 @@ namespace bst{
         Node* NIL;  // usado na RBT (Opcional)
     };
 
-      /**
-      * @brief Cria uma nova árvore.
-      * @return Uma nova árvore vazia.
-      */
-     BinaryTree* create() ;
+    struct InsertResult {
+        int numComparisons;
+        double executionTime;
+        //<Possíveis outras variáveis>
+    };
+
+    struct SearchResult {
+        int found;
+        std::vector<int> documentIds;
+        double executionTime;
+        int numComparisons;
+        //<Possíveis outras variáveis>
+    };
+
+    /**
+    * @brief Cria uma nova árvore.
+    * @return Uma nova árvore vazia.
+    */
+    BinaryTree* create() ;
+
+    InsertResult insert(BinaryTree* tree, const std::string& word, int documentId);
+
+    SearchResult search(BinaryTree* tree, const std::string& word);
 
     /**
     * @brief Função auxiliar para deletar a árvore, é chamada recursivamente para eliminar cada nó.
