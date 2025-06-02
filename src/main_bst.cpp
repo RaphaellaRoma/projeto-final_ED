@@ -3,7 +3,7 @@
 #include "bst.h"
 #include <vector>
 
-using namespace bst;
+using namespace BST;
 
 int main(int argc, char* argv[]) {
     if (argc != 4) {
@@ -37,6 +37,8 @@ int main(int argc, char* argv[]) {
                     std::cout << docId << " ";
                 }
                 std::cout << std::endl;
+                std::cout << "Tempo de execução: "<< resultado.executionTime << std::endl;
+                std::cout << "Número de comparações realizadas durante a busca: "<< resultado.numComparisons << std::endl;
             } else {
                 std::cout << palavra << "não está presente em nenhum documento." << std::endl;
             }
