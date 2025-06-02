@@ -79,7 +79,7 @@ namespace BST{
     * @brief Deleta toda a árvore e libera a memória.
     * @param tree É a árvore a ser deletada.
     */
-     void deleteTree(BinaryTree* tree);
+     void destroy(BinaryTree* tree);
 
 }
 #endif

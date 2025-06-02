@@ -110,7 +110,7 @@ namespace BST{
         delete node;
     }
 
-    void deleteTree(BinaryTree* tree) {
+    void destroy(BinaryTree* tree) {
         if (tree == nullptr) return;
 
         deleteNode(tree->root);
