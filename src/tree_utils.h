@@ -64,4 +64,4 @@ void printTreeHelper(Node* node, const std::string& prefix, bool isLeft);
  *
  * @param tree Ponteiro para a árvore binária.
  */
-void printTree(BinaryTree* tree);
+void printTree(BinaryTree* tree); 

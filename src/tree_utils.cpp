@@ -16,7 +16,7 @@ void printIndexHelper(Node* node, int& index) {
             std::cout << ", ";
     }
     std::cout << "\n";
-
+ 
     ++index;
 
     // Chamada recursiva para o filho à direita
