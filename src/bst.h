@@ -2,6 +2,11 @@
 #ifndef BST_H
 #define BST_H
 
+#include <iostream>
+#include <vector>
+#include <string>
+#include <chrono>
+
 namespace BST{
     struct Node {
         std::string word;

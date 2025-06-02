@@ -1,9 +1,4 @@
 // Implementação da Árvore Binária de Busca
-
-#include <iostream> //import do python
-#include <vector>
-#include <string>
-#include <chrono>
 #include <bst.h>
 
 namespace BST{

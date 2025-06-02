@@ -1,7 +1,5 @@
 // Interface via linha de comando (indexação e busca) da Árvore Binária de Busca
-#include <iostream> //import do python
 #include "bst.h"
-#include <vector>
 
 using namespace BST;
 
