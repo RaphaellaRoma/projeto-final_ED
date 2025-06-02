@@ -1,5 +1,5 @@
 // Implementação da Árvore Binária de Busca
-#include <bst.h>
+#include "bst.h"
 
 namespace BST{
     BinaryTree* create(){
