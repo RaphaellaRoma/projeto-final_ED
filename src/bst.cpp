@@ -14,6 +14,15 @@ namespace BST{
     }
 
     InsertResult insert(BinaryTree* tree, const std::string& word, int documentId){
+        if (tree == nullptr) {
+            throw std::invalid_argument("Erro: ponteiro para BinaryTree é nulo.");
+        }
+        if (word.empty()) {
+            throw std::invalid_argument("Erro: palavra vazia não pode ser inserida na árvore.");
+        }
+        if (documentId < 0) {
+            throw std::invalid_argument("Erro: documentId inválido.");
+        }
         InsertResult result;
         result.executionTime = 0.0;
         result.numComparisons = 0;
@@ -25,10 +34,12 @@ namespace BST{
         while (current != nullptr){
             result.numComparisons ++;
             parent = current;
-            if(word < current->word){
+
+            int cmp = word.compare(current->word);
+            if(cmp < 0 ){
                 current = current->left;
             }
-            else if(word > current->word){
+            else if(cmp > 0){
                 current = current->right;
             }
             else{
@@ -67,6 +78,12 @@ namespace BST{
     }
 
     SearchResult search(BinaryTree* tree, const std::string& word){
+        if (tree == nullptr) {
+            throw std::invalid_argument("Erro: ponteiro para BinaryTree é nulo.");
+        }
+        if (word.empty()) {
+            throw std::invalid_argument("Erro: palavra vazia não pode ser inserida na árvore.");
+        }
         SearchResult result;
         result.found = false;
         result.documentIds = {};
@@ -78,10 +95,11 @@ namespace BST{
 
         while (current != nullptr){
             result.numComparisons ++;
-            if(word < current->word){
+            int cmp = word.compare(current->word);
+            if(cmp < 0){
                 current = current->left;
             }
-            else if(word > current->word){
+            else if(cmp > 0){
                 current = current->right;
             }
             else{
