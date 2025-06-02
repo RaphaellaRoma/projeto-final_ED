@@ -30,23 +30,23 @@ int main(int argc, char* argv[]) {
             SearchResult resultado = search(tree, palavra);  
             
             if (resultado.found == 1){
-                std::cout << palavra << " está presente em: ";
+                std::cout << palavra << " esta presente em: ";
                 for (int docId : resultado.documentIds) {
                     std::cout << docId << " ";
                 }
                 std::cout << std::endl;
-                std::cout << "Tempo de execução: "<< resultado.executionTime << std::endl;
-                std::cout << "Número de comparações realizadas durante a busca: "<< resultado.numComparisons << std::endl;
+                std::cout << "Tempo de execucao: "<< resultado.executionTime << std::endl;
+                std::cout << "Numero de comparacoes realizadas durante a busca: "<< resultado.numComparisons << std::endl;
             } else {
-                std::cout << palavra << "não está presente em nenhum documento." << std::endl;
+                std::cout << palavra << "nao esta presente em nenhum documento." << std::endl;
             }
 
         };
     } else if (comando == "stats") {
-        std::cout << "Comando stats ainda não foi implementado" << std::endl;
+        std::cout << "Comando stats ainda nao foi implementado" << std::endl;
         return 1;
     } else {
-        std::cout << "Comando inválido: " << comando << std::endl;
+        std::cout << "Comando invalido: " << comando << std::endl;
         std::cout << "Use: search ou stats" << std::endl;
         return 1;
     }
