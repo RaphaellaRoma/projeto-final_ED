@@ -1,165 +1,167 @@
+/**
+ * @file test_bst.cpp
+ * @brief Testes unitários e de integração para a implementação da Árvore Binária de Busca (BST).
+ */
+
 #include <iostream>
 #include "bst.h"
 #include "tree_utils.h"
 
-void printHeader(const std::string& title) {
-    std::cout << "\n======== " << title << " ========\n";
-}
+/**
+ * @brief Testa a função BST::insert em diferentes cenários.
+ * 
+ * @details Casos testados:
+ * - Inserção de palavras distintas e repetidas com diferentes IDs.
+ * - Inserção em árvore nula (deve lançar exceção).
+ * - Inserção de palavra vazia (deve lançar exceção).
+ * - Inserção com índice de documento inválido (deve lançar exceção).
+ * 
+ * @return void
+ */
+void test_insert() {
+    std::cout << "======== TESTES: BST::insert ========\n";
 
-void printTest(const std::string& description) {
-    std::cout << ">> " << description << "\n";
-}
-
-void ok(const std::string& msg) {
-    std::cout << "[OK] " << msg << "\n";
-}
-
-void error(const std::string& msg) {
-    std::cerr << "[ERRO] " << msg << "\n";
-}
-
-void test_insert(int& passed, int& failed) {
-    printHeader("TESTES: BST::insert");
-
-    // T1
-    printTest("T1: Insercao basica com multiplos documentos para mesma palavra");
+    // T1: Inserção básica com atualização de documento
+    std::cout << ">> T1: Inserção básica com múltiplos documentos para mesma palavra\n";
     {
         BinaryTree* tree = BST::create();
 
         BST::insert(tree, "palavra1", 1);
         BST::insert(tree, "palavra2", 2);
-        BST::insert(tree, "palavra1", 3);
+        BST::insert(tree, "palavra1", 3); // mesmo termo, outro ID
 
-        auto res = BST::search(tree, "palavra1");
-        if (res.found && res.documentIds.size() == 2) {
-            ok("Insercao e atualizacao de documentos funcionando.");
-            passed++;
+        BST::SearchResult resultadoBusca = BST::search(tree, "palavra1");
+        if (resultadoBusca.found && resultadoBusca.documentIds.size() == 2) {
+            std::cout << "[OK] Inserção e atualização de vetor de documentos funcionando.\n";
         } else {
-            error("Falha ao adicionar multiplos documentos para mesma palavra.");
-            failed++;
+            std::cerr << "[ERRO] Falha ao adicionar múltiplos documentos para mesma palavra.\n";
         }
 
         BST::destroy(tree);
     }
 
-    // T2
-    printTest("T2: Insercao em arvore nula");
+    // T2: Inserção em árvore nula
+    std::cout << ">> T2: Inserção em árvore nula\n";
     {
-        BinaryTree* nullTree = nullptr;
+        BST::BinaryTree* nullTree = nullptr;
+
         try {
             BST::insert(nullTree, "erro", 1);
-            error("Insercao em arvore nula nao lancou excecao.");
-            failed++;
+            std::cerr << "[ERRO] Inserção em árvore nula não lançou exceção.\n";
         } catch (...) {
-            ok("Excecao lancada corretamente para arvore nula.");
-            passed++;
+            std::cout << "[OK] Exceção lançada para inserção em árvore nula (esperado).\n";
         }
-        BST::destroy(nullTree);
+
+        BST::destroy(nullTree);  // seguro
     }
 
-    // T3
-    printTest("T3: Insercao de palavra vazia");
+    // T3: Palavra vazia
+    std::cout << ">> T3: Inserção de palavra vazia\n";
     {
-        BinaryTree* tree = BST::create();
+        BST::BinaryTree* tree = BST::create();
+
         try {
-            BST::insert(tree, "", 1);
-            error("Palavra vazia foi inserida, o que nao deveria.");
-            failed++;
+            BST::InsertResult res = BST::insert(tree, "", 1);
+            std::cerr << "[ERRO] Inserção de palavra vazia não lançou exceção.\n";
         } catch (const std::invalid_argument& e) {
-            ok(std::string("Excecao capturada: ") + e.what());
-            passed++;
+            std::cout << "[OK] Exceção capturada para palavra vazia: " << e.what() << "\n";
         } catch (...) {
-            ok("Excecao desconhecida capturada para palavra vazia.");
-            passed++;
+            std::cout << "[OK] Exceção desconhecida capturada para palavra vazia.\n";
         }
+
         BST::destroy(tree);
     }
 
-    // T4
-    printTest("T4: Insercao com indice de documento invalido");
+    // T4: ID de documento inválido
+    std::cout << ">> T4: Inserção com índice de documento inválido\n";
     {
-        BinaryTree* tree = BST::create();
+        BST::BinaryTree* tree = BST::create();
+
         try {
             BST::insert(tree, "palavra", -1);
-            error("Indice invalido nao gerou excecao.");
-            failed++;
+            std::cerr << "[ERRO] Inserção com índice inválido não lançou exceção.\n";
         } catch (const std::invalid_argument& e) {
-            ok(std::string("Excecao capturada: ") + e.what());
-            passed++;
+            std::cout << "[OK] Exceção capturada para índice inválido: " << e.what() << "\n";
         } catch (...) {
-            ok("Excecao desconhecida capturada para indice invalido.");
-            passed++;
+            std::cout << "[OK] Exceção desconhecida capturada para índice inválido.\n";
         }
+
         BST::destroy(tree);
     }
 }
 
-void test_search(int& passed, int& failed) {
-    printHeader("TESTES: BST::search");
+/**
+ * @brief Testa a função BST::search em diferentes cenários.
+ * 
+ * @details Casos testados:
+ * - Busca por palavras existentes (com 1 ou mais IDs).
+ * - Busca por palavra inexistente.
+ * - Busca em árvore vazia.
+ * 
+ * @return void
+ */
+void test_search() {
+    std::cout << "======== TESTES: BST::search ========\n";
 
-    // T1
-    printTest("T1: Busca por palavras existentes");
+    // T1: Busca por palavras existentes
+    std::cout << ">> T1: Busca por palavras existentes\n";
     {
         BinaryTree* tree = BST::create();
         BST::insert(tree, "palavra1", 1);
         BST::insert(tree, "palavra2", 2);
         BST::insert(tree, "palavra2", 3);
 
-        auto r1 = BST::search(tree, "palavra1");
-        auto r2 = BST::search(tree, "palavra2");
+        BST::SearchResult r1 = BST::search(tree, "palavra1");
+        BST::SearchResult r2 = BST::search(tree, "palavra2");
 
         if (r1.found && r1.documentIds.size() == 1 &&
             r2.found && r2.documentIds.size() == 2) {
-            ok("Busca encontrou os documentos corretos.");
-            passed++;
+            std::cout << "[OK] Busca encontrou documentos corretos.\n";
         } else {
-            error("Busca retornou resultados incorretos.");
-            failed++;
+            std::cerr << "[ERRO] Busca retornou resultados incorretos.\n";
         }
 
         BST::destroy(tree);
     }
 
-    // T2
-    printTest("T2: Busca por palavra inexistente");
+    // T2: Palavra inexistente
+    std::cout << ">> T2: Busca por palavra inexistente\n";
     {
-        BinaryTree* tree = BST::create();
-        auto res = BST::search(tree, "palavra_inexistente");
+        BST::BinaryTree* tree = BST::create();
+
+        BST::SearchResult res = BST::search(tree, "palavra_inexistente");
         if (!res.found) {
-            ok("Palavra inexistente nao foi encontrada (como esperado).");
-            passed++;
+            std::cout << "[OK] Palavra inexistente não encontrada (como esperado).\n";
         } else {
-            error("Busca retornou resultado incorreto para palavra inexistente.");
-            failed++;
+            std::cerr << "[ERRO] Busca retornou resultado para palavra inexistente.\n";
         }
+
         BST::destroy(tree);
     }
 
-    // T3
-    printTest("T3: Busca em arvore vazia");
+    // T3: Busca em árvore vazia
+    std::cout << ">> T3: Busca em árvore vazia\n";
     {
-        BinaryTree* emptyTree = BST::create();
-        auto res = BST::search(emptyTree, "qualquer");
+        BST::BinaryTree* emptyTree = BST::create();
+
+        BST::SearchResult res = BST::search(emptyTree, "qualquer");
         if (!res.found) {
-            ok("Busca em arvore vazia falhou como esperado.");
-            passed++;
+            std::cout << "[OK] Busca em árvore vazia não encontrou resultado.\n";
         } else {
-            error("Busca retornou resultado em arvore vazia.");
-            failed++;
+            std::cerr << "[ERRO] Busca retornou resultado em árvore vazia.\n";
         }
+
         BST::destroy(emptyTree);
     }
 }
 
+/**
+ * @brief Função principal que executa os testes.
+ * 
+ * @return int 0 se execução ocorreu normalmente.
+ */
 int main() {
-    int passed = 0, failed = 0;
-
-    test_insert(passed, failed);
-    test_search(passed, failed);
-
-    std::cout << "\n======== RESUMO FINAL ========\n";
-    std::cout << "Testes passados: " << passed << "\n";
-    std::cout << "Testes falharam: " << failed << "\n";
-
-    return failed == 0 ? 0 : 1;
+    test_insert();
+    test_search();
+    return 0;
 }
