@@ -39,14 +39,14 @@ void printTreeHelper(Node* node, const std::string& prefix, bool isLeft) {
     if (!node->parent) {
         std::cout << node->word << "\n";
     } else {  // Se tem pai: "|__" para filho da esquerda; "\__" para filho à direita 
-        std::cout << (isLeft ? "|--" : "\\__") << node->word << "\n";
+        std::cout << (isLeft ? "/__" : " \\__") << node->word << "\n";
     }
 
     // Nova string prefixo para os filhos do nó atual 
     std::string newPrefix = prefix;
     if (node->parent)
         // "|   " se o nó atual for da esquerda; "    " se for da direita 
-        newPrefix += (isLeft ? "|   " : "    ");
+        newPrefix += (isLeft ? ":   " : "    ");
 
     // Se o nó tiver pelo menos um filho, chama recursivamente nos filhos 
     if (node->left || node->right) {
