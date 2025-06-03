@@ -26,13 +26,13 @@ Trabalho da disciplina de Estrutura de Dados: implementação de um índice inve
   Entre na pasta `src` e rode:  
   ```bash
   make avl
-( Árvore não implementada)
+( AVL não implementada)
 
 - Compilar RBT
   Entre na pasta `src` e rode:  
   ```bash
   make rbt
-( Árvore não implementada)
+( RBT não implementada)
 
 ## Testes:
 (falta escrever aqui)
