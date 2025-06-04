@@ -126,7 +126,7 @@ void test_search(int& passed, int& failed) {
         BinaryTree* tree = BST::create();
         auto res = BST::search(tree, "palavra_inexistente");
         if (!res.found) {
-            ok("Palavra inexistente não foi encontrada (como esperado).");
+            ok("Palavra inexistente nao foi encontrada (como esperado).");
             passed++;
         } else {
             error("Busca retornou resultado incorreto para palavra inexistente.");
