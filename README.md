@@ -18,22 +18,31 @@ Trabalho da disciplina de Estrutura de Dados: implementação de um índice inve
 ## Instruções para compilar:
 
 - Compilar BST  
-  Entre na pasta `src` e rode:  
   ```bash
   make bst
 
 - Compilar AVL
-  Entre na pasta `src` e rode:  
   ```bash
   make avl
 ( AVL não implementada)
 
 - Compilar RBT
-  Entre na pasta `src` e rode:  
   ```bash
   make rbt
 ( RBT não implementada)
 
 ## Testes:
-(falta escrever aqui)
+- BST
+  ```bash
+  make test_bst
+
+- AVL
+  ```bash
+  make test_avl
+( AVL não implementada)
+
+- RBT
+  ```bash
+  make test_rbt
+( RBT não implementada)
 

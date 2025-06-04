@@ -24,7 +24,7 @@ void test_insert(int& passed, int& failed) {
     // T1
     printTest("T1: Inserção básica com múltiplos documentos para mesma palavra");
     {
-        BST::BinaryTree* tree = BST::create();
+        BinaryTree* tree = BST::create();
 
         BST::insert(tree, "palavra1", 1);
         BST::insert(tree, "palavra2", 2);
@@ -45,7 +45,7 @@ void test_insert(int& passed, int& failed) {
     // T2
     printTest("T2: Inserção em árvore nula");
     {
-        BST::BinaryTree* nullTree = nullptr;
+        BinaryTree* nullTree = nullptr;
         try {
             BST::insert(nullTree, "erro", 1);
             error("Inserção em árvore nula não lançou exceção.");
@@ -60,7 +60,7 @@ void test_insert(int& passed, int& failed) {
     // T3
     printTest("T3: Inserção de palavra vazia");
     {
-        BST::BinaryTree* tree = BST::create();
+        BinaryTree* tree = BST::create();
         try {
             BST::insert(tree, "", 1);
             error("Palavra vazia foi inserida, o que não deveria.");
@@ -78,7 +78,7 @@ void test_insert(int& passed, int& failed) {
     // T4
     printTest("T4: Inserção com índice de documento inválido");
     {
-        BST::BinaryTree* tree = BST::create();
+        BinaryTree* tree = BST::create();
         try {
             BST::insert(tree, "palavra", -1);
             error("Índice inválido não gerou exceção.");
@@ -100,7 +100,7 @@ void test_search(int& passed, int& failed) {
     // T1
     printTest("T1: Busca por palavras existentes");
     {
-        BST::BinaryTree* tree = BST::create();
+        BinaryTree* tree = BST::create();
         BST::insert(tree, "palavra1", 1);
         BST::insert(tree, "palavra2", 2);
         BST::insert(tree, "palavra2", 3);
@@ -123,7 +123,7 @@ void test_search(int& passed, int& failed) {
     // T2
     printTest("T2: Busca por palavra inexistente");
     {
-        BST::BinaryTree* tree = BST::create();
+        BinaryTree* tree = BST::create();
         auto res = BST::search(tree, "palavra_inexistente");
         if (!res.found) {
             ok("Palavra inexistente não foi encontrada (como esperado).");
@@ -138,7 +138,7 @@ void test_search(int& passed, int& failed) {
     // T3
     printTest("T3: Busca em árvore vazia");
     {
-        BST::BinaryTree* emptyTree = BST::create();
+        BinaryTree* emptyTree = BST::create();
         auto res = BST::search(emptyTree, "qualquer");
         if (!res.found) {
             ok("Busca em árvore vazia falhou como esperado.");
