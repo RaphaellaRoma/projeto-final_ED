@@ -31,7 +31,7 @@ vector<doc> read_documents(const string& dir, int n) {
         string nome_arquivo = dir + "/" + to_string(i) + ".txt";
         ifstream teste(nome_arquivo);
         if (!teste.is_open()) {
-            cerr << "Não consegui abrir " << nome_arquivo << ". Pulando.\n";
+            cerr << "Nao consegui abrir " << nome_arquivo << ". Pulando.\n";
             continue;
         }
 
