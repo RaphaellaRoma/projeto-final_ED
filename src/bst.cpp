@@ -8,20 +8,20 @@ namespace BST{
         return tree;
         } 
     catch (const std::bad_alloc&){
-        std::cout << "Error: Could not allocate memory for BinaryTree" << std::endl;
+        std::cout << "Erro: Nao foi possivel alocar memoria para BinaryTree" << std::endl;
         return nullptr;
         }
     }
 
     InsertResult insert(BinaryTree* tree, const std::string& word, int documentId){
         if (tree == nullptr) {
-            throw std::invalid_argument("Erro: ponteiro para BinaryTree é nulo.");
+            throw std::invalid_argument("Erro: ponteiro para BinaryTree e nulo.");
         }
         if (word.empty()) {
-            throw std::invalid_argument("Erro: palavra vazia não pode ser inserida na árvore.");
+            throw std::invalid_argument("Erro: palavra vazia nao pode ser inserida na arvore.");
         }
         if (documentId < 0) {
-            throw std::invalid_argument("Erro: documentId inválido.");
+            throw std::invalid_argument("Erro: documentId invalido.");
         }
         InsertResult result;
         result.executionTime = 0.0;
@@ -79,10 +79,10 @@ namespace BST{
 
     SearchResult search(BinaryTree* tree, const std::string& word){
         if (tree == nullptr) {
-            throw std::invalid_argument("Erro: ponteiro para BinaryTree é nulo.");
+            throw std::invalid_argument("Erro: ponteiro para BinaryTree e nulo.");
         }
         if (word.empty()) {
-            throw std::invalid_argument("Erro: palavra vazia não pode ser inserida na árvore.");
+            throw std::invalid_argument("Erro: palavra vazia nao pode ser inserida na arvore.");
         }
         SearchResult result;
         result.found = false;
