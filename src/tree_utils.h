@@ -1,11 +1,25 @@
 // Structs e Funções auxiliares, como Criar Nó, Computar altura, Busca, Exibir Árvore, etc
 #pragma once
-#include "bst.h"  // Usa as definições de Node e BinaryTree do namespace BST
 #include <iostream>
 #include <vector>
 #include <string>
 
-using namespace BST;
+
+struct Node {
+    std::string word;
+    std::vector<int> documentIds;
+    Node* parent;
+    Node* left;
+    Node* right;
+    int height;    // usado na AVL
+    int isRed;     // usado na RBT
+};
+
+struct BinaryTree {
+    Node* root;
+    Node* NIL;  // usado na RBT (Opcional)
+};
+
 
 /**
  * @brief Função recursiva auxilar para imprimir o índice invertido.
