@@ -115,13 +115,7 @@ namespace BST{
         return result;
     }
 
-    void deleteNode(Node* node) {
-        if (node == nullptr) return;
-        deleteNode(node->left);
-        deleteNode(node->right);
 
-        delete node;
-    }
 
     void destroy(BinaryTree* tree) {
         if (tree == nullptr) return;

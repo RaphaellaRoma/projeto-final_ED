@@ -61,11 +61,7 @@ namespace BST{
     */
     SearchResult search(BinaryTree* tree, const std::string& word);
 
-    /**
-    * @brief Função auxiliar para deletar a árvore, é chamada recursivamente para eliminar cada nó.
-    * @param node É o nó a ser deletado.
-    */
-   void deleteNode(Node* node);
+
 
     /**
     * @brief Deleta toda a árvore e libera a memória.
