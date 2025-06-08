@@ -1,6 +1,50 @@
 // Structs e Funções auxiliares, como Criar Nó, Computar altura, Busca, Exibir Árvore, etc
 #include "tree_utils.h"
 
+//createNode()
+
+void deleteNode(Node* node) {
+    if (node == nullptr) return;
+    deleteNode(node->left);
+    deleteNode(node->right);
+
+    delete node;
+}
+
+
+
+void transplant(BinaryTree* tree, Node* u, Node* v) {
+    if (u->parent == nullptr) {
+        tree->root = v;
+    } else if (u == u->parent->left) {
+        u->parent->left = v;
+    } else {
+        u->parent->right = v;
+    }
+    if (v != nullptr) {
+        v->parent = u->parent;
+    }
+}
+
+Node* search(BinaryTree* tree, const std::string& word) {
+    if (tree == nullptr || tree->root == tree->NIL) {
+        return tree->NIL;
+    }
+
+    Node* current = tree->root;
+
+    while (current != tree->NIL && current->word != word) {
+        if (word < current->word) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
+    return current; // retorna tree->NIL se não encontrou
+}
+
+
 void printIndexHelper(Node* node, int& index) {
     // Se o ponteiro for nullptr não faz nada 
     if (!node) return;

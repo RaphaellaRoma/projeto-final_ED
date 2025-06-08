@@ -21,6 +21,33 @@ struct BinaryTree {
 };
 
 
+
+/**
+* @brief Função auxiliar para deletar a árvore, é chamada recursivamente para eliminar cada nó.
+* @param node É o nó a ser deletado.
+*/
+void deleteNode(Node* node);
+
+
+/**
+ * @brief Função auxilar que troca um nó u por um nó v.
+ *
+ * @param tree Ponteiro para a árvore binária.
+ * @param u Ponteiro para o nó que queremos trocar por v.
+ * @param v Nó que queremos colocar no lugar de u.
+ */
+void transplant(BinaryTree* tree, Node* u, Node* v);
+
+
+/**
+ * @brief Função auxilar para buscar um nó na árvore.
+ *
+ * @param tree Ponteiro para a árvore binária.
+ * @param word Palavra buscada.
+ */
+Node* search(BinaryTree* tree, const std::string& word);
+
+
 /**
  * @brief Função recursiva auxilar para imprimir o índice invertido.
  *
@@ -28,6 +55,7 @@ struct BinaryTree {
  * @param index Número de ordem da palavra (usado para numerar a saída).
  */
 void printIndexHelper(Node* node, int& index);
+
 
 /**
  * @brief Imprime o índice invertido da árvore em ordem alfabética.
