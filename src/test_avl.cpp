@@ -202,6 +202,7 @@ void test_rotation(int& passed, int& failed) {
         bool rightBalanced = isBalanced(node->right);
 
         return leftBalanced && rightBalanced;
+    }
 
 
     // T1
