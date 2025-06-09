@@ -20,7 +20,19 @@ struct BinaryTree {
     Node* NIL;  // usado na RBT (Opcional)
 };
 
+struct InsertResult {
+    int numComparisons;
+    double executionTime;
+    //<Possíveis outras variáveis>
+};
 
+struct SearchResult {
+    int found;
+    std::vector<int> documentIds;
+    double executionTime;
+    int numComparisons;
+    //<Possíveis outras variáveis>
+};
 
 /**
 * @brief Função auxiliar para deletar a árvore, é chamada recursivamente para eliminar cada nó.

@@ -33,16 +33,20 @@ Node* search(BinaryTree* tree, const std::string& word) {
 
     Node* current = tree->root;
 
-    while (current != tree->NIL && current->word != word) {
-        if (word < current->word) {
+    while (current != tree->NIL) {
+        int cmp = word.compare(current->word);
+        if (cmp == 0) {
+            return current;
+        } else if (cmp < 0) {
             current = current->left;
         } else {
             current = current->right;
         }
     }
 
-    return current; // retorna tree->NIL se não encontrou
+    return tree->NIL; // não encontrado
 }
+
 
 
 void printIndexHelper(Node* node, int& index) {
