@@ -57,7 +57,7 @@ void transplant(BinaryTree* tree, Node* u, Node* v);
  * @param tree Ponteiro para a árvore binária.
  * @param word Palavra buscada.
  */
-Node* search(BinaryTree* tree, const std::string& word);
+Node* searchNode(BinaryTree* tree, const std::string& word);
 
 
 /**

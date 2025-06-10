@@ -26,7 +26,7 @@ void transplant(BinaryTree* tree, Node* u, Node* v) {
     }
 }
 
-Node* search(BinaryTree* tree, const std::string& word) {
+Node* searchNode(BinaryTree* tree, const std::string& word) {
     if (tree == nullptr || tree->root == tree->NIL) {
         return tree->NIL;
     }

@@ -8,22 +8,8 @@
 #include <chrono>
 #include "tree_utils.h"
 
-namespace BST{
-
-    struct InsertResult {
-        int numComparisons;
-        double executionTime;
-        //<Possíveis outras variáveis>
-    };
-
-    struct SearchResult {
-        int found;
-        std::vector<int> documentIds;
-        double executionTime;
-        int numComparisons;
-        //<Possíveis outras variáveis>
-    };
-
+namespace BST {
+    
     /**
     * @brief Cria e inicializa uma árvore binária vazia.
     * 
@@ -60,8 +46,6 @@ namespace BST{
     *         - numComparisons: número de comparações realizadas durante a busca.
     */
     SearchResult search(BinaryTree* tree, const std::string& word);
-
-
 
     /**
     * @brief Deleta toda a árvore e libera a memória.
