@@ -35,7 +35,14 @@ struct SearchResult {
 };
 
 
-// Documentar aqui
+/**
+ * @brief Cria e inicializa um novo nó com a palavra e o ID do documento.
+ *
+ * @param word Palavra a ser inserida no nó.
+ * @param documentId ID do documento onde a palavra aparece.
+ * @param parent Ponteiro para o nó pai (pode ser nullptr).
+ * @return Ponteiro para o novo nó criado.
+ */
 Node* createNode(const std::string& word, int documentId, Node* parent);
 
 
@@ -55,15 +62,31 @@ void deleteNode(Node* node);
 Node* searchNode(BinaryTree* tree, const std::string& word);
 
 
-// Documentar aqui
+/**
+ * @brief Retorna a altura de um nó.
+ *
+ * @param n Ponteiro para o nó.
+ * @return Altura do nó, ou -1 se for nullptr.
+ */
 int getHeight(Node* n);
 
 
-// Documentar aqui
+/**
+ * @brief Recalcula a altura de um nó com base nas alturas dos filhos.
+ *
+ * @param n Ponteiro para o nó cuja altura será atualizada.
+ */
 void recomputeHeight(Node* n);
 
 
-// Documentar aqui
+/**
+ * @brief Calcula o fator de balanceamento de um nó.
+ *
+ * O fator de balanceamento é a diferença entre a altura da subárvore esquerda e direita.
+ *
+ * @param n Ponteiro para o nó.
+ * @return Valor do balanceamento. Pode ser negativo, positivo ou zero.
+ */
 int getBalance(Node* n);
 
 /**
@@ -84,15 +107,36 @@ bool isBalanced(Node* node);
 void transplant(BinaryTree* tree, Node* u, Node* v);
 
 
-// Documentar aqui
+/**
+ * @brief Realiza uma rotação à esquerda na subárvore com raiz em x.
+ *
+ * Utilizada nas operações de balanceamento da AVL e da RBT.
+ *
+ * @param tree Ponteiro para a árvore binária.
+ * @param x Nó a partir do qual a rotação será feita.
+ */
 void rotateLeft(BinaryTree* tree, Node* x);
 
 
-// Documentar aqui
+/**
+ * @brief Realiza uma rotação à direita na subárvore com raiz em y.
+ *
+ * Utilizada nas operações de balanceamento da AVL e da RBT.
+ *
+ * @param tree Ponteiro para a árvore binária.
+ * @param y Nó a partir do qual a rotação será feita.
+ */
 void rotateRight(BinaryTree* tree, Node* y);
 
 
-// Documentar aqui
+/**
+ * @brief Rebalanceia a árvore AVL a partir de um nó inserido ou deletado.
+ *
+ * Realiza rotações e atualiza alturas conforme necessário.
+ *
+ * @param tree Ponteiro para a árvore binária.
+ * @param node Ponteiro para o nó onde o rebalanceamento começará.
+ */
 void rebalance(BinaryTree* tree, Node* node);
 
 
