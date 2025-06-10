@@ -6,7 +6,7 @@ using namespace AVL;
 
 int main(int argc, char* argv[]) {
     if (argc != 4) {
-        std::cout << "Uso: " << argv[0] << " <search|stats> <n_docs> <diretorio>" << std::endl;
+        std::cout << "Uso: " << argv[0] << " <search|stats|view> <n_docs> <diretorio>" << std::endl;
         return 1;
     }
 
@@ -67,6 +67,10 @@ int main(int argc, char* argv[]) {
 
         int comparisons = 0;
         double insertiontime = 0.0;
+        int numPalavras = 0;
+        int numNos = 0;
+        double searchtime = 0.0;
+        double searchtimemax = 0.0;
 
         for (int i = 0; i < n_docs; ++i) {
             doc document_i = documentos[i];
@@ -74,17 +78,48 @@ int main(int argc, char* argv[]) {
                 string word = document_i.words[p];
                 int id = document_i.id;
                 InsertResult insercao_p = insert(tree, word, id);   // inserir os n_docs documentos do diretorio
+                auto start = std::chrono::high_resolution_clock::now();
+                SearchResult search_p = search(tree, word);
+                auto end = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<double, std::milli> duration = end - start;
+                searchtime += duration.count();
                 comparisons += insercao_p.numComparisons;
                 insertiontime += insercao_p.executionTime;
+                numPalavras += 1;
+                if (duration.count()>searchtimemax){
+                    searchtimemax = duration.count();
+                }
+                if (insercao_p.alreadyInsert == 0){
+                    numNos += 1;
+                }
             }
         }
+        int height = getHeight(tree->root);
+        int min_deph = minDeph(tree->root);
         
-        std::cout << "Tempo de insercao: " << insertiontime * 1000 << " ms" << std::endl; // em milisegundos
+        std::cout << "Tempo de insercao medio: " << insertiontime * 1000 / numPalavras << " ms" << std::endl; // em milisegundos
+        std::cout << "Tempo de insercao total: " << insertiontime * 1000 << " ms" << std::endl; // em milisegundos
+        std::cout << "Tempo de busca medio: " << searchtime / numPalavras << " ms" << std::endl; // em milisegundos
+        std::cout << "Tempo de busca maximo: " << searchtimemax << " ms" << std::endl; // em milisegundos
         std::cout << "Numero de comparacoes: " << comparisons << std::endl;
-
-    } else {
+        std::cout << "Altura da arvore: " << height << std::endl;
+        std::cout << "Menor caminho: " << min_deph << std::endl;
+        std::cout << "Maior caminho: " << height << std::endl;
+        std::cout << "Numero de nos: " << numNos << std::endl;
+    }  else if (comando == "view") {
+        vector<doc> documentos = read_documents(diretorio, n_docs);
+        for (int i = 0; i < n_docs; ++i) {
+            doc document_i = documentos[i];
+            for(size_t p = 0; p < document_i.words.size(); ++p){
+                string word = document_i.words[p];
+                int id = document_i.id;
+                insert(tree, word, id);   // inserir os n_docs documentos do diretorio
+            }
+        }
+        printTree(tree);        
+    }    else {
         std::cout << "Comando invalido: " << comando << std::endl;
-        std::cout << "Use: search ou stats" << std::endl;
+        std::cout << "Use: search, stats ou view" << std::endl;
         return 1;
     }
 

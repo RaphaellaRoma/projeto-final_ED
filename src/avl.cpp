@@ -25,7 +25,7 @@ namespace AVL {
             throw std::invalid_argument("Erro: documentId invalido.");
         }
 
-        InsertResult result{0, 0.0};
+        InsertResult result{0, 0.0, 0};
         auto start = std::chrono::high_resolution_clock::now();
 
         Node* parent = nullptr;
@@ -51,7 +51,7 @@ namespace AVL {
             if (!alreadyExists) {
                 current->documentIds.push_back(documentId);
             }
-
+            result.alreadyInsert = 1;
             auto end = std::chrono::high_resolution_clock::now();
             result.executionTime = std::chrono::duration<double>(end - start).count();
             return result;
@@ -69,7 +69,7 @@ namespace AVL {
         }
 
         rebalance(tree, newNode);
-
+        result.alreadyInsert = 0;
         auto end = std::chrono::high_resolution_clock::now();
         result.executionTime = std::chrono::duration<double>(end - start).count();
         return result;
