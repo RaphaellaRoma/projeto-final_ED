@@ -105,7 +105,9 @@ int main(int argc, char* argv[]) {
         std::cout << "Altura da arvore: " << height << std::endl;
         std::cout << "Menor caminho: " << min_deph << std::endl;
         std::cout << "Maior caminho: " << height << std::endl;
-        std::cout << "Numero de nos: " << numNos << std::endl;
+        std::cout << "Numero de nos na arvore: " << numNos << std::endl;
+        std::cout << "Numero de palavras nos " << n_docs << " documentos: " << numPalavras << std::endl;
+    
     }  else if (comando == "view") {
         vector<doc> documentos = read_documents(diretorio, n_docs);
         for (int i = 0; i < n_docs; ++i) {
