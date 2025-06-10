@@ -71,6 +71,23 @@ int getBalance(Node* n) {
     return balance;
 }
 
+bool isBalanced(Node* node) {
+    if (node == nullptr) {
+        return true; // Um nó nulo é sempre balanceado
+    }
+
+    int balance = getBalance(node);
+    if (balance < -1 || balance > 1) {
+        return false;
+    }
+
+    // Verifica recursivamente as subárvores esquerda e direita
+    bool leftBalanced = isBalanced(node->left);
+    bool rightBalanced = isBalanced(node->right);
+
+    return leftBalanced && rightBalanced;
+}
+
 void transplant(BinaryTree* tree, Node* u, Node* v) {
     if (u->parent == nullptr) {
         tree->root = v;
