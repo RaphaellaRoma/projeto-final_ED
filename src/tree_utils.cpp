@@ -200,7 +200,7 @@ void printTreeHelper(Node* node, const std::string& prefix, bool isLeft) {
     std::string newPrefix = prefix;
     if (node->parent)
         // "|   " se o nó atual for da esquerda; "    " se for da direita 
-        newPrefix += (isLeft ? ":   " : "    ");
+        newPrefix += (isLeft ? "|   " : "    ");
 
     // Se o nó tiver pelo menos um filho, chama recursivamente nos filhos 
     if (node->left || node->right) {

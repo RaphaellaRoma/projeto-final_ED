@@ -6,7 +6,7 @@ using namespace AVL;
 
 int main(int argc, char* argv[]) {
     if (argc != 4) {
-        std::cout << "Uso: " << argv[0] << " <search|stats> <n_docs> <diretorio>" << std::endl;
+        std::cout << "Uso: " << argv[0] << " <search|stats|view> <n_docs> <diretorio>" << std::endl;
         return 1;
     }
 
@@ -82,9 +82,20 @@ int main(int argc, char* argv[]) {
         std::cout << "Tempo de insercao: " << insertiontime * 1000 << " ms" << std::endl; // em milisegundos
         std::cout << "Numero de comparacoes: " << comparisons << std::endl;
 
-    } else {
+    }  else if (comando == "view") {
+        vector<doc> documentos = read_documents(diretorio, n_docs);
+        for (int i = 0; i < n_docs; ++i) {
+            doc document_i = documentos[i];
+            for(size_t p = 0; p < document_i.words.size(); ++p){
+                string word = document_i.words[p];
+                int id = document_i.id;
+                insert(tree, word, id);   // inserir os n_docs documentos do diretorio
+            }
+        }
+        printTree(tree);        
+    }    else {
         std::cout << "Comando invalido: " << comando << std::endl;
-        std::cout << "Use: search ou stats" << std::endl;
+        std::cout << "Use: search, stats ou view" << std::endl;
         return 1;
     }
 
