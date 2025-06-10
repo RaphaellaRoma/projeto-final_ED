@@ -72,7 +72,7 @@ namespace BST {
         else if(word > parent->word){
             parent->right = newNode;
         }
-
+        recomputeHeightTree(newNode);
         auto end = std::chrono::high_resolution_clock::now();
         result.executionTime = std::chrono::duration<double>(end - start).count();
         return result;

@@ -81,6 +81,8 @@ int main(int argc, char* argv[]) {
         
         std::cout << "Tempo de insercao: " << insertiontime * 1000 << " ms" << std::endl; // em milisegundos
         std::cout << "Numero de comparacoes: " << comparisons << std::endl;
+        int height = getHeight(tree->root);
+        std::cout << "Altura da arvore: " << height << std::endl;
 
     }  else if (comando == "view") {
         vector<doc> documentos = read_documents(diretorio, n_docs);

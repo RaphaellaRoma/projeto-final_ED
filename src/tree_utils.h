@@ -78,6 +78,13 @@ int getHeight(Node* n);
  */
 void recomputeHeight(Node* n);
 
+/**
+ * @brief Recalcula a altura de todos os nós da árvore.
+ *
+ * @param n nó que foi inserido.
+ */
+void recomputeHeightTree(Node* n);
+
 
 /**
  * @brief Calcula o fator de balanceamento de um nó.

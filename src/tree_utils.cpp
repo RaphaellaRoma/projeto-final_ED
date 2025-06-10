@@ -59,6 +59,13 @@ void recomputeHeight(Node* n) {
     n->height = 1 + std::max(alturaEsquerda, alturaDireita);
 }
 
+void recomputeHeightTree(Node* n) {
+    while (n!=nullptr){
+        recomputeHeight(n);
+        n = n->parent;
+    }
+}
+
 int getBalance(Node* n) {
     if (n == nullptr) {
         return 0;
