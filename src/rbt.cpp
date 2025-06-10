@@ -39,12 +39,12 @@ void fixUp(BinaryTree* tree, Node* node) {
                 if (node == node->parent->right) {
                     // Caso 2
                     node = node->parent;
-                    leftRotate(tree, node);
+                    rotateLeft(tree, node);
                 }
                 // Caso 3
                 node->parent->isRed = 0;
                 node->parent->parent->isRed = 1;
-                rightRotate(tree, node->parent->parent);
+                rotateRight(tree, node->parent->parent);
             }
         } else {
             // Espelho dos casos acima
@@ -58,11 +58,11 @@ void fixUp(BinaryTree* tree, Node* node) {
             } else {
                 if (node == node->parent->left) {
                     node = node->parent;
-                    rightRotate(tree, node);
+                    rotateRight(tree, node);
                 }
                 node->parent->isRed = 0;
                 node->parent->parent->isRed = 1;
-                leftRotate(tree, node->parent->parent);
+                rotateLeft(tree, node->parent->parent);
             }
         }
 
