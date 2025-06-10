@@ -151,59 +151,26 @@ void test_search(int& passed, int& failed) {
     }
 }
 
+// Função auxiliar para test_rotation
+bool isBalanced(Node* node) {
+    if (node == nullptr) {
+        return true; // Um nó nulo é sempre balanceado
+    }
+
+    int balance = getBalance(node);
+    if (balance < -1 || balance > 1) {
+        return false;
+    }
+
+    // Verifica recursivamente as subárvores esquerda e direita
+    bool leftBalanced = isBalanced(node->left);
+    bool rightBalanced = isBalanced(node->right);
+
+    return leftBalanced && rightBalanced;
+}
+
 void test_rotation(int& passed, int& failed) {
     printHeader("TESTES: AVL::rotacoes");
-
-    // Funções auxiliares
-    int height(Node* node) {
-        if (node == nullptr) {
-            return 0;
-        } else {
-            return node->height;
-        }
-    }
-
-    int getBalance(Node* node) {
-        if (node == nullptr) {
-            return 0;
-        } else {
-            // Calcula a altura da subárvore esquerda
-            int leftHeight = 0;
-            if (node->left == nullptr) {
-                leftHeight = 0;
-            } else {
-                leftHeight = node->left->height;
-            }
-
-            // Calcula a altura da subárvore direita
-            int rightHeight = 0;
-            if (node->right == nullptr) {
-                rightHeight = 0;
-            } else {
-                rightHeight = node->right->height;
-            }
-
-            return leftHeight - rightHeight;
-        }
-    }
-
-    bool isBalanced(Node* node) {
-        if (node == nullptr) {
-            return true; // Um nó nulo é sempre balanceado
-        }
-
-        int balance = getBalance(node);
-        if (balance < -1 || balance > 1) {
-            return false;
-        }
-
-        // Verifica recursivamente as subárvores esquerda e direita
-        bool leftBalanced = isBalanced(node->left);
-        bool rightBalanced = isBalanced(node->right);
-
-        return leftBalanced && rightBalanced;
-    }
-
 
     // T1
     printTest("T1: Rotacao simples a direita");
