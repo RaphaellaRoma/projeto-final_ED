@@ -160,7 +160,6 @@ namespace AVL {
         return result;
     }
 
-    // Verificar se será necessaria aqui já que colocamos a implementação no tree_utils para usar em todos 
     SearchResult search(BinaryTree* tree, const std::string& word) {
         SearchResult result{0, {}, 0.0, 0};
         auto start = std::chrono::high_resolution_clock::now();
