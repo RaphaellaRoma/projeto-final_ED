@@ -9,7 +9,7 @@
 #include "tree_utils.h"
 
 
-namespace AVL{
+namespace AVL {
 
     /**
     * @brief Cria e inicializa uma árvore binária vazia.

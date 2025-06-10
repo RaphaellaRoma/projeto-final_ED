@@ -26,7 +26,7 @@ namespace AVL {
             } else {
             // Palavra já existe, adiciona novo documentId se não estiver presente
             bool alreadyExists = false;
-            for (int i = 0; i < current->documentIds.size(); i++) {
+            for (size_t i = 0; i < current->documentIds.size(); i++) {
                 if (current->documentIds[i] == documentId) {
                     alreadyExists = true;
                     break;

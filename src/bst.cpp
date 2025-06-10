@@ -1,19 +1,20 @@
 // Implementação da Árvore Binária de Busca
 #include "bst.h"
 
-namespace BST{
-    BinaryTree* create(){
+namespace BST {
+    
+    BinaryTree* create() {
     try {
         BinaryTree* tree = new BinaryTree{nullptr,nullptr};
         return tree;
         } 
-    catch (const std::bad_alloc&){
+    catch (const std::bad_alloc&) {
         std::cout << "Erro: Nao foi possivel alocar memoria para BinaryTree" << std::endl;
         return nullptr;
         }
     }
 
-    InsertResult insert(BinaryTree* tree, const std::string& word, int documentId){
+    InsertResult insert(BinaryTree* tree, const std::string& word, int documentId) {
         if (tree == nullptr) {
             throw std::invalid_argument("Erro: ponteiro para BinaryTree e nulo.");
         }
@@ -31,21 +32,21 @@ namespace BST{
         Node* parent = nullptr;
         Node* current = tree->root;
 
-        while (current != nullptr){
+        while (current != nullptr) {
             result.numComparisons ++;
             parent = current;
 
             int cmp = word.compare(current->word);
-            if(cmp < 0 ){
+            if(cmp < 0 ) {
                 current = current->left;
             }
-            else if(cmp > 0){
+            else if(cmp > 0) {
                 current = current->right;
             }
-            else{
+            else {
                 // Palavra já existe, adiciona novo documentId se não estiver presente
                 bool alreadyExists = false;
-                for (int i = 0; i < current->documentIds.size(); i++) {
+                for (size_t i = 0; i < current->documentIds.size(); i++) {
                     if (current->documentIds[i] == documentId) {
                         alreadyExists = true;
                         break;
@@ -77,7 +78,7 @@ namespace BST{
         return result;
     }
 
-    SearchResult search(BinaryTree* tree, const std::string& word){
+    SearchResult search(BinaryTree* tree, const std::string& word) {
         if (tree == nullptr) {
             throw std::invalid_argument("Erro: ponteiro para BinaryTree e nulo.");
         }
@@ -93,16 +94,16 @@ namespace BST{
         auto start = std::chrono::high_resolution_clock::now();
         Node* current = tree->root;
 
-        while (current != nullptr){
+        while (current != nullptr) {
             result.numComparisons ++;
             int cmp = word.compare(current->word);
-            if(cmp < 0){
+            if(cmp < 0) {
                 current = current->left;
             }
-            else if(cmp > 0){
+            else if(cmp > 0) {
                 current = current->right;
             }
-            else{
+            else {
                 result.found = true;
                 result.documentIds = current->documentIds;
                 auto end = std::chrono::high_resolution_clock::now();
