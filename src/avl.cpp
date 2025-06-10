@@ -125,13 +125,21 @@ namespace AVL {
             } else if (word > current->word) {
                 current = current->right;
             } else {
-                // Palavra já existe
-                if (std::find(current->documentIds.begin(), current->documentIds.end(), documentId) == current->documentIds.end()) {
-                    current->documentIds.push_back(documentId);
+            // Palavra já existe, adiciona novo documentId se não estiver presente
+            bool alreadyExists = false;
+            for (int i = 0; i < current->documentIds.size(); i++) {
+                if (current->documentIds[i] == documentId) {
+                    alreadyExists = true;
+                    break;
                 }
-                auto end = std::chrono::high_resolution_clock::now();
-                result.executionTime = std::chrono::duration<double>(end - start).count();
-                return result;
+            }
+            if (!alreadyExists) {
+                current->documentIds.push_back(documentId);
+            }
+
+            auto end = std::chrono::high_resolution_clock::now();
+            result.executionTime = std::chrono::duration<double>(end - start).count();
+            return result;
             }
         }
 

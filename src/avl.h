@@ -12,20 +12,6 @@
 // falta adicionar mais funções e mover algumas 
 namespace AVL{
 
-    struct InsertResult {
-        int numComparisons;
-        double executionTime;
-        //<Possíveis outras variáveis>
-    };
-
-    struct SearchResult {
-        int found;
-        std::vector<int> documentIds;
-        double executionTime;
-        int numComparisons;
-        //<Possíveis outras variáveis>
-    };
-
     /**
     * @brief Cria e inicializa uma árvore binária vazia.
     * 
