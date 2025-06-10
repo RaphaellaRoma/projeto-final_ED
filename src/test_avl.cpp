@@ -151,24 +151,6 @@ void test_search(int& passed, int& failed) {
     }
 }
 
-// Função auxiliar para test_rotation
-bool isBalanced(Node* node) {
-    if (node == nullptr) {
-        return true; // Um nó nulo é sempre balanceado
-    }
-
-    int balance = getBalance(node);
-    if (balance < -1 || balance > 1) {
-        return false;
-    }
-
-    // Verifica recursivamente as subárvores esquerda e direita
-    bool leftBalanced = isBalanced(node->left);
-    bool rightBalanced = isBalanced(node->right);
-
-    return leftBalanced && rightBalanced;
-}
-
 void test_rotation(int& passed, int& failed) {
     printHeader("TESTES: AVL::rotacoes");
 

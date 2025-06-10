@@ -66,6 +66,13 @@ void recomputeHeight(Node* n);
 // Documentar aqui
 int getBalance(Node* n);
 
+/**
+ * @brief Função auxilar que confere se a árvore está balanceada.
+ *
+ * @param node Ponteiro para a o nó atual da árvore binária.
+ */
+bool isBalanced(Node* node);
+
 
 /**
  * @brief Função auxilar que troca um nó u por um nó v.
