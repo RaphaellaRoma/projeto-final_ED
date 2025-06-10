@@ -43,6 +43,32 @@ Node* searchNode(BinaryTree* tree, const std::string& word) {
     return tree->NIL; // não encontrado
 }
 
+
+int minDeph(Node* root) {
+    if (!root) return 0;
+
+    std::vector<NodeDepth> queue;
+    queue.push_back({root, 1}); // começa com profundidade 1
+
+    while (!queue.empty()) {
+        NodeDepth nd = queue.front();
+        queue.erase(queue.begin()); // remove o primeiro elemento
+
+        Node* node = nd.node;
+        int deph = nd.depth;
+
+        if (!node->left && !node->right)
+            return deph;
+
+        if (node->left)
+            queue.push_back({node->left, deph + 1});
+        if (node->right)
+            queue.push_back({node->right, deph + 1});
+    }
+
+    return 0;
+}
+
 int getHeight(Node* n) {
     if (n == nullptr) {
         return -1; // Se o nó não existe, a altura é -1
@@ -140,7 +166,6 @@ void rotateRight(BinaryTree* tree, Node* y) {
     recomputeHeight(x);
 }
 
-// tentar otimizar para não precisar percorer isso colocando mais uma condição pro while talvez
 void rebalance(BinaryTree* tree, Node* node) {
     while (node != nullptr) {
         recomputeHeight(node);

@@ -23,6 +23,7 @@ struct BinaryTree {
 struct InsertResult {
     int numComparisons;
     double executionTime;
+    bool alreadyInsert; // 1 se a palavra já existia, 0 se foi criada
     //<Possíveis outras variáveis>
 };
 
@@ -32,6 +33,11 @@ struct SearchResult {
     double executionTime;
     int numComparisons;
     //<Possíveis outras variáveis>
+};
+
+struct NodeDepth {
+    Node* node;
+    int depth;
 };
 
 
@@ -60,6 +66,16 @@ void deleteNode(Node* node);
  * @param word Palavra buscada.
  */
 Node* searchNode(BinaryTree* tree, const std::string& word);
+
+
+/**
+ * @brief Retorna a menor profundidade.
+ *
+ * @param root Ponteiro para a raiz.
+ * @return Profundidade do nó, ou -1 se for nullptr.
+ */
+
+int minDeph(Node* root);
 
 
 /**

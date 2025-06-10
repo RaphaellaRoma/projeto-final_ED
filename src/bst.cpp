@@ -27,6 +27,7 @@ namespace BST {
         InsertResult result;
         result.executionTime = 0.0;
         result.numComparisons = 0;
+        result.alreadyInsert = 0;
         auto start = std::chrono::high_resolution_clock::now();
 
         Node* parent = nullptr;
@@ -55,6 +56,7 @@ namespace BST {
                 if (!alreadyExists) {
                     current->documentIds.push_back(documentId);
                 }
+                result.alreadyInsert = 1;
                 auto end = std::chrono::high_resolution_clock::now();
                 result.executionTime = std::chrono::duration<double>(end - start).count();
                 return result;
@@ -73,6 +75,7 @@ namespace BST {
             parent->right = newNode;
         }
         recomputeHeightTree(newNode);
+        result.alreadyInsert = 0;
         auto end = std::chrono::high_resolution_clock::now();
         result.executionTime = std::chrono::duration<double>(end - start).count();
         return result;
