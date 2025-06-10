@@ -9,7 +9,6 @@
 #include "tree_utils.h"
 
 
-// falta adicionar mais funções e mover algumas 
 namespace AVL{
 
     /**
@@ -18,6 +17,7 @@ namespace AVL{
     * @return BinaryTree* Ponteiro para a nova árvore criada. Retorna nullptr em caso de falha na alocação de memória.
     */
     BinaryTree* create();
+
 
     /**
     * @brief Insere uma palavra na árvore binária, associando-a a um ID de documento.
@@ -33,6 +33,7 @@ namespace AVL{
     *         - executionTime: tempo gasto na operação, em segundos.
     */ 
     InsertResult insert(BinaryTree* tree, const std::string& word, int documentId);
+
 
     /**
     * @brief Busca uma palavra na árvore binária.
@@ -50,12 +51,11 @@ namespace AVL{
     SearchResult search(BinaryTree* tree, const std::string& word);
 
 
-
     /**
     * @brief Deleta toda a árvore e libera a memória.
     * @param tree É a árvore a ser deletada.
     */
-     void destroy(BinaryTree* tree);
+    void destroy(BinaryTree* tree);
 
 }
 #endif

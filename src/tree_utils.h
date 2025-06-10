@@ -34,11 +34,37 @@ struct SearchResult {
     //<Possíveis outras variáveis>
 };
 
+
+// Documentar aqui
+Node* createNode(const std::string& word, int documentId, Node* parent);
+
+
 /**
 * @brief Função auxiliar para deletar a árvore, é chamada recursivamente para eliminar cada nó.
 * @param node É o nó a ser deletado.
 */
 void deleteNode(Node* node);
+
+
+/**
+ * @brief Função auxilar para buscar um nó na árvore.
+ *
+ * @param tree Ponteiro para a árvore binária.
+ * @param word Palavra buscada.
+ */
+Node* searchNode(BinaryTree* tree, const std::string& word);
+
+
+// Documentar aqui
+int getHeight(Node* n);
+
+
+// Documentar aqui
+void recomputeHeight(Node* n);
+
+
+// Documentar aqui
+int getBalance(Node* n);
 
 
 /**
@@ -51,13 +77,16 @@ void deleteNode(Node* node);
 void transplant(BinaryTree* tree, Node* u, Node* v);
 
 
-/**
- * @brief Função auxilar para buscar um nó na árvore.
- *
- * @param tree Ponteiro para a árvore binária.
- * @param word Palavra buscada.
- */
-Node* searchNode(BinaryTree* tree, const std::string& word);
+// Documentar aqui
+void rotateLeft(BinaryTree* tree, Node* x);
+
+
+// Documentar aqui
+void rotateRight(BinaryTree* tree, Node* y);
+
+
+// Documentar aqui
+void rebalance(BinaryTree* tree, Node* node);
 
 
 /**
@@ -84,6 +113,7 @@ void printIndexHelper(Node* node, int& index);
  */
 void printIndex(BinaryTree* tree);
 
+
 /**
  * @brief Função auxiliar recursiva para imprimir a árvore com indentação.
  *
@@ -92,6 +122,7 @@ void printIndex(BinaryTree* tree);
  * @param isLeft Indica se o nó atual é filho à esquerda.
  */
 void printTreeHelper(Node* node, const std::string& prefix, bool isLeft);
+
 
 /**
  * @brief Imprime visualmente a estrutura da árvore.

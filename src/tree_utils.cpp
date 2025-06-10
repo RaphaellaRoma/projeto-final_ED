@@ -1,7 +1,18 @@
 // Structs e Funções auxiliares, como Criar Nó, Computar altura, Busca, Exibir Árvore, etc
 #include "tree_utils.h"
 
-//createNode()
+
+Node* createNode(const std::string& word, int documentId, Node* parent) {
+    Node* newNode = new Node;
+    newNode->word = word;
+    newNode->documentIds = {documentId};
+    newNode->parent = parent;
+    newNode->left = nullptr;
+    newNode->right = nullptr;
+    newNode->height = 0;
+    newNode->isRed = 0;
+    return newNode;
+}
 
 void deleteNode(Node* node) {
     if (node == nullptr) return;
@@ -9,21 +20,6 @@ void deleteNode(Node* node) {
     deleteNode(node->right);
 
     delete node;
-}
-
-
-
-void transplant(BinaryTree* tree, Node* u, Node* v) {
-    if (u->parent == nullptr) {
-        tree->root = v;
-    } else if (u == u->parent->left) {
-        u->parent->left = v;
-    } else {
-        u->parent->right = v;
-    }
-    if (v != nullptr) {
-        v->parent = u->parent;
-    }
 }
 
 Node* searchNode(BinaryTree* tree, const std::string& word) {
@@ -47,7 +43,100 @@ Node* searchNode(BinaryTree* tree, const std::string& word) {
     return tree->NIL; // não encontrado
 }
 
+int getHeight(Node* n) {
+    if (n == nullptr) {
+        return -1; // Se o nó não existe, a altura é -1
+    } else {
+        return n->height; 
+    }
+}
 
+void recomputeHeight(Node* n) {
+    if (n == nullptr) return; 
+
+    int alturaEsquerda = getHeight(n->left);
+    int alturaDireita = getHeight(n->right);
+    n->height = 1 + std::max(alturaEsquerda, alturaDireita);
+}
+
+int getBalance(Node* n) {
+    if (n == nullptr) {
+        return 0;
+    }
+
+    int alturaEsquerda = getHeight(n->left);
+    int alturaDireita = getHeight(n->right);
+    int balance = alturaEsquerda - alturaDireita;
+
+    return balance;
+}
+
+void transplant(BinaryTree* tree, Node* u, Node* v) {
+    if (u->parent == nullptr) {
+        tree->root = v;
+    } else if (u == u->parent->left) {
+        u->parent->left = v;
+    } else {
+        u->parent->right = v;
+    }
+    if (v != nullptr) {
+        v->parent = u->parent;
+    }
+}
+
+void rotateLeft(BinaryTree* tree, Node* x) {
+    Node* y = x->right;
+    x->right = y->left;
+    if (y->left != nullptr) {
+        y->left->parent = x;
+    }
+
+    transplant(tree, x, y);
+
+    y->left = x;
+    x->parent = y;
+
+    recomputeHeight(x);
+    recomputeHeight(y);
+}
+
+void rotateRight(BinaryTree* tree, Node* y) {
+    Node* x = y->left;
+    y->left = x->right;
+    if (x->right != nullptr){
+        x->right->parent = y;
+    } 
+
+    transplant(tree, y, x);
+
+    x->right = y;
+    y->parent = x;
+
+    recomputeHeight(y);
+    recomputeHeight(x);
+}
+
+// tentar otimizar para não precisar percorer isso colocando mais uma condição pro while talvez
+void rebalance(BinaryTree* tree, Node* node) {
+    while (node != nullptr) {
+        recomputeHeight(node);
+        int balance = getBalance(node);
+
+        if (balance > 1) {
+            if (getBalance(node->left) < 0) {
+                rotateLeft(tree, node->left);
+            }
+            rotateRight(tree, node);
+        } else if (balance < -1) {
+            if (getBalance(node->right) > 0) {
+                rotateRight(tree, node->right);
+            }
+            rotateLeft(tree, node);
+        }
+
+        node = node->parent;
+    }
+}
 
 void printIndexHelper(Node* node, int& index) {
     // Se o ponteiro for nullptr não faz nada 
