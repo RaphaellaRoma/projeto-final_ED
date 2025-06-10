@@ -45,6 +45,27 @@ namespace RBT{
     */ 
     InsertResult insert(BinaryTree* tree, const std::string& word, int documentId);
 
+
+    /**
+     * @brief Busca uma palavra na árvore.
+     * 
+     * @param tree Ponteiro para a árvore Rubro-Negra.
+     * @param word Palavra a ser buscada.
+     * @return Estrutura SearchResult contendo se foi encontrada, quantas comparações foram feitas,
+     * IDs dos documentos e o tempo de execução.
+     */
+    SearchResult search(BinaryTree* tree, const std::string& word);
+    
+
+    /**
+     * @brief Libera toda a memória utilizada pela árvore.
+     * 
+     * Remove todos os nós e libera o nó NIL e a estrutura principal.
+     * 
+     * @param tree Ponteiro para a árvore a ser destruída.
+     */
+    void destroy(BinaryTree* tree);
+
 }
 
 #endif
