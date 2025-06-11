@@ -12,6 +12,11 @@ int main(int argc, char* argv[]) {
 
     std::string comando = argv[1];
     int n_docs = std::stoi(argv[2]);
+    if (n_docs < 0) {
+        std::cout << "Comando invalido: " << comando << std::endl;
+        std::cout << "<n_docs> = " << argv[2] << " precisa ser nao negativo " << std::endl;
+        return 1;
+    }
     std::string diretorio = argv[3];
 
     BinaryTree* tree = create(); // criar a arvore
