@@ -1,0 +1,1 @@
+# Compilação dos programas de análise

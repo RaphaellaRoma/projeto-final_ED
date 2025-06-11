@@ -1,0 +1,1 @@
+//Funções utilitárias para medir tempo, comparações, altura, etc.

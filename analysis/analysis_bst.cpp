@@ -1,0 +1,1 @@
+// Gera dados de desempenho para BST
