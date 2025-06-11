@@ -45,10 +45,10 @@ Node* searchNode(BinaryTree* tree, const std::string& word) {
 
 
 int minDeph(Node* root) {
-    if (!root) return 0;
+    if (!root) return -1;
 
     std::vector<NodeDepth> queue;
-    queue.push_back({root, 1}); // começa com profundidade 1
+    queue.push_back({root, 0}); // começa com profundidade 0
 
     while (!queue.empty()) {
         NodeDepth nd = queue.front();

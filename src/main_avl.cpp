@@ -105,7 +105,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Altura da arvore: " << height << std::endl;
         std::cout << "Menor caminho: " << min_deph << std::endl;
         std::cout << "Maior caminho: " << height << std::endl;
-        std::cout << "Numero de nos na arvore: " << numNos << std::endl;
+        std::cout << "Numero de nodes na arvore: " << numNos << std::endl;
         std::cout << "Numero de palavras nos " << n_docs << " documentos: " << numPalavras << std::endl;
     
     }  else if (comando == "view") {
