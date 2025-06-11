@@ -49,6 +49,7 @@ projeto-final_ED/
 ├── data/
 │   ├── Base de dados de documentos (.txt)
 │
+├── Makefile  # Para compilar os arquivos da pasta `src/` e gerar os executáveis na pasta `buid/`
 ├── README.md # Descrição, instruções de compilação e execução do Projeto
 ```
 
