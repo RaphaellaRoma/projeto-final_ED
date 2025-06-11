@@ -27,7 +27,7 @@ vector<string> ler_palavras(const string& caminho) {
 vector<doc> read_documents(const string& dir, int n) {
     vector<doc> documentos;
 
-    for (int i = 0; i <= n; ++i) {
+    for (int i = 0; i < n; ++i) {
         string nome_arquivo = dir + "/" + to_string(i) + ".txt";
         ifstream teste(nome_arquivo);
         if (!teste.is_open()) {
