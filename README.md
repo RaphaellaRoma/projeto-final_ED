@@ -32,17 +32,17 @@ projeto-final_ED/
 │   ├── test_avl.cpp                  # testes unitários e exemplos para implementação da Árvore AVL
 │   ├── test_rbt.cpp                  # testes unitários e exemplos para implementação da Rubro-Negra
 │
-└── analysis/
-    ├── analysis_avl.cpp              # Código que executa os testes e coleta dados da AVL
-    ├── analysis_bst.cpp              # Código que executa os testes e coleta dados da BST
-    ├── analysis_rbt.cpp              # Código que executa os testes e coleta dados da RBT
-    ├── metrics.cpp /metrics.h        # Funções auxiliares para coletar métricas (tempos, comparações, altura etc.)
-    ├── metrics.h
-    ├── Makefile                      # Para compilar os arquivos da pasta analysis
-    ├── results/                 
-    │   ├── CSVs gerados com os dados brutos (.csv)
-    └── plots/                        # Scripts e imagens de gráficos gerados
-        ├── plot_analysis.py          # Código Python para ler os CSVs e gerar gráficos
+├── build/                            # Usada para armazenar todos os arquivos executáveis gerados após a compilação
+├── analysis/
+│   ├── analysis_avl.cpp              # Código que executa os testes e coleta dados da AVL
+│   ├── analysis_bst.cpp              # Código que executa os testes e coleta dados da BST
+│   ├── analysis_rbt.cpp              # Código que executa os testes e coleta dados da RBT
+│   ├── metrics.cpp /metrics.h        # Funções auxiliares para coletar métricas (tempos, comparações, altura etc.)
+│   ├── Makefile                      # Para compilar os arquivos da pasta analysis
+│   ├── results/                 
+│   │   ├── CSVs gerados com os dados brutos (.csv)
+│   ├── plots/                        # Scripts e imagens de gráficos gerados
+│       ├── plot_analysis.py          # Código Python para ler os CSVs e gerar gráficos
 ├── docs/
 │   ├── Relatório (PDF ou .md)
 │
