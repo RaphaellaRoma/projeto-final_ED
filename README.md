@@ -63,7 +63,8 @@ projeto-final_ED/
 
 > Os executáveis são gerados na pasta `build/` após a compilação.
 
-- Para compilar **todos os programas da pasta `src/`** de uma vez (BST, AVL, RBT e os testes):
+- Para compilar todos os programas da pasta `src/` de uma vez (BST, AVL, RBT e os testes):
+
   ```bash
   make
   ```
@@ -136,7 +137,7 @@ Cada programa principal (`bst`, `avl`, `rbt`) oferece uma **interface de linha d
 
 ### Exemplos de uso:
 
-#### 1. **Buscar palavras após indexação** (`search`)
+1. **Buscar palavras após indexação** (`search`)
 ```bash
 ./build/avl search 10 data/
 ```
@@ -145,13 +146,13 @@ Será exibido:
 Digite . para sair. Palavra buscada:
 ```
 
-#### 2. **Exibir estatísticas da árvore** (`stats`)
+2. **Exibir estatísticas da árvore** (`stats`)
 ```bash
 ./build/bst stats 50 data/
 ```
 Mostra métricas como número de comparações, altura da árvore, tempo médio de inserção e busca, etc.
 
-#### 3. **Visualizar a árvore gerada** (`view`)
+3. **Visualizar a árvore gerada** (`view`)
 ```bash
 ./build/avl view 20 data/
 ```
@@ -174,7 +175,7 @@ Execute os testes unitários diretamente pelos executáveis gerados na pasta `bu
 
 A pasta [`analysis/`](analysis/) contém um conjunto separado de códigos voltados para a **análise comparativa** das estruturas (BST, AVL, RBT).
 
-### Makefile independente
+**Makefile independente**
 
 > O arquivo `Makefile` dentro da pasta `analysis/` é **independente** do `Makefile` principal da raiz.  
 > Ele foi projetado exclusivamente para compilar os arquivos de análise (`analysis_bst.cpp`, `analysis_avl.cpp`, `analysis_rbt.cpp`).
@@ -188,7 +189,7 @@ make
 
 Assim como no Makefile principal, os executáveis também são gerados na pasta `build/`.
 
-### Execução da Análise
+**Execução da Análise**
 
 Para executar os programas gerados, é necessário estar dentro da pasta `analysis/` e rodar os comandos utilizando o caminho relativo para os executáveis na pasta `build/`. Por exemplo:
 
@@ -200,11 +201,11 @@ cd analysis/
 ```
 Essa forma garante que os arquivos de entrada e saída sejam corretamente localizados e criados na estrutura de pastas esperada pelo programa.
 
-### Geração de CSVs
+**Geração de CSVs**
 
 Cada programa de análise gera automaticamente arquivos `.csv` na pasta `analysis/results/`, contendo os dados brutos coletados por estrutura. Esses arquivos servem como base para a criação dos gráficos e tabelas.
 
-### Visualização dos Resultados
+**Visualização dos Resultados**
 
 A pasta `analysis/plots/` contém o script `plot_analysis.py`, escrito em Python, que é utilizado para:
 
