@@ -26,30 +26,34 @@ projeto-final_ED/
 │   ├── bst.cpp / bst.h               # Implementação da Árvore Binária de Busca
 │   ├── avl.cpp / avl.h               # Implementação da Árvore AVL
 │   ├── rbt.cpp / rbt.h               # Implementação da Árvore Rubro-Negra
-│   ├── tree_utils.cpp / tree_util.h  # Structs e Funções auxiliares, como Criar Nó, Computar altura, Busca, Exibir Árvore, etc
+│   ├── tree_utils.cpp / tree_utils.h # Structs e Funções auxiliares, como Criar Nó, Computar altura, Busca, Exibir Árvore, etc
 │   ├── data.cpp / data.h             # Leitura do diretório e carregamento dos arquivos 
 │   ├── test_bst.cpp                  # testes unitários e exemplos para implementação da Árvore Binária de Busca
 │   ├── test_avl.cpp                  # testes unitários e exemplos para implementação da Árvore AVL
 │   ├── test_rbt.cpp                  # testes unitários e exemplos para implementação da Rubro-Negra
 │
 ├── build/                            # Usada para armazenar todos os arquivos executáveis gerados após a compilação
+│
 ├── analysis/
 │   ├── analysis_avl.cpp              # Código que executa os testes e coleta dados da AVL
 │   ├── analysis_bst.cpp              # Código que executa os testes e coleta dados da BST
 │   ├── analysis_rbt.cpp              # Código que executa os testes e coleta dados da RBT
-│   ├── metrics.cpp /metrics.h        # Funções auxiliares para coletar métricas (tempos, comparações, altura etc.)
+│   ├── metrics.cpp / metrics.h       # Funções auxiliares para coletar métricas (tempos, comparações, altura etc.)
 │   ├── Makefile                      # Para compilar os arquivos da pasta analysis
 │   ├── results/                 
 │   │   ├── CSVs gerados com os dados brutos (.csv)
-│   ├── plots/                        # Scripts e imagens de gráficos gerados
+│   ├── plots/                        # Scripts dos gráficos gerados
 │       ├── plot_analysis.py          # Código Python para ler os CSVs e gerar gráficos
+│
 ├── docs/
 │   ├── Relatório (PDF ou .md)
+│   ├── graphs_tables/                # Usada para armazenar todos gráficos e tabelas gerados nas analises
 │
 ├── data/
 │   ├── Base de dados de documentos (.txt)
 │
-├── Makefile  # Para compilar os arquivos da pasta `src/` e gerar os executáveis na pasta `buid/`
+├── Makefile  # Para compilar os arquivos da pasta `src/` e gerar os executáveis na pasta `build/`
+│
 ├── README.md # Descrição, instruções de compilação e execução do Projeto
 ```
 
