@@ -23,6 +23,7 @@ struct BinaryTree {
 struct InsertResult {
     int numComparisons;
     double executionTime;
+    bool alreadyInsert; // 1 se a palavra já existia, 0 se foi criada
     //<Possíveis outras variáveis>
 };
 
@@ -34,11 +35,89 @@ struct SearchResult {
     //<Possíveis outras variáveis>
 };
 
+struct NodeDepth {
+    Node* node;
+    int depth;
+};
+
+
+/**
+ * @brief Cria e inicializa um novo nó com a palavra e o ID do documento.
+ *
+ * @param word Palavra a ser inserida no nó.
+ * @param documentId ID do documento onde a palavra aparece.
+ * @param parent Ponteiro para o nó pai (pode ser nullptr).
+ * @return Ponteiro para o novo nó criado.
+ */
+Node* createNode(const std::string& word, int documentId, Node* parent);
+
+
 /**
 * @brief Função auxiliar para deletar a árvore, é chamada recursivamente para eliminar cada nó.
 * @param node É o nó a ser deletado.
 */
 void deleteNode(Node* node);
+
+
+/**
+ * @brief Função auxilar para buscar um nó na árvore.
+ *
+ * @param tree Ponteiro para a árvore binária.
+ * @param word Palavra buscada.
+ */
+Node* searchNode(BinaryTree* tree, const std::string& word);
+
+
+/**
+ * @brief Retorna a menor profundidade.
+ *
+ * @param root Ponteiro para a raiz.
+ * @return Profundidade do nó, ou -1 se for nullptr.
+ */
+
+int minDeph(Node* root);
+
+
+/**
+ * @brief Retorna a altura de um nó.
+ *
+ * @param n Ponteiro para o nó.
+ * @return Altura do nó, ou -1 se for nullptr.
+ */
+int getHeight(Node* n);
+
+
+/**
+ * @brief Recalcula a altura de um nó com base nas alturas dos filhos.
+ *
+ * @param n Ponteiro para o nó cuja altura será atualizada.
+ */
+void recomputeHeight(Node* n);
+
+/**
+ * @brief Recalcula a altura de todos os nós da árvore.
+ *
+ * @param n nó que foi inserido.
+ */
+void recomputeHeightTree(Node* n);
+
+
+/**
+ * @brief Calcula o fator de balanceamento de um nó.
+ *
+ * O fator de balanceamento é a diferença entre a altura da subárvore esquerda e direita.
+ *
+ * @param n Ponteiro para o nó.
+ * @return Valor do balanceamento. Pode ser negativo, positivo ou zero.
+ */
+int getBalance(Node* n);
+
+/**
+ * @brief Função auxilar que confere se a árvore está balanceada.
+ *
+ * @param node Ponteiro para a o nó atual da árvore binária.
+ */
+bool isBalanced(Node* node);
 
 
 /**
@@ -52,12 +131,36 @@ void transplant(BinaryTree* tree, Node* u, Node* v);
 
 
 /**
- * @brief Função auxilar para buscar um nó na árvore.
+ * @brief Realiza uma rotação à esquerda na subárvore com raiz em x.
+ *
+ * Utilizada nas operações de balanceamento da AVL e da RBT.
  *
  * @param tree Ponteiro para a árvore binária.
- * @param word Palavra buscada.
+ * @param x Nó a partir do qual a rotação será feita.
  */
-Node* searchNode(BinaryTree* tree, const std::string& word);
+void rotateLeft(BinaryTree* tree, Node* x);
+
+
+/**
+ * @brief Realiza uma rotação à direita na subárvore com raiz em y.
+ *
+ * Utilizada nas operações de balanceamento da AVL e da RBT.
+ *
+ * @param tree Ponteiro para a árvore binária.
+ * @param y Nó a partir do qual a rotação será feita.
+ */
+void rotateRight(BinaryTree* tree, Node* y);
+
+
+/**
+ * @brief Rebalanceia a árvore AVL a partir de um nó inserido ou deletado.
+ *
+ * Realiza rotações e atualiza alturas conforme necessário.
+ *
+ * @param tree Ponteiro para a árvore binária.
+ * @param node Ponteiro para o nó onde o rebalanceamento começará.
+ */
+void rebalance(BinaryTree* tree, Node* node);
 
 
 /**
@@ -84,6 +187,7 @@ void printIndexHelper(Node* node, int& index);
  */
 void printIndex(BinaryTree* tree);
 
+
 /**
  * @brief Função auxiliar recursiva para imprimir a árvore com indentação.
  *
@@ -92,6 +196,7 @@ void printIndex(BinaryTree* tree);
  * @param isLeft Indica se o nó atual é filho à esquerda.
  */
 void printTreeHelper(Node* node, const std::string& prefix, bool isLeft);
+
 
 /**
  * @brief Imprime visualmente a estrutura da árvore.

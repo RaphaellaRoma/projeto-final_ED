@@ -14,14 +14,57 @@ O presente relatório apresenta a implementação C++ de um índice invertido ut
 | Beatriz Marques             | Implementação da RBT e Implementação de funções auxiliares       |
 | Elisa                       | CLI, Implementação da create e destroy e testes unitarios da AVL |
 
-## 3. Metodologia
+## 3. Estrutura do repositório:
 
-### 3.1. Leitura dos Documentos
+```
+projeto-final_ED/
+│
+├── src/
+│   ├── main_bst.cpp                  # Interface via linha de comando (indexação e busca) da Árvore Binária de Busca
+│   ├── main_avl.cpp                  # Interface via linha de comando (indexação e busca) da Árvore AVL
+│   ├── main_rbt.cpp                  # Interface via linha de comando (indexação e busca) da Árvore Rubro Negra
+│   ├── bst.cpp / bst.h               # Implementação da Árvore Binária de Busca
+│   ├── avl.cpp / avl.h               # Implementação da Árvore AVL
+│   ├── rbt.cpp / rbt.h               # Implementação da Árvore Rubro-Negra
+│   ├── tree_utils.cpp / tree_utils.h # Structs e Funções auxiliares, como Criar Nó, Computar altura, Busca, Exibir Árvore, etc
+│   ├── data.cpp / data.h             # Leitura do diretório e carregamento dos arquivos 
+│   ├── test_bst.cpp                  # testes unitários e exemplos para implementação da Árvore Binária de Busca
+│   ├── test_avl.cpp                  # testes unitários e exemplos para implementação da Árvore AVL
+│   ├── test_rbt.cpp                  # testes unitários e exemplos para implementação da Rubro-Negra
+│
+├── build/                            # Usada para armazenar todos os arquivos executáveis gerados após a compilação
+│
+├── analysis/
+│   ├── analysis_avl.cpp              # Código que executa os testes e coleta dados da AVL
+│   ├── analysis_bst.cpp              # Código que executa os testes e coleta dados da BST
+│   ├── analysis_rbt.cpp              # Código que executa os testes e coleta dados da RBT
+│   ├── metrics.cpp / metrics.h       # Funções auxiliares para coletar métricas (tempos, comparações, altura etc.)
+│   ├── Makefile                      # Para compilar os arquivos da pasta analysis
+│   ├── results/                 
+│   │   ├── CSVs gerados com os dados brutos (.csv)
+│   ├── plots/                        # Scripts dos gráficos gerados
+│       ├── plot_analysis.py          # Código Python para ler os CSVs e gerar gráficos
+│
+├── docs/
+│   ├── Relatório (PDF ou .md)
+│   ├── graphs_tables/                # Usada para armazenar todos gráficos e tabelas gerados nas analises
+│
+├── data/
+│   ├── Base de dados de documentos (.txt)
+│
+├── Makefile  # Para compilar os arquivos da pasta `src/` e gerar os executáveis na pasta `build/`
+│
+├── README.md # Descrição, instruções de compilação e execução do Projeto
+```
+
+## 4. Metodologia
+
+### 4.1. Leitura dos Documentos
 
 - Quantidade de documentos processados: XX
 Vamos descrever os detalhes **aqui**
 
-### 3.2. Estruturas Implementadas
+### 4.2. Estruturas Implementadas
 
 Breve descrição das três estruturas utilizadas **aqui**: 
 
@@ -29,9 +72,9 @@ Breve descrição das três estruturas utilizadas **aqui**:
 - **AVL**: ...
 - **RBT**: ...
 
-## 4. Implementação
+## 5. Implementação
 
-### 4.1. Interface de Linha de Comando (CLI)
+### 5.1. Interface de Linha de Comando (CLI)
 
 O programa foi desenvolvido com os seguintes comandos:
 
@@ -41,7 +84,7 @@ O programa foi desenvolvido com os seguintes comandos:
 ```
 Explicaremos como funciona **aqui**
 
-### 4.2. Funcionalidades Mínimas
+### 5.2. Funcionalidades Mínimas
 
 - Inserção e busca de palavras
 - Coleta de estatísticas de desempenho
@@ -49,9 +92,9 @@ Explicaremos como funciona **aqui**
 
 Explicação **aqui**
 
-## 5. Resultados
+## 6. Resultados
 
-### 5.1. Tabelas de Desempenho
+### 6.1. Tabelas de Desempenho
 
 | Estrutura | Tempo Total de Inserção (ms) | Tempo Médio de Busca (ms) | Comparações (Inserção) | Comparações (Busca) | Altura Média |
 |-----------|-------------------------------|----------------------------|------------------------|---------------------|---------------|
@@ -60,11 +103,11 @@ Explicação **aqui**
 | RBT       |                               |                            |                        |                     |               |
 
 Pequeno texto adicional **aqui**
-### 5.2. Gráficos
+### 6.2. Gráficos
 
 Inserir **aqui** os gráficos comparativos (tempo, altura, comparações, etc.).
 
-## 6. Análise Comparativa
+## 7. Análise Comparativa
 
 - **BST**: [vantagens e limitações observadas]
 - **AVL**: [vantagens e limitações observadas]
@@ -76,15 +119,15 @@ Discussão sobre **aqui**:
 - Impacto da altura da árvore
 - Outros critérios relevantes
 
-## 7. Dificuldades Encontradas
+## 8. Dificuldades Encontradas
 
 **aqui**
 
-## 8. Conclusão
+## 9. Conclusão
 
 **aqui**
 
-## 9. Referências
+## 10. Referências
 
 **aqui****
 
