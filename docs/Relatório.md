@@ -2,17 +2,19 @@
 
 ## 1. Introdução
 
-O presente relatório apresenta a implementação C++ de um índice invertido utilizando três diferentes estruturas de dados: Árvore Binária de Busca (BST), Árvore AVL (AVL) e Árvore Rubro-Negra (RBT). O objetivo principal é avaliar e comparar o desempenho dessas estruturas nas operações de inserção e busca de palavras em um corpus textual real.
+O presente relatório apresenta a implementação em C++ de um índice invertido utilizando três diferentes estruturas de dados: Árvore Binária de Busca (BST), Árvore AVL (AVL) e Árvore Rubro-Negra (RBT). O objetivo principal é avaliar e comparar o desempenho dessas estruturas nas operações de inserção e busca de palavras em um corpus textual real.
 
 ## 2. Divisão de Tarefas
 
-| Nome                        | Tarefa Principal                                                 |
-|-----------------------------|------------------------------------------------------------------|
-| Stephany Casali Oliveira    | Implementação da BST (insert e search)  e confecção do relatorio |
-| Samyra Mara Candido Silva   | Implementação da AVL e testes unitarios da BST                   |
-| Raphaella Roma Mendes Alves | Implementação da RBT e Leitura de dados                          |
-| Beatriz Marques             | Implementação da RBT e Implementação de funções auxiliares       |
-| Elisa                       | CLI, Implementação da create e destroy e testes unitarios da AVL |
+| Nome                        | Tarefa Principal                                                                                |
+|-----------------------------|-------------------------------------------------------------------------------------------------|
+| Stephany Casali Oliveira    | Implementação da BST (insert e search)  e confecção do relatorio                                |
+| Samyra Mara Candido Silva   | Implementação da AVL e testes unitarios da BST                                                  |
+| Raphaella Roma Mendes Alves | Implementação da RBT e Leitura de dados                                                         |
+| Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex e testes unitarios da RBT|
+| Elisa de Oliveira Soares    | CLI, Implementação da create e destroy e testes unitarios da AVL                                |
+
+Além das tarefas acima citadas, cada integrante foi responsável por documentar suas próprias funções.
 
 ## 3. Estrutura do repositório:
 
@@ -61,15 +63,15 @@ projeto-final_ED/
 
 ### 4.1. Leitura dos Documentos
 
-- Quantidade de documentos processados: XX
-Vamos descrever os detalhes **aqui**
+Para a leitura dos dados dos documentos, utilizamos a classe ifstream, fornecida pela biblioteca fstream. Essa classe permite a manipulação de arquivos de entrada de forma eficiente e estruturada. Para o armazenamento dos dados, optamos por criar uma struct chamada docs, que contém o ID do documento e um vetor com todos os termos extraídos da leitura.
 
 ### 4.2. Estruturas Implementadas
 
-Breve descrição das três estruturas utilizadas **aqui**: 
+Breve descrição das três estruturas utilizadas: 
 
-- **BST**: ...
-- **AVL**: ...
+- **BST**: Para a estrutura BST, foi necessário implementar as funções insert, search, create e destroy. Utilizamos o bloco try-catch na função create para lidar com possíveis exceções de alocação de memória.
+- **AVL**: Para a operação de inserção na AVL, foi necessário implementar as funções de rotação (`rotateLeft` e `rotateRight`). Essas rotações são fundamentais para manter o balanceamento da árvore após cada inserção. A lógica de balanceamento foi centralizada na função `rebalance`, que precisou das auxiliares `transplant`, `getHeight`, `recomputeHeight`, `getBalance`.
+As demais funções, como create, search e destroy, seguem estrutura semelhante à da BST.
 - **RBT**: ...
 
 ## 5. Implementação
@@ -81,8 +83,14 @@ O programa foi desenvolvido com os seguintes comandos:
 ```bash
 ./<arvore> search <n_docs> <diretório>
 ./<arvore> stats <n_docs> <diretório>
+./<arvore> view <n_docs> <diretório>
 ```
-Explicaremos como funciona **aqui**
+* `<arvore>`: nome do executável da estrutura (ex: bst, avl, rbt)
+* `search`: comando que permite realizar buscas por palavras
+* `stats`: comando que gera estatísticas de desempenho durante a indexação
+* `view` : comando para visualizar a árvore do indice invertido
+* `<n_docs>`: número de documentos a indexar
+* `<diretório>`: caminho para a pasta contendo os arquivos .txt
 
 ### 5.2. Funcionalidades Mínimas
 
@@ -97,10 +105,10 @@ Explicação **aqui**
 ### 6.1. Tabelas de Desempenho
 
 | Estrutura | Tempo Total de Inserção (ms) | Tempo Médio de Busca (ms) | Comparações (Inserção) | Comparações (Busca) | Altura Média |
-|-----------|-------------------------------|----------------------------|------------------------|---------------------|---------------|
-| BST       |                               |                            |                        |                     |               |
-| AVL       |                               |                            |                        |                     |               |
-| RBT       |                               |                            |                        |                     |               |
+|-----------|------------------------------|---------------------------|------------------------|---------------------|--------------|
+| BST       |                              |                           |                        |                     |              |
+| AVL       |                              |                           |                        |                     |              |
+| RBT       |                              |                           |                        |                     |              |
 
 Pequeno texto adicional **aqui**
 ### 6.2. Gráficos
@@ -121,7 +129,8 @@ Discussão sobre **aqui**:
 
 ## 8. Dificuldades Encontradas
 
-**aqui**
+Inicialmente, nossa maior dificuldade foi decidir como armazenar as palavras provenientes da leitura dos documentos. Optamos, ao final, por criar uma struct que contém o ID do documento e um vetor com todos os termos extraídos da leitura.
+Para a BST encontramos um pouco de dificuldade em calcular a aultura que foi resolvida pela criação da função
 
 ## 9. Conclusão
 
