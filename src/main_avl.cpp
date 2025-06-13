@@ -12,6 +12,11 @@ int main(int argc, char* argv[]) {
 
     std::string comando = argv[1];
     int n_docs = std::stoi(argv[2]);
+    if (n_docs < 0) {
+        std::cout << "Comando invalido: " << comando << std::endl;
+        std::cout << "<n_docs> = " << argv[2] << " precisa ser nao negativo " << std::endl;
+        return 1;
+    }
     std::string diretorio = argv[3];
 
     BinaryTree* tree = create(); // criar a arvore
@@ -97,15 +102,22 @@ int main(int argc, char* argv[]) {
         int height = getHeight(tree->root);
         int min_deph = minDeph(tree->root);
         
-        std::cout << "Tempo de insercao medio: " << insertiontime * 1000 / numPalavras << " ms" << std::endl; // em milisegundos
         std::cout << "Tempo de insercao total: " << insertiontime * 1000 << " ms" << std::endl; // em milisegundos
-        std::cout << "Tempo de busca medio: " << searchtime / numPalavras << " ms" << std::endl; // em milisegundos
+        if (numPalavras == 0) {
+            std::cout << "Tempo de insercao medio: 0 ms" << std::endl; // em milisegundos
+            std::cout << "Tempo de busca medio: 0 ms" << std::endl; // em milisegundos
+        } else {
+            std::cout << "Tempo de insercao medio: " << insertiontime * 1000 / numPalavras << " ms" << std::endl; // em milisegundos
+            std::cout << "Tempo de busca medio: " << searchtime / numPalavras << " ms" << std::endl; // em milisegundos
+        }
         std::cout << "Tempo de busca maximo: " << searchtimemax << " ms" << std::endl; // em milisegundos
         std::cout << "Numero de comparacoes: " << comparisons << std::endl;
         std::cout << "Altura da arvore: " << height << std::endl;
         std::cout << "Menor caminho: " << min_deph << std::endl;
         std::cout << "Maior caminho: " << height << std::endl;
-        std::cout << "Numero de nos: " << numNos << std::endl;
+        std::cout << "Numero de nos na arvore: " << numNos << std::endl;
+        std::cout << "Numero total de palavras nos " << n_docs << " documentos: " << numPalavras << std::endl;
+    
     }  else if (comando == "view") {
         vector<doc> documentos = read_documents(diretorio, n_docs);
         for (int i = 0; i < n_docs; ++i) {

@@ -64,7 +64,7 @@ namespace BST {
         }
         
         // Cria e insere novo nó na árvore
-        Node* newNode = new Node{word, {documentId}, parent, nullptr, nullptr, 0, 0};
+        Node* newNode = createNode(word, documentId, parent);
         if(parent == nullptr){
             tree->root = newNode;
         }
