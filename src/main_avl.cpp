@@ -83,16 +83,13 @@ int main(int argc, char* argv[]) {
                 string word = document_i.words[p];
                 int id = document_i.id;
                 InsertResult insercao_p = insert(tree, word, id);   // inserir os n_docs documentos do diretorio
-                auto start = std::chrono::high_resolution_clock::now();
                 SearchResult search_p = search(tree, word);
-                auto end = std::chrono::high_resolution_clock::now();
-                std::chrono::duration<double, std::milli> duration = end - start;
-                searchtime += duration.count();
+                searchtime += search_p.executionTime;
                 comparisons += insercao_p.numComparisons;
                 insertiontime += insercao_p.executionTime;
                 numPalavras += 1;
-                if (duration.count()>searchtimemax){
-                    searchtimemax = duration.count();
+                if (search_p.executionTime>searchtimemax){
+                    searchtimemax = search_p.executionTime;
                 }
                 if (insercao_p.alreadyInsert == 0){
                     numNos += 1;
