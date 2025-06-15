@@ -67,6 +67,23 @@ void deleteNode(Node* node);
  */
 Node* searchNode(BinaryTree* tree, const std::string& word);
 
+/**
+ * @brief Função auxiliar para verificar se a Rubro-Negra possui alguma violação da propriedade de nós vermelhos.
+ *
+ * @param node Ponteiro para o nó atual sendo verificado.
+ * @param NIL Ponteiro para o nó sentinela NIL da árvore (nó folha padrão da RBT).
+ */
+bool check_no_red_red(Node* node, Node* NIL);
+
+/**
+ * @brief Função auxiliar para verificar se a Rubro-Negra possui altura preta consistente.
+ *
+ * @param node Ponteiro para o nó atual sendo verificado.
+ * @param NIL Ponteiro para o nó sentinela NIL da árvore.
+ * @param blackHeight Referência para armazenar a altura preta encontrada no primeiro caminho até uma folha.
+ * @param currentHeight Contador acumulado de nós pretos no caminho atual.
+ */
+bool check_black_height(Node* node, Node* NIL, int& blackHeight, int currentHeight = 0);
 
 /**
  * @brief Retorna a menor profundidade.

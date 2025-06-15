@@ -244,12 +244,84 @@ void test_rotation(int& passed, int& failed) {
     }
 }
 
+void test_root_color(int& passed, int& failed) {
+    printHeader("TESTES: RBT::root_color");
+
+    BinaryTree* tree = RBT::create();
+
+    RBT::insert(tree, "b", 1);
+    RBT::insert(tree, "a", 1);
+    RBT::insert(tree, "c", 1);
+
+    if (tree->root->isRed == 0) {
+        ok("Raiz e preta apos insercoes.");
+        passed++;
+    } else {
+        error("Falha: Raiz nao esta preta apos insercoes.");
+        failed++;
+    }
+
+    RBT::destroy(tree);
+}
+
+void test_red_violation(int& passed, int& failed) {
+    printHeader("TESTE: RBT::red_violation");
+
+    BinaryTree* tree = RBT::create();
+
+    RBT::insert(tree, "d", 1);
+    RBT::insert(tree, "b", 1);
+    RBT::insert(tree, "f", 1);
+    RBT::insert(tree, "a", 1);
+    RBT::insert(tree, "c", 1);
+    RBT::insert(tree, "e", 1);
+    RBT::insert(tree, "g", 1);
+
+    if (check_no_red_red(tree->root, tree->NIL)) {
+        ok("Nenhum no vermelho com filho vermelho.");
+        passed++;
+    } else {
+        error("Falha: No vermelho com filho vermelho encontrado.");
+        failed++;
+    }
+
+    RBT::destroy(tree);
+}
+
+void test_black_height(int& passed, int& failed) {
+    printHeader("TESTE: RBT::black_height");
+
+    BinaryTree* tree = RBT::create();
+
+    RBT::insert(tree, "h", 1);
+    RBT::insert(tree, "d", 1);
+    RBT::insert(tree, "l", 1);
+    RBT::insert(tree, "b", 1);
+    RBT::insert(tree, "f", 1);
+    RBT::insert(tree, "j", 1);
+    RBT::insert(tree, "n", 1);
+
+    int blackHeight = -1;
+    if (check_black_height(tree->root, tree->NIL, blackHeight)) {
+        ok("Altura negra uniforme verificada com sucesso.");
+        passed++;
+    } else {
+        error("Altura negra não e uniforme.");
+        failed++;
+    }
+
+    RBT::destroy(tree);
+}
+
 int main() {
     int passed = 0, failed = 0;
 
     test_insert(passed, failed);
     test_search(passed, failed);
     test_rotation(passed, failed);
+    test_root_color(passed, failed);
+    test_red_violation(passed, failed);
+    test_black_height(passed, failed);
 
     std::cout << "\n======== RESUMO FINAL ========\n";
     std::cout << "Testes passados: " << passed << "\n";

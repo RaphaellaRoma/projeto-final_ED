@@ -43,6 +43,30 @@ Node* searchNode(BinaryTree* tree, const std::string& word) {
     return tree->NIL; // não encontrado
 }
 
+bool check_no_red_red(Node* node, Node* NIL) {
+    if (node == NIL) return true;
+    if (node->isRed == 1) {
+        if (node->left->isRed == 1 || node->right->isRed == 1) {
+            return false;
+        }
+    }
+    return check_no_red_red(node->left, NIL) && check_no_red_red(node->right, NIL);
+}
+
+bool check_black_height(Node* node, Node* NIL, int& blackHeight, int currentHeight = 0) {
+    if (node == NIL) {
+        if (blackHeight == -1) {
+            blackHeight = currentHeight;
+            return true;
+        }
+        return currentHeight == blackHeight;
+    }
+
+    if (node->isRed == 0) currentHeight++;
+
+    return check_black_height(node->left, NIL, blackHeight, currentHeight) &&
+           check_black_height(node->right, NIL, blackHeight, currentHeight);
+}
 
 int minDeph(Node* root) {
     if (!root) return -1;
