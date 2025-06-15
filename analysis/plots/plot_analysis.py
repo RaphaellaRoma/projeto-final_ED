@@ -18,8 +18,8 @@ x = np.array(bst_filtered['Documentos'])
 width = 150  # largura de cada barra
 
 plt.figure(figsize=(8, 5))
-plt.bar(x - width, bst_filtered['TempoTotalInsercao'], width=width, label='BST', color="#06A178")
-plt.bar(x,        avl_filtered['TempoTotalInsercao'], width=width, label='AVL', color="#3685C5")
+plt.bar(x - width, bst_filtered['TempoTotalInsercao'], width=width, label='BST', color="#1E555C")
+plt.bar(x,        avl_filtered['TempoTotalInsercao'], width=width, label='AVL', color="#F15152")
 plt.bar(x + width, rbt_filtered['TempoTotalInsercao'], width=width, label='RBT', color="#D39236")
 
 plt.title('Tempo Total de Inserção por Estrutura')
@@ -28,6 +28,20 @@ plt.ylabel('Tempo Total de Inserção (s)')
 plt.xticks(x)
 plt.legend()
 plt.tight_layout()
+plt.savefig('tempo_insercao.png')
 plt.show()
 
+#####  Tempo total de busca (barras)  #####
+plt.figure(figsize=(8, 5))
+plt.bar(x - width, bst_filtered['TempoTotalBusca'], width=width, label='BST', color="#1E555C")
+plt.bar(x,        avl_filtered['TempoTotalBusca'], width=width, label='AVL', color="#CBDFBD")
+plt.bar(x + width, rbt_filtered['TempoTotalBusca'], width=width, label='RBT', color="#F15152")
 
+plt.title('Tempo Total de Busca por Estrutura')
+plt.xlabel('Número de Documentos')
+plt.ylabel('Tempo Total de Busca (s)')
+plt.xticks(x)
+plt.legend()
+plt.tight_layout()
+plt.savefig('tempo_busca.png')
+plt.show()
