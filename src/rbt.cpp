@@ -70,6 +70,7 @@ namespace RBT{
         }
 
         tree->root->isRed = 0;
+        recomputeHeightTree(tree->root, tree->NIL);
     }
 
 
@@ -86,6 +87,7 @@ namespace RBT{
         InsertResult result;
         result.executionTime = 0.0;
         result.numComparisons = 0;
+        result.alreadyInsert = 0;
 
         auto start = std::chrono::high_resolution_clock::now();
 
@@ -114,6 +116,7 @@ namespace RBT{
                 if (!alreadyExists) {
                     current->documentIds.push_back(documentId);
                 }
+                result.alreadyInsert = 1;
                 auto end = std::chrono::high_resolution_clock::now();
                 result.executionTime = std::chrono::duration<double>(end - start).count();
                 return result;
@@ -168,17 +171,14 @@ namespace RBT{
     }
 
     void destroy(BinaryTree* tree) {
-        std::cout<< "passou destroy 1"<<std::endl;
         if (tree == nullptr) return;
 
         // Libera todos os nós da árvore, exceto o nó NIL
-        deleteNodeRBT(tree->root, tree->NIL);
-        std::cout<< "passou destry 2"<<std::endl;
+        deleteNode(tree->root, tree->NIL);
 
         // Libera explicitamente o nó NIL, que é compartilhado
         if (tree->NIL) {
             delete tree->NIL;
-            std::cout<< "passou destry 3"<<std::endl;
         }
 
         delete tree;

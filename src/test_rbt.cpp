@@ -157,21 +157,23 @@ void test_rotation(int& passed, int& failed) {
     printHeader("TESTES: RBT::rotacoes");
 
     // T1
-    printTest("T1: Rotacao simples a direita");
+    printTest("Rotação simples à direita");
     {
         BinaryTree* tree = RBT::create();
         RBT::insert(tree, "c", 1);
         RBT::insert(tree, "b", 1);
-        RBT::insert(tree, "a", 1);
+        RBT::insert(tree, "a", 1);  // Esperado: "b" na raiz
 
+        int bh = -1;
         bool correctRoot = (tree->root && tree->root->word == "b");
-        bool balanced = isBalanced(tree->root);
+        bool redOk = check_no_red_red(tree->root, tree->NIL);
+        bool blackHeightOk = check_black_height(tree->root, tree->NIL, bh);
 
-        if (correctRoot && balanced) {
-            ok("Rotacao simples a direita executada corretamente.");
+        if (correctRoot && redOk && blackHeightOk) {
+            ok("Rotação simples à direita executada corretamente.");
             passed++;
         } else {
-            error("Falha na rotacao simples a direita.");
+            error("Falha na rotação simples à direita.");
             failed++;
         }
 
@@ -179,65 +181,70 @@ void test_rotation(int& passed, int& failed) {
     }
 
     // T2
-    printTest("T2: Rotacao simples a esquerda");
+    printTest("Rotação simples à esquerda");
     {
         BinaryTree* tree = RBT::create();
         RBT::insert(tree, "a", 1);
         RBT::insert(tree, "b", 1);
-        RBT::insert(tree, "c", 1);
+        RBT::insert(tree, "c", 1);  // Esperado: "b" na raiz
 
+        int bh = -1;
         bool correctRoot = (tree->root && tree->root->word == "b");
-        bool balanced = isBalanced(tree->root);
+        bool redOk = check_no_red_red(tree->root, tree->NIL);
+        bool blackHeightOk = check_black_height(tree->root, tree->NIL, bh);
 
-        if (correctRoot && balanced) {
-            ok("Rotacao simples a esquerda executada corretamente.");
+        if (correctRoot && redOk && blackHeightOk) {
+            ok("Rotação simples à esquerda executada corretamente.");
             passed++;
         } else {
-            error("Falha na rotacao simples a esquerda.");
+            error("Falha na rotação simples à esquerda.");
             failed++;
         }
 
         RBT::destroy(tree);
     }
-
     // T3
     printTest("T3: Rotacao dupla a direita (Left-Right)");
     {
         BinaryTree* tree = RBT::create();
         RBT::insert(tree, "c", 1);
         RBT::insert(tree, "a", 1);
-        RBT::insert(tree, "b", 1);
+        RBT::insert(tree, "b", 1);  // Esperado: "b" na raiz
 
+        int bh = -1;
         bool correctRoot = (tree->root && tree->root->word == "b");
-        bool balanced = isBalanced(tree->root);
+        bool redOk = check_no_red_red(tree->root, tree->NIL);
+        bool blackHeightOk = check_black_height(tree->root, tree->NIL, bh);
 
-        if (correctRoot && balanced) {
-            ok("Rotacao dupla a direita executada corretamente.");
+        if (correctRoot && redOk && blackHeightOk) {
+            ok("Rotação dupla esquerda-direita executada corretamente.");
             passed++;
         } else {
-            error("Falha na rotacao dupla a direita.");
+            error("Falha na rotação dupla esquerda-direita.");
             failed++;
         }
 
         RBT::destroy(tree);
     }
-
+    
     // T4
     printTest("T4: Rotacao dupla a esquerda (Right-Left)");
     {
         BinaryTree* tree = RBT::create();
         RBT::insert(tree, "a", 1);
         RBT::insert(tree, "c", 1);
-        RBT::insert(tree, "b", 1);
+        RBT::insert(tree, "b", 1);  // Esperado: "b" na raiz
 
+        int bh = -1;
         bool correctRoot = (tree->root && tree->root->word == "b");
-        bool balanced = isBalanced(tree->root);
+        bool redOk = check_no_red_red(tree->root, tree->NIL);
+        bool blackHeightOk = check_black_height(tree->root, tree->NIL, bh);
 
-        if (correctRoot && balanced) {
-            ok("Rotacao dupla a esquerda executada corretamente.");
+        if (correctRoot && redOk && blackHeightOk) {
+            ok("Rotação dupla direita-esquerda executada corretamente.");
             passed++;
         } else {
-            error("Falha na rotacao dupla a esquerda.");
+            error("Falha na rotação dupla direita-esquerda.");
             failed++;
         }
 
