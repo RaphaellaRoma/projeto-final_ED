@@ -63,16 +63,16 @@ projeto-final_ED/
 
 ### 4.1. Leitura dos Documentos
 
-Para a leitura dos dados dos documentos, utilizamos a classe ifstream, fornecida pela biblioteca fstream. Essa classe permite a manipulação de arquivos de entrada de forma eficiente e estruturada. Para o armazenamento dos dados, optamos por criar uma struct chamada docs, que contém o ID do documento e um vetor com todos os termos extraídos da leitura.
+Para a leitura dos dados dos documentos, utilizamos a classe `ifstream`, fornecida pela biblioteca `fstream`. Essa classe permite a manipulação de arquivos de entrada de forma eficiente e estruturada. Para o armazenamento dos dados, optamos por criar uma struct chamada docs, que contém o ID do documento e um vetor com todos os termos extraídos da leitura.
 
 ### 4.2. Estruturas Implementadas
 
 Breve descrição das três estruturas utilizadas: 
 
-- **BST**: Para a estrutura BST, foi necessário implementar as funções insert, search, create e destroy. Utilizamos o bloco try-catch na função create para lidar com possíveis exceções de alocação de memória.
+- **BST**: Para a estrutura BST, foi necessário implementar as funções `insert`, `search`, `create` e `destroy`. Utilizamos o bloco try-catch na função create para lidar com possíveis exceções de alocação de memória.
 - **AVL**: Para a operação de inserção na AVL, foi necessário implementar as funções de rotação (`rotateLeft` e `rotateRight`). Essas rotações são fundamentais para manter o balanceamento da árvore após cada inserção. A lógica de balanceamento foi centralizada na função `rebalance`, que precisou das auxiliares `transplant`, `getHeight`, `recomputeHeight`, `getBalance`.
 As demais funções, como create, search e destroy, seguem estrutura semelhante à da BST.
-- **RBT**: ...
+- **RBT**: Para a estrutura RBT, a maior dificuldade foi na criação da função `fixUp` utilizada na insert, responsavel por manter as propriedades da RBT. As demais funções, como create, search e destroy, seguem estrutura semelhante à da BST.
 
 ## 5. Implementação
 
@@ -92,13 +92,43 @@ O programa foi desenvolvido com os seguintes comandos:
 * `<n_docs>`: número de documentos a indexar
 * `<diretório>`: caminho para a pasta contendo os arquivos .txt
 
-### 5.2. Funcionalidades Mínimas
+```bash
+./<arvore> search <n_docs> <diretório>:
+```
+Esse comando inicia o modo de busca por palavras no índice invertido criado com a estrutura de dados selecionada (bst, avl ou rbt). Após a execução, o programa exibe o seguinte prompt interativo:
 
-- Inserção e busca de palavras
-- Coleta de estatísticas de desempenho
-- Impressão do índice invertido
+```bash
+Digite "." para sair.
+Palavra buscada:
+```
+O usuário deve então digitar a palavra que deseja buscar. O sistema realiza a busca da palavra na árvore previamente construída a partir dos documentos. Se a palavra for encontrada, o programa retorna:
 
-Explicação **aqui**
+* Lista de documentos onde a palavra está presente.
+* Tempo de busca em milissegundos.
+* Número total de comparações realizadas para localizar a palavra.
+
+Se a palavra não estiver presente em nenhum documento, o programa informa que não foi encontrada.
+Esse processo se repete até que o usuário digite um ponto (.), encerrando a sessão de busca.
+
+```bash
+./<arvore> stats <n_docs> <diretório>:
+```
+Nesse caso, o comando constrói a árvore de índice invertido a partir dos n_docs documentos localizados no diretório especificado, e em seguida apresenta um conjunto de estatísticas de desempenho da estrutura.
+As métricas exibidas incluem:
+
+* Tempo total de leitura dos documentos.
+* Tempo total e tempo médio de inserção das palavras na árvore.
+* Tempo médio e tempo máximo de busca.
+* Número total de comparações realizadas durante inserções e buscas.
+* Altura final da árvore construída.
+* Comprimento do menor e do maior caminho da raiz até uma folha.
+* Número total de nós na árvore.
+* Número total de palavras indexadas (com repetição).
+
+```bash
+./<arvore> view <n_docs> <diretório>:
+```
+chama a função printTree, e mostra a visualização da árvore com n_docs documentos
 
 ## 6. Resultados
 
@@ -129,8 +159,10 @@ Discussão sobre **aqui**:
 
 ## 8. Dificuldades Encontradas
 
-Inicialmente, nossa maior dificuldade foi decidir como armazenar as palavras provenientes da leitura dos documentos. Optamos, ao final, por criar uma struct que contém o ID do documento e um vetor com todos os termos extraídos da leitura.
-Para a BST encontramos um pouco de dificuldade em calcular a aultura que foi resolvida pela criação da função
+Inicialmente, enfrentamos desafios na definição da estrutura de dados ideal para armazenar as palavras extraídas dos documentos. Após discutir diferentes abordagens, decidimos criar uma struct chamada docs, contendo o ID do documento e um vetor com todos os termos extraídos.
+Na BST, tivemos dificuldades para calcular corretamente a altura da árvore, o que foi solucionado com a implementação da função `recomputeHeightTree`.
+Na RBT, a função `fixUp` representou o maior obstáculo, exigindo um bom entendimento dos casos em que rotações e trocas de cor devem ser aplicadas para preservar as propriedades da árvore rubro-negra.
+Quanto à CLI, a principal dificuldade esteve na estruturação da lógica de funcionamento, principalmente no tratamento de erros e na validação de argumentos. Foi necessário implementar verificações para evitar argumentos inválidos, comandos desconhecidos ou diretórios inexistentes.
 
 ## 9. Conclusão
 
