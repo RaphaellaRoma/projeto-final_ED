@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
                 }
             }
         }
-        int height = computeNodeHeight(tree->root, tree->NIL);
+        int height = getHeight(tree->root, tree->NIL);
         int min_deph = minDeph(tree->root, tree->NIL);
         
         std::cout << "Tempo de insercao total: " << insertiontime * 1000 << " ms" << std::endl; // em milisegundos

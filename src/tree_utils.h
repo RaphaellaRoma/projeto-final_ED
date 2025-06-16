@@ -125,6 +125,8 @@ void recomputeHeight(Node* n, Node* NIL = nullptr);
  */
 void recomputeHeightTree(Node* n, Node* NIL = nullptr);
 
+void recomputeHeightAll(Node* n, Node* NIL);
+
 
 /**
  * @brief Calcula o fator de balanceamento de um nó.
