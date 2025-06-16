@@ -17,11 +17,8 @@ int main() {
         return 1;
     }
 
-    std::cout << "passou 1" << std::endl; // debug
     arquivo << gerarCabecalhoCSV();
-    std::cout << "passou 2" << std::endl; // debug
     std::vector<doc> documentos = read_documents("../data/", 10000);
-        std::cout << "passou 3" << std::endl; // debug
 
     for (int qtdDocs = 100; qtdDocs <= 10000; qtdDocs+=100) {
         std::cout << "for" << qtdDocs << std::endl; // debug
