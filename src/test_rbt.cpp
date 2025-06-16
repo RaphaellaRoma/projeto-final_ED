@@ -39,8 +39,9 @@ void test_insert(int& passed, int& failed) {
             error("Falha ao adicionar multiplos documentos para mesma palavra.");
             failed++;
         }
-
+        std::cout<< "passou"<<std::endl;
         RBT::destroy(tree);
+        std::cout<< "passou 2"<<std::endl;
     }
 
     // T2

@@ -168,14 +168,17 @@ namespace RBT{
     }
 
     void destroy(BinaryTree* tree) {
+        std::cout<< "passou destroy 1"<<std::endl;
         if (tree == nullptr) return;
 
         // Libera todos os nós da árvore, exceto o nó NIL
-        deleteNode(tree->root);
+        deleteNodeRBT(tree->root, tree->NIL);
+        std::cout<< "passou destry 2"<<std::endl;
 
         // Libera explicitamente o nó NIL, que é compartilhado
         if (tree->NIL) {
             delete tree->NIL;
+            std::cout<< "passou destry 3"<<std::endl;
         }
 
         delete tree;

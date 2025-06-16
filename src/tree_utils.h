@@ -58,6 +58,9 @@ Node* createNode(const std::string& word, int documentId, Node* parent);
 */
 void deleteNode(Node* node);
 
+// Documentar aqui
+void deleteNodeRBT(Node* node, Node* NIL);
+
 
 /**
  * @brief Função auxilar para buscar um nó na árvore.

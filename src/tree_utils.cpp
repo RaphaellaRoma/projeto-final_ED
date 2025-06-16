@@ -22,6 +22,15 @@ void deleteNode(Node* node) {
     delete node;
 }
 
+void deleteNodeRBT(Node* node, Node* NIL) {
+    if (node == nullptr || node == NIL) return;
+
+    deleteNodeRBT(node->left, NIL);
+    deleteNodeRBT(node->right, NIL);
+
+    delete node;
+}
+
 Node* searchNode(BinaryTree* tree, const std::string& word) {
     if (tree == nullptr || tree->root == tree->NIL) {
         return tree->NIL;
@@ -53,7 +62,7 @@ bool check_no_red_red(Node* node, Node* NIL) {
     return check_no_red_red(node->left, NIL) && check_no_red_red(node->right, NIL);
 }
 
-bool check_black_height(Node* node, Node* NIL, int& blackHeight, int currentHeight = 0) {
+bool check_black_height(Node* node, Node* NIL, int& blackHeight, int currentHeight) {
     if (node == NIL) {
         if (blackHeight == -1) {
             blackHeight = currentHeight;
