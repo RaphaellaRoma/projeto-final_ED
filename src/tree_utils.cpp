@@ -124,6 +124,13 @@ void recomputeHeightTree(Node* n, Node* NIL) {
     }
 }
 
+void recomputeHeightAll(Node* n, Node* NIL) {
+    if (n == NIL) return;
+    recomputeHeightAll(n->left, NIL);
+    recomputeHeightAll(n->right, NIL);
+    recomputeHeight(n, NIL);
+}
+
 int getBalance(Node* n) {
     if (n == nullptr) {
         return 0;

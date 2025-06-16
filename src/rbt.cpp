@@ -9,7 +9,7 @@ namespace RBT{
             BinaryTree* tree = new BinaryTree;
 
             // Cria o nó NIL
-            tree->NIL = new Node{"", {}, nullptr, nullptr, nullptr, 0, 0}; // isRed = 0
+            tree->NIL = new Node{"", {}, nullptr, nullptr, nullptr, -1, 0}; // isRed = 0
             tree->NIL->left = tree->NIL;
             tree->NIL->right = tree->NIL;
             tree->NIL->parent = tree->NIL;
@@ -70,7 +70,6 @@ namespace RBT{
         }
 
         tree->root->isRed = 0;
-        recomputeHeightTree(tree->root, tree->NIL);
     }
 
 
@@ -137,6 +136,7 @@ namespace RBT{
 
         // Chamada para corrigir propriedades da RBT
         fixUp(tree, newNode);
+        recomputeHeightAll(tree->root, tree->NIL);
 
         auto end = std::chrono::high_resolution_clock::now();
         result.executionTime = std::chrono::duration<double>(end - start).count();
