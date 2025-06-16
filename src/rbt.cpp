@@ -24,7 +24,8 @@ namespace RBT{
             }
         }
 
-    void fixUp(BinaryTree* tree, Node* node) {
+    int fixUp(BinaryTree* tree, Node* node) {
+        int numRotations = 0;
         while (node->parent->isRed == 1) {
             if (node->parent == node->parent->parent->left) {
                 Node* uncle = node->parent->parent->right;
@@ -40,11 +41,13 @@ namespace RBT{
                         // Caso 2
                         node = node->parent;
                         rotateLeft(tree, node);
+                        numRotations++;
                     }
                     // Caso 3
                     node->parent->isRed = 0;
                     node->parent->parent->isRed = 1;
                     rotateRight(tree, node->parent->parent);
+                    numRotations++;
                 }
             } else {
                 // Espelho dos casos acima
@@ -59,10 +62,12 @@ namespace RBT{
                     if (node == node->parent->left) {
                         node = node->parent;
                         rotateRight(tree, node);
+                        numRotations++;
                     }
                     node->parent->isRed = 0;
                     node->parent->parent->isRed = 1;
                     rotateLeft(tree, node->parent->parent);
+                    numRotations++;
                 }
             }
 
@@ -70,6 +75,7 @@ namespace RBT{
         }
 
         tree->root->isRed = 0;
+        return numRotations;
     }
 
 
@@ -87,6 +93,7 @@ namespace RBT{
         result.executionTime = 0.0;
         result.numComparisons = 0;
         result.alreadyInsert = 0;
+        result.numRotations = 0;
 
         auto start = std::chrono::high_resolution_clock::now();
 
@@ -135,7 +142,7 @@ namespace RBT{
         }
 
         // Chamada para corrigir propriedades da RBT
-        fixUp(tree, newNode);
+        result.numRotations = fixUp(tree, newNode);
         recomputeHeightAll(tree->root, tree->NIL);
 
         auto end = std::chrono::high_resolution_clock::now();

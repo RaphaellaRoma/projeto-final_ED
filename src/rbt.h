@@ -26,8 +26,9 @@ namespace RBT{
     * 
     * @param tree Ponteiro para a árvore binária onde a palavra será inserida.
     * @param node Nó inserido.
+    * @return Número de Rotações.
     */ 
-    void fixUp(BinaryTree* tree, Node* node);
+    int fixUp(BinaryTree* tree, Node* node);
 
 
     /**

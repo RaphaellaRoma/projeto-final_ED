@@ -205,7 +205,8 @@ void rotateRight(BinaryTree* tree, Node* y) {
     recomputeHeight(x);
 }
 
-void rebalance(BinaryTree* tree, Node* node) {
+int rebalance(BinaryTree* tree, Node* node) {
+    int numRotations = 0;
     while (node != nullptr) {
         recomputeHeight(node);
         int balance = getBalance(node);
@@ -213,16 +214,21 @@ void rebalance(BinaryTree* tree, Node* node) {
         if (balance > 1) {
             if (getBalance(node->left) < 0) {
                 rotateLeft(tree, node->left);
+                numRotations++;
             }
             rotateRight(tree, node);
+            numRotations++;
         } else if (balance < -1) {
             if (getBalance(node->right) > 0) {
                 rotateRight(tree, node->right);
+                numRotations++;
             }
             rotateLeft(tree, node);
+            numRotations++;
         }
 
         node = node->parent;
+        return numRotations;
     }
 }
 

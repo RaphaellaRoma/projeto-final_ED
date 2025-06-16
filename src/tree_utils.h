@@ -24,7 +24,7 @@ struct InsertResult {
     int numComparisons;
     double executionTime;
     bool alreadyInsert; // 1 se a palavra já existia, 0 se foi criada
-    //<Possíveis outras variáveis>
+    int numRotations;
 };
 
 struct SearchResult {
@@ -96,8 +96,6 @@ bool check_black_height(Node* node, Node* NIL, int& blackHeight, int currentHeig
 
 int minDeph(Node* root, Node* NIL = nullptr);
 
-// é a unica coisa que faz a altura da RBT ser calculada certo, ver se qlguem consegue ver o erro nos outros jeitos
-int computeNodeHeight(Node* n, Node* NIL = nullptr);
 
 /**
  * @brief Retorna a altura de um nó.
@@ -125,6 +123,7 @@ void recomputeHeight(Node* n, Node* NIL = nullptr);
  */
 void recomputeHeightTree(Node* n, Node* NIL = nullptr);
 
+// Documentar
 void recomputeHeightAll(Node* n, Node* NIL);
 
 
@@ -185,8 +184,9 @@ void rotateRight(BinaryTree* tree, Node* y);
  *
  * @param tree Ponteiro para a árvore binária.
  * @param node Ponteiro para o nó onde o rebalanceamento começará.
+ * @return Número de rotações.
  */
-void rebalance(BinaryTree* tree, Node* node);
+int rebalance(BinaryTree* tree, Node* node);
 
 
 /**

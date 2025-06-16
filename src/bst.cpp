@@ -28,6 +28,7 @@ namespace BST {
         result.executionTime = 0.0;
         result.numComparisons = 0;
         result.alreadyInsert = 0;
+        result.numRotations = 0;
         auto start = std::chrono::high_resolution_clock::now();
 
         Node* parent = nullptr;
