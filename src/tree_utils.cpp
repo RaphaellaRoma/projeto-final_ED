@@ -14,19 +14,10 @@ Node* createNode(const std::string& word, int documentId, Node* parent) {
     return newNode;
 }
 
-void deleteNode(Node* node) {
-    if (node == nullptr) return;
-    deleteNode(node->left);
-    deleteNode(node->right);
-
-    delete node;
-}
-
-void deleteNodeRBT(Node* node, Node* NIL) {
+void deleteNode(Node* node, Node* NIL) {
     if (node == nullptr || node == NIL) return;
-
-    deleteNodeRBT(node->left, NIL);
-    deleteNodeRBT(node->right, NIL);
+    deleteNode(node->left, NIL);
+    deleteNode(node->right, NIL);
 
     delete node;
 }
@@ -77,8 +68,9 @@ bool check_black_height(Node* node, Node* NIL, int& blackHeight, int currentHeig
            check_black_height(node->right, NIL, blackHeight, currentHeight);
 }
 
-int minDeph(Node* root) {
-    if (!root) return -1;
+
+int minDeph(Node* root, Node* NIL) {
+    if (root == NIL) return -1;
 
     std::vector<NodeDepth> queue;
     queue.push_back({root, 0}); // começa com profundidade 0
@@ -88,39 +80,46 @@ int minDeph(Node* root) {
         queue.erase(queue.begin()); // remove o primeiro elemento
 
         Node* node = nd.node;
-        int deph = nd.depth;
+        int depth = nd.depth;
 
-        if (!node->left && !node->right)
-            return deph;
+        // Verifica se é folha: seus filhos são NIL
+        if (node->left == NIL && node->right == NIL)
+            return depth;
 
-        if (node->left)
-            queue.push_back({node->left, deph + 1});
-        if (node->right)
-            queue.push_back({node->right, deph + 1});
+        if (node->left != NIL)
+            queue.push_back({node->left, depth + 1});
+        if (node->right != NIL)
+            queue.push_back({node->right, depth + 1});
     }
 
-    return 0;
+    return -1; // Se árvore vazia ou algo errado
 }
 
-int getHeight(Node* n) {
-    if (n == nullptr) {
-        return -1; // Se o nó não existe, a altura é -1
+int computeNodeHeight(Node* n, Node* NIL) {
+    if (n == NIL) return -1;
+    return 1 + std::max(computeNodeHeight(n->left, NIL), 
+                   computeNodeHeight(n->right, NIL));
+}
+
+int getHeight(Node* n, Node* NIL) {
+    if (n == NIL) {
+        return -1;  // Se o nó não existe, a altura é -1
     } else {
-        return n->height; 
+        return n->height;
     }
-}
+}    
 
-void recomputeHeight(Node* n) {
-    if (n == nullptr) return; 
+void recomputeHeight(Node* n, Node* NIL) {
+    if (n == NIL) return;
 
-    int alturaEsquerda = getHeight(n->left);
-    int alturaDireita = getHeight(n->right);
+    int alturaEsquerda = getHeight(n->left, NIL);
+    int alturaDireita = getHeight(n->right, NIL);
     n->height = 1 + std::max(alturaEsquerda, alturaDireita);
 }
 
-void recomputeHeightTree(Node* n) {
-    while (n!=nullptr){
-        recomputeHeight(n);
+void recomputeHeightTree(Node* n, Node* NIL) {
+    while (n != NIL) {
+        recomputeHeight(n, NIL);
         n = n->parent;
     }
 }
@@ -155,14 +154,14 @@ bool isBalanced(Node* node) {
 }
 
 void transplant(BinaryTree* tree, Node* u, Node* v) {
-    if (u->parent == nullptr) {
+    if (u->parent == tree->NIL) {
         tree->root = v;
     } else if (u == u->parent->left) {
         u->parent->left = v;
     } else {
         u->parent->right = v;
     }
-    if (v != nullptr) {
+    if (v != tree->NIL) {
         v->parent = u->parent;
     }
 }
@@ -170,7 +169,7 @@ void transplant(BinaryTree* tree, Node* u, Node* v) {
 void rotateLeft(BinaryTree* tree, Node* x) {
     Node* y = x->right;
     x->right = y->left;
-    if (y->left != nullptr) {
+    if (y->left != tree->NIL) {
         y->left->parent = x;
     }
 
@@ -186,7 +185,7 @@ void rotateLeft(BinaryTree* tree, Node* x) {
 void rotateRight(BinaryTree* tree, Node* y) {
     Node* x = y->left;
     y->left = x->right;
-    if (x->right != nullptr){
+    if (x->right != tree->NIL){
         x->right->parent = y;
     } 
 
@@ -220,65 +219,74 @@ void rebalance(BinaryTree* tree, Node* node) {
     }
 }
 
-void printIndexHelper(Node* node, int& index) {
-    // Se o ponteiro for nullptr não faz nada 
-    if (!node) return;
+void printIndexHelper(Node* node, int& index, Node* NIL) {
+    // Se o ponteiro for NIL ou nullptr não faz nada 
+    if (node == NIL) return;
 
     // Chamada recursiva para o filho à esquerda 
-    printIndexHelper(node->left, index);
+    printIndexHelper(node->left, index, NIL);
+
 
     // Imprime palavra e os IDs dos documentos 
-    std::cout << index << ". " << node->word << ": ";
+        std::cout << index << ". " << node->word;
+    // Verifica se é RBT (NIL é um nó especial, não nullptr)
+    if (NIL != nullptr) { std::cout << " (" << (node->isRed ? "R" : "B") << ")";
+    } std::cout << ": ";
     for (size_t i = 0; i < node->documentIds.size(); ++i) {
         std::cout << node->documentIds[i];
         if (i != node->documentIds.size() - 1)
             std::cout << ", ";
     }
-    std::cout << "\n";
- 
+    std::cout << "\n"; 
     ++index;
 
     // Chamada recursiva para o filho à direita
-    printIndexHelper(node->right, index);
+    printIndexHelper(node->right, index, NIL);
 }
 
 void printIndex(BinaryTree* tree) {
     int index = 1;
     // Inicia chamando a função recursiva a partir do nó raiz 
-    printIndexHelper(tree->root, index);
+    printIndexHelper(tree->root, index, tree->NIL);
 }
 
-void printTreeHelper(Node* node, const std::string& prefix, bool isLeft) {
+void printTreeHelper(Node* node, const std::string& prefix, bool isLeft, Node* NIL) {
     // Se o nó for nulo não faz nada 
-    if (!node) return;
+    if (node == NIL) return;
 
     std::cout << prefix;
 
     // Se o nó não tem pai, então ele é a raiz e imprime apenas a palavra 
-    if (!node->parent) {
-        std::cout << node->word << "\n";
-    } else {  // Se tem pai: "|__" para filho da esquerda; "\__" para filho à direita 
-        std::cout << (isLeft ? "/__" : " \\__") << node->word << "\n";
+    if (node->parent == NIL) {
+        std::cout << node->word;
+        if (NIL != nullptr) std::cout << " (" << (node->isRed ? "R" : "B") << ")";
+        std::cout << "\n";
+    } else {
+        std::cout << (isLeft ? "/__" : " \\__") << node->word;
+        if (NIL != nullptr) std::cout << " (" << (node->isRed ? "R" : "B") << ")";
+        std::cout << "\n";
     }
-
     // Nova string prefixo para os filhos do nó atual 
     std::string newPrefix = prefix;
-    if (node->parent)
-        // "|   " se o nó atual for da esquerda; "    " se for da direita 
-        newPrefix += (isLeft ? "|   " : "    ");
+    if (node->parent != NIL){
+        // Verifica se há irmãos. Em caso afirmativo, "|   " se o nó atual for da esquerda; "    " se for da direita 
+        bool hasSibling = (isLeft && node->parent->right != NIL) || (!isLeft && node->parent->left != NIL);
+        
+        newPrefix += (isLeft ? (hasSibling ? "|   " : "    ") : "    ");
+}
 
     // Se o nó tiver pelo menos um filho, chama recursivamente nos filhos 
-    if (node->left || node->right) {
+    if (node->left != NIL|| node->right != NIL) {
         if (node->left)
-            printTreeHelper(node->left, newPrefix, true);
+            printTreeHelper(node->left, newPrefix, true, NIL);
         if (node->right)
-            printTreeHelper(node->right, newPrefix, false);
+            printTreeHelper(node->right, newPrefix, false, NIL);
     }
 }
 
 void printTree(BinaryTree* tree) {
     // Se a árvore estiver vazia retorna 
-    if (!tree->root) return;
+    if (tree->root == tree->NIL) return;
     // Inicia chamando a função recursiva a partir do nó raiz
-    printTreeHelper(tree->root, "", false);
+    printTreeHelper(tree->root, "", false, tree->NIL);
 }

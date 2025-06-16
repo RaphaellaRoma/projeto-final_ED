@@ -53,13 +53,11 @@ Node* createNode(const std::string& word, int documentId, Node* parent);
 
 
 /**
-* @brief Função auxiliar para deletar a árvore, é chamada recursivamente para eliminar cada nó.
-* @param node É o nó a ser deletado.
-*/
-void deleteNode(Node* node);
-
-// Documentar aqui
-void deleteNodeRBT(Node* node, Node* NIL);
+ * @brief Função auxiliar para deletar a árvore, é chamada recursivamente para eliminar cada nó.
+ * @param node É o nó a ser deletado.
+ * @param NIL Ponteiro para o NIL, caso ele exista.
+ */
+void deleteNode(Node* node, Node* NIL = nullptr);
 
 
 /**
@@ -92,34 +90,40 @@ bool check_black_height(Node* node, Node* NIL, int& blackHeight, int currentHeig
  * @brief Retorna a menor profundidade.
  *
  * @param root Ponteiro para a raiz.
+ * @param NIL Ponteiro para o NIL, caso ele exista.
  * @return Profundidade do nó, ou -1 se for nullptr.
  */
 
-int minDeph(Node* root);
+int minDeph(Node* root, Node* NIL = nullptr);
 
+// é a unica coisa que faz a altura da RBT ser calculada certo, ver se qlguem consegue ver o erro nos outros jeitos
+int computeNodeHeight(Node* n, Node* NIL = nullptr);
 
 /**
  * @brief Retorna a altura de um nó.
  *
  * @param n Ponteiro para o nó.
+ * @param NIL Ponteiro para o NIL, caso ele exista.
  * @return Altura do nó, ou -1 se for nullptr.
  */
-int getHeight(Node* n);
+int getHeight(Node* n, Node* NIL = nullptr);
 
 
 /**
  * @brief Recalcula a altura de um nó com base nas alturas dos filhos.
  *
  * @param n Ponteiro para o nó cuja altura será atualizada.
+ * @param NIL Ponteiro para o NIL, caso ele exista.
  */
-void recomputeHeight(Node* n);
+void recomputeHeight(Node* n, Node* NIL = nullptr);
 
 /**
  * @brief Recalcula a altura de todos os nós da árvore.
  *
  * @param n nó que foi inserido.
+ * @param NIL Ponteiro para o NIL, caso ele exista.
  */
-void recomputeHeightTree(Node* n);
+void recomputeHeightTree(Node* n, Node* NIL = nullptr);
 
 
 /**
@@ -188,8 +192,9 @@ void rebalance(BinaryTree* tree, Node* node);
  *
  * @param node Ponteiro para o nó atual na árvore binária.
  * @param index Número de ordem da palavra (usado para numerar a saída).
+ * @param NIL Ponteiro para o NIL, caso ele exista.
  */
-void printIndexHelper(Node* node, int& index);
+void printIndexHelper(Node* node, int& index, Node* NIL = nullptr);
 
 
 /**
@@ -213,9 +218,10 @@ void printIndex(BinaryTree* tree);
  *
  * @param node Ponteiro para o nó atual na árvore binária.
  * @param prefix Prefixo de indentação acumulado.
+ * @param NIL Ponteiro para o NIL, caso ele exista.
  * @param isLeft Indica se o nó atual é filho à esquerda.
  */
-void printTreeHelper(Node* node, const std::string& prefix, bool isLeft);
+void printTreeHelper(Node* node, const std::string& prefix, bool isLeft, Node* NIL = nullptr);
 
 
 /**
