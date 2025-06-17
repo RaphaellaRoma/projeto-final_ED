@@ -7,7 +7,7 @@
 
 #include "../src/rbt.h"
 #include "metrics.h"
-#include "../src/data_new.h"
+#include "../src/data.h"
 
 int main() {
     std::ofstream arquivo("results/rbt_results.csv");
@@ -38,21 +38,21 @@ int main() {
             const doc& documento = documentos[i];
             for (size_t j = 0; j < documento.words.size(); j++) {
                 const std::string& palavra = documento.words[j];
-                InsertResult res = RBT::insert(arvore, palavra, documento.id);
-                SearchResult res = RBT::search(arvore, palavra);
-                m.totalComparacoesInsercao += res.numComparisons;
-                m.tempoTotalInsercao += res.executionTime;
-                m.numRotacoes += res.numRotations;
-                m.qtdpalavras++;
-                m.totalComparacoesBusca += res.numComparisons;
-                m.tempoTotalBusca += res.executionTime;
+                InsertResult resInsert = RBT::insert(arvore, palavra, documento.id);
+                SearchResult resSearch = RBT::search(arvore, palavra);
+                m.totalComparacoesInsercao += resInsert.numComparisons;
+                m.tempoTotalInsercao += resInsert.executionTime;
+                m.numRotacoes += resInsert.numRotations;
+                m.qtdPalavras++;
+                m.totalComparacoesBusca += resSearch.numComparisons;
+                m.tempoTotalBusca += resSearch.executionTime;
             }    
         }
-        m.tempoMedioInsercao = (m.qtdpalavras > 0) ? m.tempoTotalInsercao / m.qtdpalavras : 0.0;
+        m.tempoMedioInsercao = (m.qtdPalavras > 0) ? m.tempoTotalInsercao / m.qtdPalavras : 0.0;
         m.altura = getHeight(arvore->root);
         m.menorGalho = minDeph(arvore->root);
         m.maiorGalho = m.altura;
-        m.tempoMedioBusca = (m.qtdpalavras > 0) ? m.tempoTotalBusca / m.qtdpalavras : 0.0;
+        m.tempoMedioBusca = (m.qtdPalavras > 0) ? m.tempoTotalBusca / m.qtdPalavras : 0.0;
 
         arquivo << gerarLinhaCSV(m) << "\n";
 

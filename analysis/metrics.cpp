@@ -17,6 +17,6 @@ std::string gerarLinhaCSV(const Metrics& m) {
            std::to_string(m.menorGalho) + "," +
            std::to_string(m.maiorGalho) + "," +
            std::to_string(m.totalComparacoesInsercao) + "," +
-           std::to_string(m.totalComparacoesBusca) + "," +;
+           std::to_string(m.totalComparacoesBusca) + "," +
            std::to_string(m.numRotacoes);
 }
