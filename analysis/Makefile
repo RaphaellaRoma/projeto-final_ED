@@ -1,4 +1,4 @@
-# Compilação dos programas de análise
+# Compilação dos programas de análise do indice da BST, AVL e RBT
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall
 SRC = ../src
@@ -18,3 +18,6 @@ rbt_analysis: analysis_rbt.cpp metrics.cpp $(SRC)/rbt.cpp $(SRC)/tree_utils.cpp 
 
 clean:
 	rm -f $(BIN)/analysis_bst $(BIN)/analysis_avl $(BIN)/analysis_rbt 
+
+.PHONY: all clean
+
