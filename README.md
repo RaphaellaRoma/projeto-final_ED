@@ -52,6 +52,12 @@ projeto-final_ED/
 ├── data/
 │   ├── Base de dados de documentos (.txt)
 │
+├── data_new/
+│   ├── Nova base de dados de documentos (.txt)
+│
+├── data_test/
+│   ├── Nova base de dados de documentos para analise de casos degenerados (.txt)
+│
 ├── Makefile  # Para compilar os arquivos da pasta `src/` e gerar os executáveis na pasta `build/`
 │
 ├── README.md # Descrição, instruções de compilação e execução do Projeto
