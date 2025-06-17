@@ -16,7 +16,7 @@ Existem dois tipos principais de índices invertidos:
 
 **Vantagens**:
 
-* Maior eficiencia em buscas textuais: permite pesquisas rápidas de texto completo, mesmo em grandes volumes de dados, o que o torna ideal para aplicações como mecanismos de busca, ao custo de maior processamento quando um documento é adicionado ao banco de dados.
+* Maior eficiência em buscas textuais: permite pesquisas rápidas de texto completo, mesmo em grandes volumes de dados, o que o torna ideal para aplicações como mecanismos de busca, ao custo de maior processamento quando um documento é adicionado ao banco de dados.
 * Implementação relativamente simples.
 * Ampla adoção: é uma das estruturas de dados mais popular em sistemas de recuperação de informação, com aplicações em larga escala em mecanismos de busca.
 
@@ -28,9 +28,9 @@ Existem dois tipos principais de índices invertidos:
 
 O presente relatório apresenta a implementação em C++ de um índice invertido utilizando três diferentes estruturas de dados: Árvore Binária de Busca (BST), Árvore AVL (AVL) e Árvore Rubro-Negra (RBT). O objetivo principal é avaliar e comparar o desempenho dessas estruturas nas operações de inserção e busca de palavras em um corpus textual real.
 
-## 2. Conceitos basicos
+## 2. Conceitos básicos
 
-1. Uma **Árvore Binária de Busca (Binary Search Tree - BST)** é uma estrutura de dados em forma de árvore binária que mantém uma propriedade especial de ordenação, permitindo a realização de buscas, inserções e remoções de forma eficiente.
+Uma **Árvore Binária de Busca (Binary Search Tree - BST)** é uma estrutura de dados em forma de árvore binária que mantém uma propriedade especial de ordenação, permitindo a realização de buscas, inserções e remoções de forma eficiente.
 
 Propriedade fundamental da BST:
 Para cada nó da árvore, que armazena uma chave, aplicam-se as seguintes condições:
@@ -38,9 +38,9 @@ Para cada nó da árvore, que armazena uma chave, aplicam-se as seguintes condi�
 * Todas as chaves presentes na subárvore esquerda são menores que a chave do nó atual.
 * Todas as chaves presentes na subárvore direita são maiores que a chave do nó atual.
 
-2. As **Árvores AVL** são uma variação das Árvores Binárias de Busca (BSTs) que buscam resolver o problema do desequilíbrio estrutural que pode surgir em inserções ou remoções repetidas. Em uma BST convencional, a árvore pode se tornar degenerada (muito inclinada para um dos lados), o que compromete a eficiência das operações.
+As **Árvores AVL** são uma variação das Árvores Binárias de Busca (BSTs) que buscam resolver o problema do desequilíbrio estrutural que pode surgir em inserções ou remoções repetidas. Em uma BST convencional, a árvore pode se tornar degenerada (muito inclinada para um dos lados), o que compromete a eficiência das operações.
 
-A proposta das árvores AVL é manter a árvore **balanceada** automaticamente após cada operação, garantindo que as operações de busca, inserção e remoção mantenham uma complexidade próxima a `O(log n)`.
+A proposta das árvores AVL é manter a árvore **balanceada** automaticamente após cada operação, garantindo que as operações de busca, inserção e remoção mantenham uma complexidade próxima à `O(log n)`.
 
 Para cada nó `n` da árvore, define-se o **fator de balanceamento** (*Balance Factor – BF*) como:
 BF(n) = altura(subárvore direita) - altura(subárvore esquerda)
@@ -50,7 +50,7 @@ A árvore é considerada balanceada no estilo AVL se, e somente se:
 
 Sempre que uma operação causar violação dessa condição, a estrutura da árvore é ajustada automaticamente por meio de **rotações simples ou duplas**, de forma a restaurar o balanceamento.
 
-3. Uma **árvore rubro-negra** é uma árvore binária de busca que incorpora uma informação adicional em cada nó: sua cor, que pode ser vermelha ou preta. Essa coloração é utilizada para impor regras estruturais que garantem que a árvore permaneça aproximadamente balanceada, mantendo a eficiência das operações básicas (busca, inserção, remoção) com complexidade `O(log n)`.
+Uma **árvore rubro-negra** é uma árvore binária de busca que incorpora uma informação adicional em cada nó: sua cor, que pode ser vermelha ou preta. Essa coloração é utilizada para impor regras estruturais que garantem que a árvore permaneça aproximadamente balanceada, mantendo a eficiência das operações básicas (busca, inserção, remoção) com complexidade `O(log n)`.
 
 Uma árvore rubro-negra deve obedecer às seguintes restrições estruturais:
 
@@ -62,7 +62,7 @@ Uma árvore rubro-negra deve obedecer às seguintes restrições estruturais:
 
 Essas propriedades garantem que a árvore tenha uma altura limitada em relação ao número de elementos, mantendo seu desempenho eficiente mesmo após várias operações.
 
-Alguns termos fundamentais que seram abordados ao longo desse relatorio:
+Alguns termos fundamentais que serão abordados ao longo desse relatório:
 
 * Nó: Unidade básica da árvore. Cada nó armazena um valor (ou dado) e ponteiros para seus filhos (outros nós ligados a ele). 
 * Raiz: É o nó mais alto da hierarquia, o único que não tem pai. Toda árvore tem exatamente uma raiz. 
@@ -73,19 +73,19 @@ Conceitos estruturais
 * Profundidade de um nó: Número de arestas da raiz até esse nó.
 * Altura de um nó: Número de arestas no caminho mais longo entre esse nó e uma de suas folhas.
 
-## 2. Divisão de Tarefas
+## 3. Divisão de Tarefas
 
 | Nome                        | Tarefa Principal                                                                                |
 |-----------------------------|-------------------------------------------------------------------------------------------------|
-| Stephany Casali Oliveira    | Implementação da BST (insert e search)  e confecção do relatorio                                |
-| Samyra Mara Candido Silva   | Implementação da AVL e testes unitarios da BST                                                  |
+| Stephany Casali Oliveira    | Implementação da BST (insert e search)  e confecção do relatório                                |
+| Samyra Mara Candido Silva   | Implementação da AVL e testes unitários da BST                                                  |
 | Raphaella Roma Mendes Alves | Implementação da RBT e Leitura de dados                                                         |
-| Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex e testes unitarios da RBT|
-| Elisa de Oliveira Soares    | CLI, Implementação da create e destroy e testes unitarios da AVL                                |
+| Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex e testes unitários da RBT|
+| Elisa de Oliveira Soares    | CLI, Implementação da create e destroy e testes unitários da AVL                                |
 
 Além das tarefas acima citadas, cada integrante foi responsável por documentar suas próprias funções.
 
-## 3. Estrutura do repositório:
+## 4. Estrutura do repositório:
 
 Este projeto está organizado de forma modular para facilitar o desenvolvimento, testes e análise de desempenho das diferentes estruturas de dados usadas na construção de um índice invertido. Abaixo segue a descrição de cada diretório e arquivo:
 
@@ -169,7 +169,7 @@ Bases de dados usadas nos experimentos:
 
 - `data/`: base de documentos principal.
 - `data_new/`: nova base textual para testes complementares.
-- `data_test/`: base com casos específicos (ex: degenerados, palavras repetidas, arquivos vazios).
+- `data_test/`: base com casos degenerados.
 
 ### `Makefile`
 Compila os arquivos da pasta `src/`, gerando os executáveis correspondentes na pasta `build/`.
@@ -177,30 +177,41 @@ Compila os arquivos da pasta `src/`, gerando os executáveis correspondentes na 
 ### `README.md`
 Arquivo que contém a descrição geral do projeto, instruções de compilação, execução e explicações sobre a organização do repositório.
 
-## 4. Metodologia
+## 5. Metodologia
 
 Neste projeto, implementamos um índice invertido em nível de registro, no qual cada termo extraído do corpus textual é associado a uma lista de documentos que o contêm.
 
-### 4.1. Leitura dos Documentos
+### 5.1. Leitura dos Documentos
 
-Para a leitura dos dados dos documentos, utilizamos a classe `ifstream`, fornecida pela biblioteca `fstream`. Essa classe permite a manipulação de arquivos de entrada de forma eficiente e estruturada. Para o armazenamento dos dados, optamos por criar uma struct chamada docs, que contém o ID do documento e um vetor com todos os termos extraídos da leitura.
+Para a leitura dos dados dos documentos, utilizamos a classe `ifstream`, fornecida pela biblioteca padrão C++ `<fstream>`. Essa classe permite abrir e manipular arquivos de forma eficiente e estruturada, possibilitando a leitura sequencial de palavras.
 
-Nossa basse de dados, encontrada nos dirtorios,
+No diretorio `src/`, o arquivo `data.cpp` contém as funções responsaveis por leitura, a função `ler_palavras` recebe o caminho de um arquivo e extrai todas as palavras, armazenando-as em um vetor de strings (`std::vector<std::string>`). Esse vetor é então utilizado para representar o conteúdo textual de cada documento.
 
-- `data/`: base de documentos principal, contem 10103 arquivos `.txt`, com palavras em português sem acentuação.
-- `data_new/`: nova base textual para testes complementares, contem arquivos `.txt`, com palavras em inglês.
-- `data_test/`: base com casos específicos, contém .
+Para organizar melhor as informações, criamos uma struct chamada `doc`, que contém dois campos principais:
 
-### 4.2. Estruturas Implementadas
+- `id`: identificador único do documento (geralmente um número).
+- `words`: vetor contendo todas as palavras extraídas do arquivo.
+
+A função `read_documents` é responsável por percorrer um diretório, abrir sequencialmente um número `n` de arquivos nomeados no formato `"0.txt"`, `"1.txt"`, ..., e carregar seus conteúdos utilizando a função `ler_palavras`. Caso algum arquivo não seja encontrado ou não possa ser aberto, a função emite uma mensagem de erro e continua o processo com o próximo arquivo.
+
+A leitura dos documentos é realizada nos arquivos `main_bst.cpp`, `main_avl.cpp` e `main_rbt.cpp`, localizados no diretório `src/`. Esses arquivos serão explicados em detalhes mais à frente neste relatório.
+
+Nossa base de documentos está organizada em diferentes diretórios para facilitar os testes e experimentos:
+
+- **`data/`**: Base principal com 10.103 arquivos `.txt`. Contém textos em português, sem acentuação.
+- **`data_new/`**: Base complementar para testes adicionais, com 10.000 arquivos `.txt` em inglês.
+- **`data_test/`**: Base para casos degenerados, contendo 2 arquivos `.txt` com letras do alfabeto e números, usada para testar situações específicas.
+
+### 5.2. Estruturas Implementadas
 
 - **BST**: Para a estrutura BST, foi necessário implementar as funções `insert`, `search`, `create` e `destroy`. Utilizamos o bloco try-catch na função create para lidar com possíveis exceções de alocação de memória.
 - **AVL**: Para a operação de inserção na AVL, foi necessário implementar as funções de rotação (`rotateLeft` e `rotateRight`). Essas rotações são fundamentais para manter o balanceamento da árvore após cada inserção. A lógica de balanceamento foi centralizada na função `rebalance`, que precisou das auxiliares `transplant`, `getHeight`, `recomputeHeight`, `getBalance`.
 As demais funções, como create, search e destroy, seguem estrutura semelhante à da BST.
 - **RBT**: Para a estrutura RBT, a maior dificuldade foi na criação da função `fixUp` utilizada na insert, responsável por manter as propriedades da RBT. As demais funções, como create, search e destroy, seguem estrutura semelhante à da BST.
 
-## 5. Implementação
+## 6. Implementação
 
-### 5.1. Interface de Linha de Comando (CLI)
+### 6.1. Interface de Linha de Comando (CLI)
 
 O programa foi desenvolvido com os seguintes comandos:
 
@@ -212,7 +223,7 @@ O programa foi desenvolvido com os seguintes comandos:
 * `<arvore>`: nome do executável da estrutura (ex: bst, avl, rbt)
 * `search`: comando que permite realizar buscas por palavras
 * `stats`: comando que gera estatísticas de desempenho durante a indexação
-* `view` : comando para visualizar a árvore do indice invertido
+* `view` : comando para visualizar a árvore do índice invertido
 * `<n_docs>`: número de documentos a indexar
 * `<diretório>`: caminho para a pasta contendo os arquivos .txt
 
@@ -254,9 +265,9 @@ As métricas exibidas incluem:
 ```
 chama a função printTree, e mostra a visualização da árvore com n_docs documentos
 
-## 6. Resultados
+## 7. Resultados
 
-### 6.1. Tabelas de Desempenho
+### 7.1. Tabelas de Desempenho
 
 | Estrutura | Tempo Total de Inserção (ms) | Tempo Médio de Busca (ms) | Comparações (Inserção) | Comparações (Busca) | Altura Média |
 |-----------|------------------------------|---------------------------|------------------------|---------------------|--------------|
@@ -265,11 +276,11 @@ chama a função printTree, e mostra a visualização da árvore com n_docs docu
 | RBT       |                              |                           |                        |                     |              |
 
 Pequeno texto adicional **aqui**
-### 6.2. Gráficos
+### 7.2. Gráficos
 
 Inserir **aqui** os gráficos comparativos (tempo, altura, comparações, etc.).
 
-## 7. Análise Comparativa
+## 8. Análise Comparativa
 
 - **BST**: [vantagens e limitações observadas]
 - **AVL**: [vantagens e limitações observadas]
@@ -281,7 +292,7 @@ Discussão sobre **aqui**:
 - Impacto da altura da árvore
 - Outros critérios relevantes
 
-## 8. Dificuldades Encontradas
+## 9. Dificuldades Encontradas
 
 Inicialmente, enfrentamos desafios na definição da estrutura de dados ideal para armazenar as palavras extraídas dos documentos. Após discutir diferentes abordagens, decidimos criar uma struct chamada docs, contendo o ID do documento e um vetor com todos os termos extraídos.
 
@@ -294,24 +305,24 @@ Para a AVL, encontramos uma grande dificuldade em entender o comportamento do ba
         /   \
       ●       ●
      / \     /  \
-   ●    ●  ●    ●
-  /        / \    \
-●        ●   ●    ●
-          / \
+    ●   ●   ●    ●
+   /       / \    \
+  ●       ●   ●    ●
+         / \
         ●   ●
 ```
 
-uma arvore balanciada com galho menor 3 e galho maior 5.
+uma arvore balanceada com galho menor 3 e galho maior 5.
 
 Na RBT, a função `fixUp` representou o maior obstáculo, exigindo um bom entendimento dos casos em que rotações e trocas de cor devem ser aplicadas para preservar as propriedades da árvore rubro-negra.
 
 Quanto à CLI, a principal dificuldade esteve na estruturação da lógica de funcionamento, principalmente no tratamento de erros e na validação de argumentos. Foi necessário implementar verificações para evitar argumentos inválidos, comandos desconhecidos ou diretórios inexistentes.
 
-## 9. Conclusão
+## 10. Conclusão
 
 **aqui**
 
-## 10. Referências
+## 11. Referências
 
 [1] GeeksforGeeks. *Inverted Index*. Disponível em: [https://www.geeksforgeeks.org/inverted-index/](https://www.geeksforgeeks.org/inverted-index/). Acesso em: 16 jun. 2025.
 
