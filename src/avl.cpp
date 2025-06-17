@@ -68,7 +68,7 @@ namespace AVL {
             parent->right = newNode;
         }
 
-        result.numRotations= rebalance(tree, newNode);
+        result.numRotations = rebalance(tree, newNode);
         result.alreadyInsert = 0;
         auto end = std::chrono::high_resolution_clock::now();
         result.executionTime = std::chrono::duration<double>(end - start).count();

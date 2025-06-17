@@ -76,6 +76,7 @@ int main(int argc, char* argv[]) {
         int numNos = 0;
         double searchtime = 0.0;
         double searchtimemax = 0.0;
+        int numRotations = 0;
 
         for (int i = 0; i < n_docs; ++i) {
             doc document_i = documentos[i];
@@ -87,6 +88,7 @@ int main(int argc, char* argv[]) {
                 searchtime += search_p.executionTime;
                 comparisons += insercao_p.numComparisons;
                 insertiontime += insercao_p.executionTime;
+                numRotations += insercao_p.numRotations;
                 numPalavras += 1;
                 if (search_p.executionTime>searchtimemax){
                     searchtimemax = search_p.executionTime;
@@ -112,6 +114,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Altura da arvore: " << height << std::endl;
         std::cout << "Menor caminho: " << min_deph << std::endl;
         std::cout << "Maior caminho: " << height << std::endl;
+        std::cout << "Numero de rotacoes: " << numRotations << std::endl;
         std::cout << "Numero de nos na arvore: " << numNos << std::endl;
         std::cout << "Numero total de palavras nos " << n_docs << " documentos: " << numPalavras << std::endl;
     
