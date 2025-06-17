@@ -228,8 +228,8 @@ int rebalance(BinaryTree* tree, Node* node) {
         }
 
         node = node->parent;
-        return numRotations;
     }
+    return numRotations;
 }
 
 void printIndexHelper(Node* node, int& index, Node* NIL) {

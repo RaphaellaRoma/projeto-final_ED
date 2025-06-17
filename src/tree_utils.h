@@ -116,14 +116,19 @@ int getHeight(Node* n, Node* NIL = nullptr);
 void recomputeHeight(Node* n, Node* NIL = nullptr);
 
 /**
- * @brief Recalcula a altura de todos os nós da árvore.
+ * @brief Recalcula a altura de todos os nós da árvore, de baixo para cima.
  *
  * @param n nó que foi inserido.
  * @param NIL Ponteiro para o NIL, caso ele exista.
  */
 void recomputeHeightTree(Node* n, Node* NIL = nullptr);
 
-// Documentar
+/**
+ * @brief Recalcula a altura de todos os nós da árvore, de cima para baixo.
+ *
+ * @param n nó que foi inserido.
+ * @param NIL Ponteiro para o NIL, caso ele exista.
+ */
 void recomputeHeightAll(Node* n, Node* NIL);
 
 
