@@ -7,7 +7,7 @@
 
 #include "../src/bst.h"
 #include "metrics.h"
-#include "../src/data.h"
+#include "../src/data_new.h"
 
 int main() {
     std::ofstream arquivo("results/bst_results.csv");
@@ -18,58 +18,46 @@ int main() {
     }
 
     arquivo << gerarCabecalhoCSV();
-    std::vector<doc> documentos = read_documents("../data/", 10000);
+    std::vector<doc> documentos = read_documents("../data_new/", 10000);
 
     for (int qtdDocs = 100; qtdDocs <= 10000; qtdDocs+=100) {
-        std::cout << "for" << qtdDocs << std::endl; // debug
         BinaryTree* arvore = BST::create();
 
         Metrics m;
-        m.estrutura = "BST";
+        m.estrutura = "bst";
         m.qtdDocumentos = qtdDocs;
+        m.qtdPalavras = 0;
         m.totalComparacoesInsercao = 0;
         m.totalComparacoesBusca = 0;
         m.tempoTotalInsercao = 0.0;
         m.tempoTotalBusca = 0.0;
+        m.numRotacoes = 0;
 
-        int totalPalavras = 0;
-
-        // Inserção - medir tempo e comparações
+        // Inserção e busca - medir tempo e comparações
         for (int i = 0; i < qtdDocs; i++) {
             const doc& documento = documentos[i];
             for (size_t j = 0; j < documento.words.size(); j++) {
                 const std::string& palavra = documento.words[j];
                 InsertResult res = BST::insert(arvore, palavra, documento.id);
+                SearchResult res = BST::search(arvore, palavra);
                 m.totalComparacoesInsercao += res.numComparisons;
                 m.tempoTotalInsercao += res.executionTime;
-                totalPalavras++;
-            }
+                m.numRotacoes += res.numRotations;
+                m.qtdpalavras++;
+                m.totalComparacoesBusca += res.numComparisons;
+                m.tempoTotalBusca += res.executionTime;
+            }    
         }
-
-        m.tempoMedioInsercao = (totalPalavras > 0) ? m.tempoTotalInsercao / totalPalavras : 0.0;
-
+        m.tempoMedioInsercao = (m.qtdpalavras > 0) ? m.tempoTotalInsercao / m.qtdpalavras : 0.0;
         m.altura = getHeight(arvore->root);
         m.menorGalho = minDeph(arvore->root);
         m.maiorGalho = m.altura;
-
-        // Busca - medir tempo e comparações
-        for (int i = 0; i < qtdDocs; i++) {
-            const doc& documento = documentos[i];
-            for (size_t j = 0; j < documento.words.size(); j++) {
-                const std::string& palavra = documento.words[j];
-                SearchResult res = BST::search(arvore, palavra);
-                m.totalComparacoesBusca += res.numComparisons;
-                m.tempoTotalBusca += res.executionTime;
-            }
-        }
-
-        m.tempoMedioBusca = (totalPalavras > 0) ? m.tempoTotalBusca / totalPalavras : 0.0;
+        m.tempoMedioBusca = (m.qtdpalavras > 0) ? m.tempoTotalBusca / m.qtdpalavras : 0.0;
 
         arquivo << gerarLinhaCSV(m) << "\n";
 
         BST::destroy(arvore);
 
-        // Opcional: mostrar progresso
         if (qtdDocs % 1000 == 0) {
             std::cout << "Processado: " << qtdDocs << " documentos\n";
         }

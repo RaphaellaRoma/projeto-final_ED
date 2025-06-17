@@ -7,6 +7,7 @@
 struct Metrics {
     std::string estrutura;
     int qtdDocumentos;
+    int qtdPalavras;
     double tempoTotalInsercao;
     double tempoMedioInsercao;
     double tempoTotalBusca;
@@ -16,6 +17,7 @@ struct Metrics {
     int maiorGalho;
     int totalComparacoesInsercao;
     int totalComparacoesBusca;
+    int numRotacoes;
 };
 
 // Funções livres:
