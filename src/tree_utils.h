@@ -124,13 +124,12 @@ void recomputeHeight(Node* n, Node* NIL = nullptr);
 void recomputeHeightTree(Node* n, Node* NIL = nullptr);
 
 /**
- * @brief Recalcula a altura de todos os nós da árvore, de cima para baixo.
+ * @brief Recalcula a altura apenas se for necessároo.
  *
  * @param n nó que foi inserido.
  * @param NIL Ponteiro para o NIL, caso ele exista.
  */
-void recomputeHeightAll(Node* n, Node* NIL);
-
+void recomputeHeightTreeIfNeeded(Node* n, Node* NIL);
 
 /**
  * @brief Calcula o fator de balanceamento de um nó.

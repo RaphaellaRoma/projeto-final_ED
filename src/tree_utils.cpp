@@ -124,11 +124,18 @@ void recomputeHeightTree(Node* n, Node* NIL) {
     }
 }
 
-void recomputeHeightAll(Node* n, Node* NIL) {
-    if (n == NIL) return;
-    recomputeHeightAll(n->left, NIL);
-    recomputeHeightAll(n->right, NIL);
-    recomputeHeight(n, NIL);
+
+void recomputeHeightTreeIfNeeded(Node* n, Node* NIL) {
+    while (n != NIL) {
+        int oldHeight = n->height;
+        int left = getHeight(n->left, NIL);
+        int right = getHeight(n->right, NIL);
+        int newHeight = 1 + std::max(left, right);
+
+        if (oldHeight == newHeight) break; // já está correto, pare de subir
+        n->height = newHeight;
+        n = n->parent;
+    }
 }
 
 int getBalance(Node* n) {

@@ -143,7 +143,10 @@ namespace RBT{
 
         // Chamada para corrigir propriedades da RBT
         result.numRotations = fixUp(tree, newNode);
-        recomputeHeightAll(tree->root, tree->NIL);
+        if (result.numRotations > 0) {
+            recomputeHeightTreeIfNeeded(newNode->parent, tree->NIL);
+        }
+
 
         auto end = std::chrono::high_resolution_clock::now();
         result.executionTime = std::chrono::duration<double>(end - start).count();
