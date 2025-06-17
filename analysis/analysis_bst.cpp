@@ -29,15 +29,16 @@ int main() {
                 m.totalComparacoesInsercao += resInsert.numComparisons;
                 m.tempoTotalInsercao += resInsert.executionTime;
                 m.numRotacoes += resInsert.numRotations;
+                m.qtdPalavrasTotais++;
                 if(resInsert.alreadyInsert == 0){
-                    m.qtdPalavras++;
+                    m.qtdPalavrasDist++;
                 }
                 m.totalComparacoesBusca += resSearch.numComparisons;
                 m.tempoTotalBusca += resSearch.executionTime;
             }    
         }
-        m.tempoMedioInsercao = (m.qtdPalavras > 0) ? m.tempoTotalInsercao / m.qtdPalavras : 0.0;
-        m.tempoMedioBusca = (m.qtdPalavras > 0) ? m.tempoTotalBusca / m.qtdPalavras : 0.0;
+        m.tempoMedioInsercao = (m.qtdPalavrasTotais > 0) ? m.tempoTotalInsercao / m.qtdPalavrasTotais : 0.0;
+        m.tempoMedioBusca = (m.qtdPalavrasTotais > 0) ? m.tempoTotalBusca / m.qtdPalavrasTotais : 0.0;
         m.altura = getHeight(tree->root);
         m.menorGalho = minDeph(tree->root);
         m.maiorGalho = m.altura;

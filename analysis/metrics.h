@@ -9,7 +9,8 @@
 struct Metrics {
     std::string estrutura;              // Nome da estrutura (ex: "avl", "bst", "rbt")
     int qtdDocumentos;                  // Quantidade de documentos processados
-    int qtdPalavras;                    // Número total de palavras inseridas (sem repetição)
+    int qtdPalavrasTotais;              // Número total de palavras (considerando repetições)
+    int qtdPalavrasDist;                // Número total de palavras inseridas (sem repetição)
     double tempoTotalInsercao;          // Tempo total gasto em inserções (em segundos)
     double tempoMedioInsercao;          // Tempo médio por inserção (em segundos)
     double tempoTotalBusca;             // Tempo total gasto em buscas (em segundos)

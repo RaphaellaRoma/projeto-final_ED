@@ -204,10 +204,86 @@ Nossa base de documentos está organizada em diferentes diretórios para facilit
 
 ### 5.2. Estruturas Implementadas
 
-- **BST**: Para a estrutura BST, foi necessário implementar as funções `insert`, `search`, `create` e `destroy`. Utilizamos o bloco try-catch na função create para lidar com possíveis exceções de alocação de memória.
-- **AVL**: Para a operação de inserção na AVL, foi necessário implementar as funções de rotação (`rotateLeft` e `rotateRight`). Essas rotações são fundamentais para manter o balanceamento da árvore após cada inserção. A lógica de balanceamento foi centralizada na função `rebalance`, que precisou das auxiliares `transplant`, `getHeight`, `recomputeHeight`, `getBalance`.
-As demais funções, como create, search e destroy, seguem estrutura semelhante à da BST.
-- **RBT**: Para a estrutura RBT, a maior dificuldade foi na criação da função `fixUp` utilizada na insert, responsável por manter as propriedades da RBT. As demais funções, como create, search e destroy, seguem estrutura semelhante à da BST.
+Para a estrutura **BST**, foi necessário implementar as funções `insert`, `search`, `create` e `destroy`, contidas no arquivo `bst.cpp`. Estas funções são responsáveis por inserir palavras na árvore, buscar termos indexados, criar a árvore dinamicamente e liberar a memória ao final da execução.
+
+A função `create` utiliza um bloco `try-catch` para capturar possíveis exceções lançadas pela falha na alocação dinâmica de memória com `new`. Se a alocação falhar, um ponteiro nulo é retornado e uma mensagem de erro é exibida.
+
+A função `insert` percorre a árvore comparando a nova palavra com as palavras já existentes nos nós, a fim de manter a propriedade de ordenação da BST. Se a palavra já estiver presente no nó atual, apenas adiciona o `documentId` correspondente, se ainda não estiver associado. Caso contrário, cria um novo nó na posição correta (esquerda ou direita) e atualiza a altura da árvore com `recomputeHeightTree`.
+
+A função `search` realiza a busca por um termo na árvore, retornando um objeto `SearchResult` contendo informações como:
+- Se a palavra foi encontrada (`found`),
+- Lista de documentos onde ela aparece (`documentIds`),
+- Número de comparações feitas (`numComparisons`),
+- Tempo de execução da busca (`executionTime`).
+
+Por fim, a função `destroy` é responsável por liberar os nós da árvore recursivamente, evitando vazamentos de memória.
+
+O arquivo `main_bst.cpp`, localizado em `src/`, implementa a interface de linha de comando da árvore BST. Ele permite executar diferentes comandos para interagir com a árvore: `search`, `stats` e `view`, que serão explicados em detalhes mais à frente neste relatório. A leitura dos arquivos de texto ocorre utilizando a função `read_documents` presente no arquivo `data.cpp`.
+
+A estrutura **AVL** reutiliza as funções `create`, `search` e `destroy` da BST, com adições específicas para manter o balanceamento após inserções:
+
+- `insert`: além da inserção tradicional, invoca a função `rebalance`, que garante a altura balanceada da árvore.
+- `rebalance`: avalia o fator de balanceamento de um nó e executa rotações (`rotateLeft`, `rotateRight`) conforme necessário. Utiliza as auxiliares:
+  - `transplant`,
+  - `getHeight`,
+  - `recomputeHeight`,
+  - `getBalance`.
+
+Essas operações asseguram complexidade O(log n) para buscas e inserções. O comando `stats` do `main_avl.cpp` pode ser usado para visualizar o impacto do balanceamento.
+
+### RBT (Árvore Rubro-Negra)
+
+A RBT compartilha a mesma base estrutural das demais, com destaque para a função:
+
+- `fixUp`: aplicada após inserções, é responsável por manter as propriedades da árvore rubro-negra (ex.: raiz preta, ausência de nós vermelhos consecutivos, mesmo número de nós pretos nos caminhos até as folhas).
+
+As demais funções (`create`, `insert`, `search`, `destroy`) seguem a estrutura da BST, com adaptações para manipular cores e garantir o balanceamento automático.
+
+A implementação de linha de comando está em `main_rbt.cpp`, com comandos semelhantes aos das demais estruturas.
+
+## 5.3 Funções Auxiliares (`tree_utils.h`)
+
+As funções auxiliares fornecem suporte essencial à manipulação das estruturas de árvore, abstraindo tarefas recorrentes como criação de nós, rotação, balanceamento e visualização.
+
+### Criação e Liberação de Nós
+
+- `createNode(word, documentId, parent)`: Cria um novo nó com a palavra informada e o identificador do documento. Define ponteiros `left` e `right` como `nullptr` (ou `NIL`), inicia a altura como 0 e define a cor como vermelha (`isRed = 1`), útil para árvores RBT.
+- `deleteNode(node, NIL)`: Libera recursivamente a memória alocada para um nó e suas subárvores. Garante que nós `NIL` sejam ignorados, evitando falhas.
+
+### Busca
+
+- `searchNode(tree, word)`: Realiza a busca de uma palavra a partir da raiz da árvore. Retorna um ponteiro para o nó correspondente ou `tree->NIL` caso não seja encontrado.
+
+### Cálculo e Recomputação de Altura
+
+- `computeNodeHeight(node, NIL)`: Retorna a altura de um nó a partir das alturas de seus filhos.
+- `getHeight(node, NIL)`: Retorna a altura armazenada no nó, ou -1 se for `NIL`.
+- `recomputeHeight(node, NIL)`: Recalcula e atualiza a altura do nó com base na altura de seus filhos.
+- `recomputeHeightTree(node, NIL)`: Recalcula a altura de todos os ancestrais de um nó até a raiz.
+- `recomputeHeightAll(node, NIL)`: Recalcula a altura de todos os nós da árvore recursivamente.
+
+### Balanceamento
+
+- `getBalance(node)`: Retorna o fator de balanceamento de um nó (diferença entre altura da subárvore esquerda e direita).
+- `isBalanced(node)`: Verifica recursivamente se todos os nós da árvore estão balanceados (útil para diagnosticar BSTs não balanceadas).
+- `rebalance(tree, node)`: Verifica e corrige o balanceamento de um nó até a raiz. Executa rotações simples ou duplas conforme necessário. Retorna o número de rotações realizadas.
+
+### Rotações
+
+- `rotateLeft(tree, x)`: Executa rotação simples à esquerda sobre o nó `x`.
+- `rotateRight(tree, y)`: Executa rotação simples à direita sobre o nó `y`.
+- `transplant(tree, u, v)`: Substitui o nó `u` pelo nó `v` na estrutura da árvore, atualizando ponteiros dos pais. Usado durante rotações e remoções.
+
+### Verificações para RBT
+
+- `check_no_red_red(node, NIL)`: Verifica se não há dois nós vermelhos consecutivos, garantindo uma das propriedades da árvore rubro-negra.
+- `check_black_height(node, NIL, blackHeight, currentHeight)`: Verifica se todos os caminhos da raiz até as folhas possuem o mesmo número de nós pretos (black-height).
+
+### Visualização e Impressão
+
+- `printIndex(tree)`: Percorre a árvore em ordem e imprime o índice de palavras com os IDs dos documentos. Indica se o nó é vermelho (R) ou preto (B), útil para RBTs.
+- `printTree(tree)`: Exibe graficamente a estrutura da árvore em texto, com indentação para mostrar os ramos e indicações visuais da hierarquia e da cor dos nós.
+- `minDeph(root, NIL)`: Retorna a menor profundidade até uma folha, útil para avaliação estrutural ou estatística da árvore.
 
 ## 6. Implementação
 
