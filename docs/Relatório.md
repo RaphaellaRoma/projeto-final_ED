@@ -359,17 +359,17 @@ Fluxo de execução dos scripts
 4. Loop de teste incremental
 - Para cada faixa de documentos (de 100 a 10.000 documentos, de 100 em 100):
 
-* Insere todas as palavras de cada documento na árvore.
-* Após cada inserção, faz uma busca pela mesma palavra.
-* Registra métricas de desempenho como:
- - Total de comparações na inserção
- - Tempo total de inserção
- - Número de rotações (quando aplicável)
- - Total de palavras únicas
- - Total de comparações durante as buscas
- - Tempo total de busca
- - Altura da árvore
- - Profundidade mínima e máxima da árvore
+- Insere todas as palavras de cada documento na árvore.
+- Após cada inserção, faz uma busca pela mesma palavra.
+- Registra métricas de desempenho como:
+  - Total de comparações na inserção
+  - Tempo total de inserção
+  - Número de rotações (quando aplicável)
+  - Total de palavras únicas
+  - Total de comparações durante as buscas
+  - Tempo total de busca
+  - Altura da árvore
+  - Profundidade mínima e máxima da árvore
 
 5. Cálculo de médias
 - Tempo médio de inserção por palavra
