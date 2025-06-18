@@ -35,6 +35,7 @@ int main(int argc, char* argv[]) {
         std::string palavra;
 
         while (true) {
+            std::cout << "\n======== BUSCA BST ========\n";
             std::cout << "Digite . para sair. Palavra buscada: ";
             std::cin >> palavra;
 
@@ -58,6 +59,7 @@ int main(int argc, char* argv[]) {
 
         };
     } else if (comando == "stats") {
+        std::cout << "\n======== ESTATISTICAS BST ========\n";
         // Início da contagem de tempo
         auto start = std::chrono::high_resolution_clock::now();
 
@@ -77,7 +79,6 @@ int main(int argc, char* argv[]) {
         double searchtime = 0.0;
         double searchtimemax = 0.0;
         int numRotations = 0;
-
 
         for (int i = 0; i < n_docs; ++i) {
             doc document_i = documentos[i];
@@ -120,6 +121,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Numero total de palavras nos " << n_docs << " documentos: " << numPalavras << std::endl;
 
     }  else if (comando == "view") {
+        std::cout << "\n======== VISUALIZACAO BST ========\n";
         vector<doc> documentos = read_documents(diretorio, n_docs);
         for (int i = 0; i < n_docs; ++i) {
             doc document_i = documentos[i];
@@ -135,9 +137,11 @@ int main(int argc, char* argv[]) {
         int chooseView;
         std::cin >> chooseView;
         if (chooseView == 1){
+            std::cout << "\n======== ESTRUTURA DA ARVORE ========\n";
             printTree(tree);
         }
         else if (chooseView == 2) {
+            std::cout << "\n======== INDICE INVERTIDO ========\n";
             printIndex(tree);
         }
         else{
