@@ -17,10 +17,10 @@ int main() {
     BinaryTree* tree = RBT::create();
     Metrics metrics = initMetrics("rbt");
     double totalSearchTime = 0.0;
+    double maxSearchTime = 0.0;
 
     for (int numDocs = 100; numDocs <= 10000; numDocs += 100) {
         metrics.numDocuments = numDocs;
-        double maxSearchTime = 0.0;
 
         for (int i = numDocs - 100; i < numDocs; i++) {
             const doc& document = documents[i];
@@ -30,7 +30,7 @@ int main() {
                 SearchResult searchRes = RBT::search(tree, word);
                 metrics.totalInsertTime += insertRes.executionTime;
                 totalSearchTime += searchRes.executionTime;
-                maxSearchTime = insertRes.executionTime;
+                maxSearchTime = searchRes.executionTime;
 
                 if (metrics.maxSearchTime < maxSearchTime) {
                     metrics.maxSearchTime = maxSearchTime;
