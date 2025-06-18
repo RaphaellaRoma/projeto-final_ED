@@ -39,8 +39,8 @@ int main() {
         }
         m.tempoMedioInsercao = (m.qtdPalavrasTotais > 0) ? m.tempoTotalInsercao / m.qtdPalavrasTotais : 0.0;
         m.tempoMedioBusca = (m.qtdPalavrasTotais > 0) ? m.tempoTotalBusca / m.qtdPalavrasTotais : 0.0;
-        m.altura = getHeight(tree->root);
-        m.menorGalho = minDeph(tree->root);
+        m.altura = getHeight(tree->root, tree->NIL);
+        m.menorGalho = minDeph(tree->root, tree->NIL);
         m.maiorGalho = m.altura;
 
         arquivo << gerarLinhaCSV(m) << "\n";
