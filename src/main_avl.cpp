@@ -107,9 +107,9 @@ int main(int argc, char* argv[]) {
             std::cout << "Tempo de busca medio: 0 ms" << std::endl; // em milisegundos
         } else {
             std::cout << "Tempo de insercao medio: " << insertiontime * 1000 / numPalavras << " ms" << std::endl; // em milisegundos
-            std::cout << "Tempo de busca medio: " << searchtime / numPalavras << " ms" << std::endl; // em milisegundos
+            std::cout << "Tempo de busca medio: " << searchtime * 1000 / numPalavras << " ms" << std::endl; // em milisegundos
         }
-        std::cout << "Tempo de busca maximo: " << searchtimemax << " ms" << std::endl; // em milisegundos
+        std::cout << "Tempo de busca maximo: " << searchtimemax * 1000 << " ms" << std::endl; // em milisegundos
         std::cout << "Numero de comparacoes: " << comparisons << std::endl;
         std::cout << "Altura da arvore: " << height << std::endl;
         std::cout << "Menor caminho: " << min_deph << std::endl;

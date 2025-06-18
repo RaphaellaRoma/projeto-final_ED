@@ -28,9 +28,9 @@ int main() {
                 const std::string& word = document.words[j];
                 InsertResult insertRes = RBT::insert(tree, word, document.id);
                 SearchResult searchRes = RBT::search(tree, word);
-                metrics.totalInsertTime += insertRes.executionTime;
-                totalSearchTime += searchRes.executionTime;
-                maxSearchTime = searchRes.executionTime;
+                metrics.totalInsertTime += insertRes.executionTime * 1000;
+                totalSearchTime += searchRes.executionTime * 1000;
+                maxSearchTime = searchRes.executionTime * 1000;
 
                 if (metrics.maxSearchTime < maxSearchTime) {
                     metrics.maxSearchTime = maxSearchTime;

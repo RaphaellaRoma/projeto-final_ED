@@ -9,10 +9,10 @@ struct Metrics {
     int numDocuments;                    // Quantidade de documentos processados
     int totalWords;                      // Número total de palavras (considerando repetições)
     int distinctWords;                   // Número total de palavras inseridas (sem repetição)
-    double totalInsertTime;              // Tempo total gasto em inserções (em segundos)
-    double avgInsertTime;                // Tempo médio por inserção (em segundos)
-    double maxSearchTime;                // Tempo máximo gasto em buscas (em segundos)
-    double avgSearchTime;                // Tempo médio por busca (em segundos)
+    double totalInsertTime;              // Tempo total gasto em inserções (em milisegundos)
+    double avgInsertTime;                // Tempo médio por inserção (em milisegundos)
+    double maxSearchTime;                // Tempo máximo gasto em buscas (em milisegundos)
+    double avgSearchTime;                // Tempo médio por busca (em milisegundos)
     int height;                          // Altura da árvore ao final da execução
     int minBranch;                       // Menor profundidade entre a raiz e uma folha
     int maxBranch;                       // Maior profundidade (igual à altura)
