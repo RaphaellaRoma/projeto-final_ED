@@ -78,9 +78,9 @@ Conceitos estruturais
 | Nome                        | Tarefa Principal                                                                                |
 |-----------------------------|-------------------------------------------------------------------------------------------------|
 | Stephany Casali Oliveira    | Implementação da BST (insert e search)  e confecção do relatório                                |
-| Samyra Mara Candido Silva   | Implementação da AVL, testes unitários da BST, implementações das funçoes de metricas para gerar os CSVs de analise                                                 |
+| Samyra Mara Candido Silva   | Implementação da AVL, testes unitários da BST, implementações das funções de métricas para gerar os CSVs de analise                                                 |
 | Raphaella Roma Mendes Alves | Implementação da RBT e Leitura de dados                                                         |
-| Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex, testes unitários da RBT e implementação em Python dos plots para geras graficos e tabelas comparativas|
+| Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex, testes unitários da RBT e implementação em Python dos plots para geras gráficos e tabelas comparativas|
 | Elisa de Oliveira Soares    | CLI (main de todas as árvores), Implementação da create e destroy, testes unitários da AVL e suportes gerais     |
 
 Além das tarefas acima citadas, cada integrante foi responsável por documentar suas próprias funções.
@@ -129,7 +129,7 @@ projeto-final_ED/
 │   ├── Nova base de dados de documentos (.txt)
 │
 ├── data_test/
-│   ├── Nova base de dados de documentos para analise de casos degenerados (.txt)
+│   ├── Nova base de dados de documentos para análise de casos degenerados (.txt)
 │
 ├── Makefile  # Para compilar os arquivos da pasta `src/` e gerar os executáveis na pasta `build/`
 │
@@ -139,7 +139,7 @@ projeto-final_ED/
 #### `src/`
 Contém o código-fonte principal:
 
-- `main_bst.cpp`, `main_avl.cpp`, `main_rbt.cpp`: interfaces de linha de comando para indexação, busca e vizualização para as árvores BST, AVL e RBT respectivamente.
+- `main_bst.cpp`, `main_avl.cpp`, `main_rbt.cpp`: interfaces de linha de comando para indexação, busca e visualização para as árvores BST, AVL e RBT respectivamente.
 - `bst.cpp`/`bst.h`, `avl.cpp`/`avl.h`, `rbt.cpp`/`rbt.h`: implementações completas das estruturas de árvore.
 - `tree_utils.cpp`/`tree_utils.h`: estruturas auxiliares e funções como criação de nós, cálculo de altura, busca, exibição da árvore etc.
 - `data.cpp`/`data.h`: responsáveis pela leitura do diretório de dados e carregamento dos arquivos `.txt`.
@@ -152,9 +152,9 @@ Armazena os executáveis gerados após a compilação. Mantém o projeto organiz
 Scripts responsáveis pela coleta de métricas e análise de desempenho:
 
 - `analysis_avl.cpp`, `analysis_bst.cpp`, `analysis_rbt.cpp`: scripts para coleta de dados.
-- `metrics.cpp` / `metrics.h`: funções auxiliares e metricas para gerar os CSVs.
+- `metrics.cpp` / `metrics.h`: funções auxiliares e métricas para gerar os CSVs.
 - `Makefile`: compila os arquivos da pasta `analysis/`.
-- `results/`: arquivos `.csv` contendo os dados brutos coletados durante os testes da analise.
+- `results/`: arquivos `.csv` contendo os dados brutos coletados durante os testes da análise.
 - `plots/`:
   - `plot_analysis.py`: script Python que gera gráficos a partir dos dados em `.csv`.
 
@@ -185,7 +185,7 @@ Neste projeto, implementamos um índice invertido em nível de registro, no qual
 
 Para a leitura dos dados dos documentos, utilizamos a classe `ifstream`, fornecida pela biblioteca padrão C++ `<fstream>`. Essa classe permite abrir e manipular arquivos de forma eficiente e estruturada, possibilitando a leitura sequencial de palavras.
 
-No diretorio `src/`, o arquivo `data.cpp` contém as funções responsaveis por leitura, a função `ler_palavras` recebe o caminho de um arquivo e extrai todas as palavras, armazenando-as em um vetor de strings (`std::vector<std::string>`). Esse vetor é então utilizado para representar o conteúdo textual de cada documento.
+No diretório `src/`, o arquivo `data.cpp` contém as funções responsáveis por leitura, a função `ler_palavras` recebe o caminho de um arquivo e extrai todas as palavras, armazenando-as em um vetor de strings (`std::vector<std::string>`). Esse vetor é então utilizado para representar o conteúdo textual de cada documento.
 
 Para organizar melhor as informações, criamos uma struct chamada `doc`, que contém dois campos principais:
 
@@ -194,7 +194,7 @@ Para organizar melhor as informações, criamos uma struct chamada `doc`, que co
 
 A função `read_documents` é responsável por percorrer um diretório, abrir sequencialmente um número `n` de arquivos nomeados no formato `"0.txt"`, `"1.txt"`, ..., e carregar seus conteúdos utilizando a função `ler_palavras`. Caso algum arquivo não seja encontrado ou não possa ser aberto, a função emite uma mensagem de erro e continua o processo com o próximo arquivo.
 
-A leitura dos documentos é realizada nos arquivos `main_bst.cpp`, `main_avl.cpp` e `main_rbt.cpp`, localizados no diretório `src/`. Esses arquivos serão explicados em detalhes mais à frente neste relatório. Tambem destacamos o uso das funções de leitura na geração dos CSVs de analises que tambem serao detalhadas mais a frente.
+A leitura dos documentos é realizada nos arquivos `main_bst.cpp`, `main_avl.cpp` e `main_rbt.cpp`, localizados no diretório `src/`. Esses arquivos serão explicados em detalhes mais à frente neste relatório. Também destacamos o uso das funções de leitura na geração dos CSVs de analises que também serâo detalhadas mais a frente.
 
 Nossa base de documentos está organizada em diferentes diretórios para facilitar os testes e experimentos:
 
@@ -263,7 +263,7 @@ As funções auxiliares fornecem suporte essencial à manipulação das estrutur
 
 - `getBalance(node)`: Retorna o fator de balanceamento de um nó (diferença entre altura da subárvore esquerda e direita).
 - `isBalanced(node)`: Verifica recursivamente se todos os nós da árvore estão balanceados (útil para diagnosticar BSTs não balanceadas).
-- `rebalance(tree, node)`: Verifica e corrige o balanceamento de um nó até a raiz. Executa rotações simples ou duplas conforme necessário. Retorna o número de rotações realizadas.
+- `rebalance(tree, node)`: Verifica e corrige o balanceamento de um nó até a raiz. Executa rotações simples ou duplas conforme necessárias. Retorna o número de rotações realizadas.
 
 ### Rotações
 
@@ -425,44 +425,37 @@ Essa coleta de métricas foi essencial para as comparações apresentadas nas se
 Pequeno texto adicional **aqui**
 ### 7.2. Gráficos
 
-### Comparação entre Tempo de Busca Observado e Esperado
+### Número de Rotações
 
-A seguir, comparamos os tempos de busca observados nos testes com os comportamentos teóricos esperados para cada estrutura de dados:
+As imagens a seguir apresentam o número total de rotações realizadas por cada estrutura balanceada **AVL** e **RBT**:
 
-<img src="./graphs_tables/tempo_busca.png" width="800"/>
+<img src="./graphs_tables/num_rotacoes.png" width="1000"/>
+<img src="./graphs_tables/num_rotacoes_dist.png" width="1000"/>
+<img src="./graphs_tables/rotacoes_insercao.png" width="1000"/>
 
-#### BST 
-
-- **Comportamento esperado:**
-  - No pior dos casos, a BST pode se degenerar em uma estrutura linear (semelhante a uma lista encadeada), fazendo com que o tempo de busca atinja **O(n)**, como visto anteriormente nesse relatório.
-
-- **Comportamento observado:**
-  - O **tempo médio de busca** foi o menor entre as três estruturas, o que indica que muitos termos foram encontrados nos níveis superiores da árvore. Isso não contradiz a teoria: se as árvores fossem balanceadas, haveria uma pequena variação entre o caminho mais curto e o mais longo, o que resultaria em tempos de busca similares para diferentes palavras.
-  - No entanto, como a BST **não realiza balanceamento automático**, alguns ramos mais curtos acabam "compensando" o tempo de busca dos ramos mais longos na média geral.
-  - Por outro lado, o **tempo máximo de busca** apresentou um **salto brusco** a partir de 6000 documentos, sinalizando **degeneração da estrutura** — exatamente como previsto teoricamente.
-
-#### AVL 
+#### AVL
 
 - **Comportamento esperado:**
-  - Tempo de busca garantido em **O(log n)**, devido as rotações constantes.
-  
+  - A AVL como dito anteriormente, exige **rotações frequentes** (simples ou duplas) a cada inserção que desequilibre a árvore.
+  - Portanto, espera-se que o **número de rotações** cresça significativamente com o aumento de documentos.
+
 - **Comportamento observado:**
-  - **Tempo máximo de busca** foi o menor e mais estável dentre todas as estruturas.
-  - **Tempo médio** também cresceu de forma controlada, confirmando a **eficiência esperada** da AVL em manter a altura mínima.
+  - A AVL apresentou o **maior número de rotações em todos os cenários**.
+  - Isso reforça a explicação sobre o maior custo de inserção associado à estrutura AVL, que será feita mais a frente nesse relatório.
 
 #### RBT
 
 - **Comportamento esperado:**
-  - O tempo de busca é garantido em **O(log n)** no pior caso, com a altura da árvore limitada a, no máximo, **2·log₂(n)**.
-  - A estrutura é **menos rigorosa que a AVL no balanceamento**, mas costuma ser **mais eficiente em inserções e remoções**, devido à sua estratégia de balanceamento mais flexível.
+  - A RBT utiliza regras de balanceamento mais flexíveis, realizando **menos rotações** em comparação à AVL.
+  - Espera-se um crescimento mais suave no número de rotações à medida que o número de documentos aumenta.
 
 - **Comportamento observado:**
-  - Tanto o **tempo máximo** quanto o **tempo médio** de busca foram **estáveis e muito próximos aos valores da AVL**.
-  - Embora, teoricamente, se espere um desempenho ligeiramente inferior ao da AVL, **isso não é garantido em todos os casos**, e os resultados observados demonstram que a **RBT pode alcançar desempenho comparável ou equivalente**, especialmente em cenários bem distribuídos.
-
+  - O número de rotações na RBT foi **significativamente menor que na AVL**, confirmando o comportamento esperado.
+  
 #### Tempo de Inserção
 
-<img src="./graphs_tables/vocabulario_insercao.png" width="800"/>
+<img src="./graphs_tables/vocabulario_insercao.png" width="1000"/>
+<img src="./graphs_tables/vocabulario_insercao_int.png.png" width="1000"/>
 
 Os gráficos acima mostram o **tempo total de inserção** para as estruturas BST, AVL e RBT, com diferentes intervalos de vocabulário.
 
@@ -499,15 +492,41 @@ Os gráficos acima mostram o **tempo total de inserção** para as estruturas BS
   - A BST apresentou, de fato, o **menor tempo total de inserção** no caso maior.
   - Isso confirma a expectativa: a ausência de rebalanceamento torna a operação de inserção simples e eficiente.
 
-### Conclusão Geral
 
-| Estrutura | Tempo de Inserção | Comentário |
-|-----------|--------------------|------------|
-| **BST**   | Baixo              | Inserção rápida, sem reestruturações |
-| **RBT**   | Médio              | Bom compromisso entre performance e balanceamento |
-| **AVL**   | Alto               | Inserções mais custosas devido ao balanceamento rigoroso |
+### Comparação entre Tempo de Busca Observado e Esperado
 
-Os resultados observados confirmam os comportamentos teóricos esperados para cada estrutura, reforçando suas **vantagens e limitações** em contextos de inserção massiva.
+A seguir, comparamos os tempos de busca observados nos testes com os comportamentos teóricos esperados para cada estrutura de dados:
+
+<img src="./graphs_tables/tempo_busca.png" width="1000"/>
+
+#### BST 
+
+- **Comportamento esperado:**
+  - No pior dos casos, a BST pode se degenerar em uma estrutura linear (semelhante a uma lista encadeada), fazendo com que o tempo de busca atinja **O(n)**, como visto anteriormente nesse relatório.
+
+- **Comportamento observado:**
+  - O **tempo médio de busca** foi o menor entre as três estruturas, o que indica que muitos termos foram encontrados nos níveis superiores da árvore. Isso não contradiz a teoria: se as árvores fossem balanceadas, haveria uma pequena variação entre o caminho mais curto e o mais longo, o que resultaria em tempos de busca similares para diferentes palavras.
+  - No entanto, como a BST **não realiza balanceamento automático**, alguns ramos mais curtos acabam "compensando" o tempo de busca dos ramos mais longos na média geral.
+  - Por outro lado, o **tempo máximo de busca** apresentou um **salto brusco** a partir de 6000 documentos, sinalizando **degeneração da estrutura** — exatamente como previsto teoricamente.
+
+#### AVL 
+
+- **Comportamento esperado:**
+  - Tempo de busca garantido em **O(log n)**, devido as rotações constantes.
+  
+- **Comportamento observado:**
+  - **Tempo máximo de busca** foi o menor e mais estável dentre todas as estruturas.
+  - **Tempo médio** também cresceu de forma controlada, confirmando a **eficiência esperada** da AVL em manter a altura mínima.
+
+#### RBT
+
+- **Comportamento esperado:**
+  - O tempo de busca é garantido em **O(log n)** no pior caso, com a altura da árvore limitada a, no máximo, **2·log₂(n)**.
+  - A estrutura é **menos rigorosa que a AVL no balanceamento**, mas costuma ser **mais eficiente em inserções e remoções**, devido à sua estratégia de balanceamento mais flexível.
+
+- **Comportamento observado:**
+  - Tanto o **tempo máximo** quanto o **tempo médio** de busca foram **estáveis e muito próximos aos valores da AVL**.
+  - Embora, teoricamente, se espere um desempenho ligeiramente inferior ao da AVL, **isso não é garantido em todos os casos**, e os resultados observados demonstram que a **RBT pode alcançar desempenho comparável ou equivalente**, especialmente em cenários bem distribuídos.
 
 
 ## 8. Análise Comparativa
