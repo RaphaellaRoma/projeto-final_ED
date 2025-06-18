@@ -81,7 +81,7 @@ Conceitos estruturais
 | Samyra Mara Candido Silva   | Implementação da AVL, testes unitários da BST, implementações das funçoes de metricas para gerar os CSVs de analise                                                 |
 | Raphaella Roma Mendes Alves | Implementação da RBT e Leitura de dados                                                         |
 | Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex, testes unitários da RBT e implementação em Python dos plots para geras graficos e tabelas comparativas|
-| Elisa de Oliveira Soares    | CLI (main de todas as árvores), Implementação da create e destroy e testes unitários da AVL e suportes gerais     |
+| Elisa de Oliveira Soares    | CLI (main de todas as árvores), Implementação da create e destroy, testes unitários da AVL e suportes gerais     |
 
 Além das tarefas acima citadas, cada integrante foi responsável por documentar suas próprias funções.
 
