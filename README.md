@@ -135,7 +135,7 @@ Cada programa principal (`bst`, `avl`, `rbt`) oferece uma **interface de linha d
 - `<modo>`: tipo de operação que deseja realizar:
   - `search`: permite indexar os documentos e buscar palavras interativamente
   - `stats`: exibe estatísticas da estrutura gerada (tempo, comparações, altura, etc.)
-  - `view`: imprime visualmente a árvore construída 
+  - `view`: imprime visualmente a árvore construída ou o índice invertido
 - `<n_docs>`: quantidade de documentos a serem lidos (ex: `10`, `50`, `100`, etc.)
 - `<diretorio>`: caminho para a pasta onde estão os arquivos `.txt` (ex: `data/`)
 
@@ -160,7 +160,13 @@ Mostra métricas como número de comparações, altura da árvore, tempo médio 
 ```bash
 ./build/avl view 20 data/
 ```
-Imprime no terminal uma representação visual da árvore.
+Será exibido:
+```
+Selecione o tipo de visualizacao: 
+1 - Estrutura da arvore
+2 - Indice invertido
+```
+Imprime no terminal a representação visual escolhida.
 
 ## Execução dos Testes
 
@@ -173,7 +179,6 @@ Execute os testes unitários diretamente pelos executáveis gerados na pasta `bu
 ./build/test_avl
 ./build/test_rbt
 ```
-> Observação: os testes da RBT ainda não estão implementados.
 
 ## Observações Adicionais sobre a Análise Comparativa
 
