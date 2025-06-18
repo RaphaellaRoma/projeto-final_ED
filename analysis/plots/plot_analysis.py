@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 bst = pd.read_csv('../results/bst_results.csv')
 avl = pd.read_csv('../results/avl_results.csv')
-rbt = pd.read_csv('../results/bst_results.csv')
+rbt = pd.read_csv('../results/rbt_results.csv')
 
 # Filtra os documentos de 1000 em 1000
 bst_filtered = bst[bst['Documentos'] % 1000 == 0]
@@ -18,6 +18,7 @@ x = np.array(bst_filtered['Documentos'])
 bst = '#5BC0EB'
 avl = '#FF7F11'
 rbt = '#9BC53D'
+
 
 #####  Tempo de inserção  #####
 plt.style.use('seaborn-v0_8')
@@ -46,7 +47,7 @@ ax1.grid(alpha=0.5)
 
 plt.subplots_adjust(top=0.85)
 fig.suptitle('Tempo de Inserção', fontsize=15)
-plt.savefig('tempo_insercao.png')
+plt.savefig('tempo_insercao.png', dpi=600)
 
 
 #####  Tempo de busca  #####
@@ -54,12 +55,12 @@ plt.style.use('seaborn-v0_8')
 fig, (ax0, ax1) = plt.subplots(1, 2, figsize=(14, 5))
 plt.style.use('default')
 #####  Total  #####
-ax0.plot(x, bst_filtered['TempoTotalBusca'], marker='o', label='BST', color=bst)
-ax0.plot(x, avl_filtered['TempoTotalBusca'], marker='o', label='AVL', color=avl)
-ax0.plot(x, rbt_filtered['TempoTotalBusca'], marker='o', label='RBT', color=rbt)
-ax0.set_title('Tempo Total de Busca')
+ax0.plot(x, bst_filtered['TempoMaxBusca'], marker='o', label='BST', color=bst)
+ax0.plot(x, avl_filtered['TempoMaxBusca'], marker='o', label='AVL', color=avl)
+ax0.plot(x, rbt_filtered['TempoMaxBusca'], marker='o', label='RBT', color=rbt)
+ax0.set_title('Tempo Máximo de Busca de uma Palavra')
 ax0.set_xlabel('Número de Documentos')
-ax0.set_ylabel('Tempo Total de Busca (s)')
+ax0.set_ylabel('Tempo Máximo de Busca (s)')
 ax0.set_xticks(x)
 ax0.legend()
 ax0.grid(alpha=0.5)
@@ -76,7 +77,7 @@ ax1.grid(alpha=0.5)
 
 plt.subplots_adjust(top=0.85)
 fig.suptitle('Tempo de Busca', fontsize=15)
-plt.savefig('tempo_busca.png')
+plt.savefig('tempo_busca.png', dpi=600)
 
 
 #####  Número de Comparações  #####
@@ -106,15 +107,15 @@ ax1.grid(alpha=0.5)
 
 plt.subplots_adjust(top=0.85)
 fig.suptitle('Número de Comparações', fontsize=15)
-plt.savefig('num_comparacoes.png')
+plt.savefig('num_comparacoes.png', dpi=600)
 
 
 #####  Altura  #####
 plt.style.use('seaborn-v0_8')
 plt.figure(figsize=(10, 5))
-plt.bar(x-250, bst_filtered['Altura'], width=250, label='BST', color=bst)
-plt.bar(x    , avl_filtered['Altura'], width=250, label='AVL', color=avl)
-plt.bar(x+250, rbt_filtered['Altura'], width=250, label='RBT', color=rbt)
+plt.bar(x-250, bst_filtered['Altura'], width=250, label='BST', color=bst, edgecolor='black', linewidth=0.5)
+plt.bar(x    , avl_filtered['Altura'], width=250, label='AVL', color=avl, edgecolor='black', linewidth=0.5)
+plt.bar(x+250, rbt_filtered['Altura'], width=250, label='RBT', color=rbt, edgecolor='black', linewidth=0.5)
 plt.xlabel('Número de Documentos')
 plt.ylabel('Altura')
 plt.xticks(x)
@@ -125,18 +126,18 @@ plt.grid(False)
 plt.tight_layout()
 plt.subplots_adjust(top=0.88)
 plt.title('Altura das Árvores\n', fontsize=15)
-plt.savefig('altura.png')
+plt.savefig('altura.png', dpi=600)
 
 
 #####  Tamanho dos galhos  #####
 plt.style.use('seaborn-v0_8')
 plt.figure(figsize=(10, 5))
-plt.bar(x-250, bst_filtered['MaiorGalho'], width=250, label='BST - maior galho', color="#D5F0FC", edgecolor=bst, hatch='//', linewidth=0.8)
+plt.bar(x-250, bst_filtered['MaiorGalho'], width=250, label='BST - maior galho', color='#D5F0FC', edgecolor=bst, hatch='//', linewidth=0.8)
 plt.bar(x-250, bst_filtered['MenorGalho'], width=250, label='BST - menor galho', color=bst, edgecolor='#148EC2')
-plt.bar(x    , avl_filtered['MaiorGalho'], width=250, label='AVL - maior galho', color="#FCE1CA", edgecolor=avl, hatch='//', linewidth=0.8)
-plt.bar(x    , avl_filtered['MenorGalho'], width=250, label='AVL - menor galho', color=avl, edgecolor="#C75F03")
-plt.bar(x+250, rbt_filtered['MaiorGalho'], width=250, label='RBT - maior galho', color="#E3E9D8", edgecolor=rbt, hatch='//', linewidth=0.8)
-plt.bar(x+250, rbt_filtered['MenorGalho'], width=250, label='RBT - menor galho', color=rbt, edgecolor="#6D9616")
+plt.bar(x    , avl_filtered['MaiorGalho'], width=250, label='AVL - maior galho', color='#FCE1CA', edgecolor=avl, hatch='//', linewidth=0.8)
+plt.bar(x    , avl_filtered['MenorGalho'], width=250, label='AVL - menor galho', color=avl, edgecolor='#C75F03')
+plt.bar(x+250, rbt_filtered['MaiorGalho'], width=250, label='RBT - maior galho', color='#E3E9D8', edgecolor=rbt, hatch='//', linewidth=0.8)
+plt.bar(x+250, rbt_filtered['MenorGalho'], width=250, label='RBT - menor galho', color=rbt, edgecolor='#6D9616')
 plt.xlabel('Número de Documentos')
 plt.ylabel('Tamanho do Galho')
 plt.xticks(x)
@@ -147,8 +148,27 @@ plt.grid(False)
 plt.tight_layout()
 plt.subplots_adjust(top=0.88)
 plt.title('Tamanho do Maior e do Menor Galho\n', fontsize=15)
-plt.savefig('tamanho_galho.png')
+plt.savefig('tamanho_galho.png', dpi=600)
 
 
-plt.show()
+#####  Número de Rotações  #####
+plt.style.use('seaborn-v0_8')
+plt.figure(figsize=(10, 5))
+plt.plot(x, bst_filtered['NumeroRotacao'], marker='o' , label='BST', color=bst)
+plt.plot(x, avl_filtered['NumeroRotacao'], marker='o' , label='AVL', color=avl)
+plt.plot(x, rbt_filtered['NumeroRotacao'], marker='o' , label='RBT', color=rbt)
+plt.xlabel('Número de Documentos')
+plt.ylabel('Número de Rotações')
+plt.xticks(x)
+plt.style.use('default')
+plt.legend()
+plt.grid(alpha=0.5)
+
+plt.tight_layout()
+plt.subplots_adjust(top=0.85)
+plt.title('Número de Rotações\n', fontsize=15)
+plt.savefig('num_rotacoes.png', dpi=600)
+
+
+#plt.show()
 
