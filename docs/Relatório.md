@@ -423,6 +423,7 @@ Essa coleta de métricas foi essencial para as comparações apresentadas nas se
 | RBT       |                              |                           |                        |                     |              |
 
 Pequeno texto adicional **aqui**
+
 ### 7.2. Gráficos
 
 ### Número de Rotações
@@ -431,7 +432,6 @@ As imagens a seguir apresentam o número total de rotações realizadas por cada
 
 <img src="./graphs_tables/num_rotacoes.png" width="1000"/>
 <img src="./graphs_tables/num_rotacoes_dist.png" width="1000"/>
-<img src="./graphs_tables/rotacoes_insercao.png" width="1000"/>
 
 #### AVL
 
@@ -452,6 +452,15 @@ As imagens a seguir apresentam o número total de rotações realizadas por cada
 - **Comportamento observado:**
   - O número de rotações na RBT foi **significativamente menor que na AVL**, confirmando o comportamento esperado.
   
+### Relação entre Número de Rotações e Tempo Total de Inserção
+
+O gráfico a seguir mostra a relação entre o **número de rotações realizadas** e o **tempo total de inserção**, destacando como o custo estrutural afeta o desempenho prático:
+
+<img src="./graphs_tables/rotacoes_insercao.png" width="1000"/>
+
+- **AVL**: O tempo de inserção está mais diretamente **proporcional ao número de rotações**, o que era esperado, dado o seu balanceamento estrito.
+- **RBT**: Aparentemente mais eficiente em rotações, mas **com maior custo por rotação** quando o volume de dados é alto, o que pode estar relacionado à complexidade extra na manutenção das propriedades rubro-negras.
+
 #### Tempo de Inserção
 
 <img src="./graphs_tables/vocabulario_insercao.png" width="1000"/>
