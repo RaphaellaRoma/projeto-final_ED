@@ -95,12 +95,6 @@ int minDeph(Node* root, Node* NIL) {
     return -1; // Se árvore vazia ou algo errado
 }
 
-int computeNodeHeight(Node* n, Node* NIL) {
-    if (n == NIL) return -1;
-    return 1 + std::max(computeNodeHeight(n->left, NIL), 
-                   computeNodeHeight(n->right, NIL));
-}
-
 int getHeight(Node* n, Node* NIL) {
     if (n == NIL) {
         return -1;  // Se o nó não existe, a altura é -1
@@ -123,7 +117,6 @@ void recomputeHeightTree(Node* n, Node* NIL) {
         n = n->parent;
     }
 }
-
 
 void recomputeHeightTreeIfNeeded(Node* n, Node* NIL) {
     while (n != NIL) {
