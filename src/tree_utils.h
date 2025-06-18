@@ -124,7 +124,7 @@ void recomputeHeight(Node* n, Node* NIL = nullptr);
 void recomputeHeightTree(Node* n, Node* NIL = nullptr);
 
 /**
- * @brief Recalcula a altura apenas se for necessároo.
+ * @brief Recalcula a altura apenas se for necessário.
  *
  * @param n nó que foi inserido.
  * @param NIL Ponteiro para o NIL, caso ele exista.
