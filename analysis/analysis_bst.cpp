@@ -42,6 +42,7 @@ int main() {
                 }
 
                 metrics.numRotations += insertRes.numRotations;
+                metrics.totalInsertComparisons += insertRes.numComparisons;
                 metrics.totalSearchComparisons += searchRes.numComparisons;
             }
         }
