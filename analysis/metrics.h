@@ -1,5 +1,3 @@
-//Este módulo define a estrutura de dados usada para armazenar estatísticas como tempo de inserção e busca, número de comparações, altura da árvore, entre outros, durante a análise de desempenho de estruturas como AVL, BST e RBT.
-
 #ifndef METRICS_H
 #define METRICS_H
 
@@ -7,20 +5,20 @@
 #include <string>
 
 struct Metrics {
-    std::string estrutura;              // Nome da estrutura (ex: "avl", "bst", "rbt")
-    int qtdDocumentos;                  // Quantidade de documentos processados
-    int qtdPalavrasTotais;              // Número total de palavras (considerando repetições)
-    int qtdPalavrasDist;                // Número total de palavras inseridas (sem repetição)
-    double tempoTotalInsercao;          // Tempo total gasto em inserções (em segundos)
-    double tempoMedioInsercao;          // Tempo médio por inserção (em segundos)
-    double tempoTotalBusca;             // Tempo total gasto em buscas (em segundos)
-    double tempoMedioBusca;             // Tempo médio por busca (em segundos)
-    int altura;                         // Altura da árvore ao final da execução
-    int menorGalho;                     // Menor profundidade entre a raiz e uma folha
-    int maiorGalho;                     // Maior profundidade (igual à altura)
-    int totalComparacoesInsercao;       // Número total de comparações realizadas em inserções
-    int totalComparacoesBusca;          // Número total de comparações realizadas em buscas
-    int numRotacoes;                    // Número total de rotações realizadas (específico da AVL)
+    std::string structure;               // Nome da estrutura (ex: "avl", "bst", "rbt")
+    int numDocuments;                    // Quantidade de documentos processados
+    int totalWords;                      // Número total de palavras (considerando repetições)
+    int distinctWords;                   // Número total de palavras inseridas (sem repetição)
+    double totalInsertTime;              // Tempo total gasto em inserções (em segundos)
+    double avgInsertTime;                // Tempo médio por inserção (em segundos)
+    double maxSearchTime;                // Tempo máximo gasto em buscas (em segundos)
+    double avgSearchTime;                // Tempo médio por busca (em segundos)
+    int height;                          // Altura da árvore ao final da execução
+    int minBranch;                       // Menor profundidade entre a raiz e uma folha
+    int maxBranch;                       // Maior profundidade (igual à altura)
+    int totalInsertComparisons;          // Número total de comparações realizadas em inserções
+    int totalSearchComparisons;          // Número total de comparações realizadas em buscas
+    int numRotations;                    // Número total de rotações realizadas (específico da AVL)
 };
 
 
@@ -30,7 +28,7 @@ struct Metrics {
  * @param estrutura Nome da estrutura sendo analisada (ex: "avl").
  * @return Estrutura Metrics inicializada.
  */
-Metrics iniciarMetrics(const std::string& estrutura);
+Metrics initMetrics(const std::string& structure);
 
 
 /**
@@ -38,7 +36,7 @@ Metrics iniciarMetrics(const std::string& estrutura);
  * 
  * @return Uma string contendo os nomes das métricas separadas por vírgula.
  */
-std::string gerarCabecalhoCSV();
+std::string generateCSVHeader();
 
 
 /**
@@ -47,10 +45,9 @@ std::string gerarCabecalhoCSV();
  * @param m Estrutura Metrics preenchida.
  * @return Uma string com os valores das métricas separados por vírgula.
  */
-std::string gerarLinhaCSV(const Metrics& m);
+std::string generateCSVRow(const Metrics& m);
 
 #endif
-
 
 
 

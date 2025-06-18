@@ -5,50 +5,59 @@
 #include "../src/data.h"
 
 int main() {
-    std::ofstream arquivo("results/bst_results.csv");
+    std::ofstream file("results/bst_results.csv");
 
-    if (!arquivo.is_open()) {
+    if (!file.is_open()) {
         std::cerr << "Erro ao abrir arquivo de saída.\n";
         return 1;
     }
 
-    arquivo << gerarCabecalhoCSV();
-    std::vector<doc> documentos = read_documents("../data_new/", 10000);
+    file << generateCSVHeader();
+    std::vector<doc> documents = read_documents("../data_new/", 10000);
     BinaryTree* tree = BST::create();
-    Metrics m = iniciarMetrics("bst");
+    Metrics metrics = initMetrics("bst");
+    double totalSearchTime = 0.0;
 
-    for (int qtdDocs = 100; qtdDocs <= 10000; qtdDocs+=100) {
-        m.qtdDocumentos = qtdDocs;
+    for (int numDocs = 100; numDocs <= 10000; numDocs += 100) {
+        metrics.numDocuments = numDocs;
+        double maxSearchTime = 0.0;
 
-        for (int i = qtdDocs - 100; i < qtdDocs; i++) {
-            const doc& documento = documentos[i];
-            for (size_t j = 0; j < documento.words.size(); j++) {
-                const std::string& palavra = documento.words[j];
-                InsertResult resInsert = BST::insert(tree, palavra, documento.id);
-                SearchResult resSearch = BST::search(tree, palavra);
-                m.totalComparacoesInsercao += resInsert.numComparisons;
-                m.tempoTotalInsercao += resInsert.executionTime;
-                m.numRotacoes += resInsert.numRotations;
-                m.qtdPalavrasTotais++;
-                if(resInsert.alreadyInsert == 0){
-                    m.qtdPalavrasDist++;
+        for (int i = numDocs - 100; i < numDocs; i++) {
+            const doc& document = documents[i];
+            for (size_t j = 0; j < document.words.size(); j++) {
+                const std::string& word = document.words[j];
+                InsertResult insertRes = BST::insert(tree, word, document.id);
+                SearchResult searchRes = BST::search(tree, word);
+                metrics.totalInsertTime += insertRes.executionTime;
+                totalSearchTime += searchRes.executionTime;
+                maxSearchTime = insertRes.executionTime;
+
+                if (metrics.maxSearchTime < maxSearchTime) {
+                    metrics.maxSearchTime = maxSearchTime;
                 }
-                m.totalComparacoesBusca += resSearch.numComparisons;
-                m.tempoTotalBusca += resSearch.executionTime;
-            }    
-        }
-        m.tempoMedioInsercao = (m.qtdPalavrasTotais > 0) ? m.tempoTotalInsercao / m.qtdPalavrasTotais : 0.0;
-        m.tempoMedioBusca = (m.qtdPalavrasTotais > 0) ? m.tempoTotalBusca / m.qtdPalavrasTotais : 0.0;
-        m.altura = getHeight(tree->root);
-        m.menorGalho = minDeph(tree->root);
-        m.maiorGalho = m.altura;
 
-        arquivo << gerarLinhaCSV(m) << "\n";
-        std::cout << "Processado: " << qtdDocs << " documentos\n";
+                metrics.totalWords++;
+                if (insertRes.alreadyInsert == 0) {
+                    metrics.distinctWords++;
+                }
+
+                metrics.numRotations += insertRes.numRotations;
+                metrics.totalSearchComparisons += searchRes.numComparisons;
+            }
+        }
+
+        metrics.avgInsertTime = (metrics.totalWords > 0) ? metrics.totalInsertTime / metrics.totalWords : 0.0;
+        metrics.avgSearchTime = (metrics.totalWords > 0) ? totalSearchTime / metrics.totalWords : 0.0;
+        metrics.height = getHeight(tree->root, tree->NIL);
+        metrics.minBranch = minDeph(tree->root, tree->NIL);
+        metrics.maxBranch = metrics.height;
+
+        file << generateCSVRow(metrics) << "\n";
+        std::cout << "Processado: " << numDocs << " documentos\n";
     }
-    
+
     BST::destroy(tree);
-    arquivo.close();
+    file.close();
     std::cout << "Análise concluída.\n";
     return 0;
 }
