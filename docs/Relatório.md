@@ -342,7 +342,9 @@ Exemplos de Saída
 Utilizando o banco de dados presente na pasta `data_test/`, e aplicando cada uma das estruturas já referenciadas neste relatório, obtemos as seguintes representações visuais das árvores:
 
 **BST**
+
 <img src="./graphs_tables/alfabeto_bst.png" width="800"/>
+
 No caso da BST, como a inserção segue uma ordem alfabética simples, a árvore resultante torna-se degenerada à direita. Isso ocorre porque:
 
 - Todas as chaves na subárvore esquerda são menores que a chave do nó atual.
@@ -351,11 +353,15 @@ No caso da BST, como a inserção segue uma ordem alfabética simples, a árvore
 Como consequência, a árvore se comporta como uma lista encadeada, o que prejudica o desempenho em buscas.
 
 **AVL**
+
 <img src="./graphs_tables/alfabeto_avl.png" width="800"/>
+
 Diferentemente da BST, a AVL realiza rotações de balanceamento automaticamente a cada inserção. Isso garante que a altura da árvore permaneça logarítmica, mesmo em casos como inserção ordenada. Como evidenciado na imagem, as subárvores estão equilibradas.
 
 **RBT**
+
 <img src="./graphs_tables/alfabeto_rbt.png" width="800"/>
+
 Por fim, a RBT utiliza propriedades de coloração (R = vermelho, B = preto) para garantir que a árvore permaneça aproximadamente balanceada. Ao comparar com as estruturas anteriores:
 
 * A RBT é mais balanceada que a BST, evitando a degeneração.
