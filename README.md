@@ -93,7 +93,6 @@ projeto-final_ED/
   ```bash
   make rbt
   ```
-Observação: A implementação da Árvore Rubro-Negra (RBT) ainda não está completa.
 
 ### Compilar Testes:
 
@@ -111,7 +110,6 @@ Observação: A implementação da Árvore Rubro-Negra (RBT) ainda não está co
   ```bash
   make test_rbt
   ```
-Observação: Testes para a Árvore Rubro-Negra (RBT) ainda não estão disponíveis.
 
 ### Limpar arquivos compilados (clean)
 

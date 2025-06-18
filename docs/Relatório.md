@@ -26,7 +26,7 @@ Existem dois tipos principais de índices invertidos:
 * Custos de manutenção: operações como inserção, exclusão ou atualização de documentos exigem a reconstrução parcial ou completa de listas associadas, o que pode ser computacionalmente caro.
 * Ordenação limitada por relevância: os registros são, por padrão, retornados na ordem de ocorrência nas listas invertidas, o que pode não refletir sua relevância ou utilidade esperada exigindo técnicas adicionais de ranqueamento para resultados mais úteis.
 
-O presente relatório apresenta a implementação em C++ de um índice invertido utilizando três diferentes estruturas de dados: Árvore Binária de Busca (BST), Árvore AVL (AVL) e Árvore Rubro-Negra (RBT). O objetivo principal é avaliar e comparar o desempenho dessas estruturas nas operações de inserção e busca de palavras em um corpus textual real.
+O presente relatório apresenta a implementação em C++ de um índice invertido de nível de registro utilizando três diferentes estruturas de dados: Árvore Binária de Busca (BST), Árvore AVL (AVL) e Árvore Rubro-Negra (RBT). O objetivo principal é avaliar e comparar o desempenho dessas estruturas nas operações de inserção e busca de palavras em um corpus textual real.
 
 ## 2. Conceitos básicos
 
@@ -78,9 +78,9 @@ Conceitos estruturais
 | Nome                        | Tarefa Principal                                                                                |
 |-----------------------------|-------------------------------------------------------------------------------------------------|
 | Stephany Casali Oliveira    | Implementação da BST (insert e search)  e confecção do relatório                                |
-| Samyra Mara Candido Silva   | Implementação da AVL e testes unitários da BST                                                  |
+| Samyra Mara Candido Silva   | Implementação da AVL, testes unitários da BST, implementações das funçoes de metricas para gerar os CSVs de analise                                                 |
 | Raphaella Roma Mendes Alves | Implementação da RBT e Leitura de dados                                                         |
-| Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex e testes unitários da RBT|
+| Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex, testes unitários da RBT e implementação em Python dos plots para geras graficos e tabelas comparativas|
 | Elisa de Oliveira Soares    | CLI, Implementação da create e destroy e testes unitários da AVL                                |
 
 Além das tarefas acima citadas, cada integrante foi responsável por documentar suas próprias funções.
@@ -136,45 +136,45 @@ projeto-final_ED/
 ├── README.md # Descrição, instruções de compilação e execução do Projeto
 ```
 
-### `src/`
+#### `src/`
 Contém o código-fonte principal:
 
-- `main_bst.cpp`, `main_avl.cpp`, `main_rbt.cpp`: interfaces de linha de comando para indexação e busca com BST, AVL e RBT respectivamente.
+- `main_bst.cpp`, `main_avl.cpp`, `main_rbt.cpp`: interfaces de linha de comando para indexação, busca e vizualização para as árvores BST, AVL e RBT respectivamente.
 - `bst.cpp`/`bst.h`, `avl.cpp`/`avl.h`, `rbt.cpp`/`rbt.h`: implementações completas das estruturas de árvore.
 - `tree_utils.cpp`/`tree_utils.h`: estruturas auxiliares e funções como criação de nós, cálculo de altura, busca, exibição da árvore etc.
 - `data.cpp`/`data.h`: responsáveis pela leitura do diretório de dados e carregamento dos arquivos `.txt`.
 - `test_bst.cpp`, `test_avl.cpp`, `test_rbt.cpp`: testes unitários para as implementações.
 
-### `build/`
+#### `build/`
 Armazena os executáveis gerados após a compilação. Mantém o projeto organizado ao separar os binários do código-fonte.
 
-### `analysis/`
+#### `analysis/`
 Scripts responsáveis pela coleta de métricas e análise de desempenho:
 
-- `analysis_avl.cpp`, `analysis_bst.cpp`, `analysis_rbt.cpp`: scripts para testes e coleta de dados.
-- `metrics.cpp` / `metrics.h`: funções auxiliares para medir tempo de execução, número de comparações, altura das árvores, entre outros.
+- `analysis_avl.cpp`, `analysis_bst.cpp`, `analysis_rbt.cpp`: scripts para coleta de dados.
+- `metrics.cpp` / `metrics.h`: funções auxiliares e metricas para gerar os CSVs.
 - `Makefile`: compila os arquivos da pasta `analysis/`.
-- `results/`: arquivos `.csv` contendo os dados brutos coletados durante os testes.
+- `results/`: arquivos `.csv` contendo os dados brutos coletados durante os testes da analise.
 - `plots/`:
   - `plot_analysis.py`: script Python que gera gráficos a partir dos dados em `.csv`.
 
-### `docs/`
+#### `docs/`
 Documentação do projeto:
 
 - `Relatório (PDF ou .md)`: relatório técnico contendo explicações, metodologia, resultados e conclusões.
 - `graphs_tables/`: gráficos e tabelas gerados nas análises.
 
-### `data/`, `data_new/`, `data_test/`
+#### `data/`, `data_new/`, `data_test/`
 Bases de dados usadas nos experimentos:
 
 - `data/`: base de documentos principal.
 - `data_new/`: nova base textual para testes complementares.
 - `data_test/`: base com casos degenerados.
 
-### `Makefile`
+#### `Makefile`
 Compila os arquivos da pasta `src/`, gerando os executáveis correspondentes na pasta `build/`.
 
-### `README.md`
+#### `README.md`
 Arquivo que contém a descrição geral do projeto, instruções de compilação, execução e explicações sobre a organização do repositório.
 
 ## 5. Metodologia
@@ -194,7 +194,7 @@ Para organizar melhor as informações, criamos uma struct chamada `doc`, que co
 
 A função `read_documents` é responsável por percorrer um diretório, abrir sequencialmente um número `n` de arquivos nomeados no formato `"0.txt"`, `"1.txt"`, ..., e carregar seus conteúdos utilizando a função `ler_palavras`. Caso algum arquivo não seja encontrado ou não possa ser aberto, a função emite uma mensagem de erro e continua o processo com o próximo arquivo.
 
-A leitura dos documentos é realizada nos arquivos `main_bst.cpp`, `main_avl.cpp` e `main_rbt.cpp`, localizados no diretório `src/`. Esses arquivos serão explicados em detalhes mais à frente neste relatório.
+A leitura dos documentos é realizada nos arquivos `main_bst.cpp`, `main_avl.cpp` e `main_rbt.cpp`, localizados no diretório `src/`. Esses arquivos serão explicados em detalhes mais à frente neste relatório. Tambem destacamos o uso das funções de leitura na geração dos CSVs de analises que tambem serao detalhadas mais a frente.
 
 Nossa base de documentos está organizada em diferentes diretórios para facilitar os testes e experimentos:
 
@@ -231,9 +231,7 @@ A estrutura **AVL** reutiliza as funções `create`, `search` e `destroy` da BST
 
 Essas operações asseguram complexidade O(log n) para buscas e inserções. O comando `stats` do `main_avl.cpp` pode ser usado para visualizar o impacto do balanceamento.
 
-### RBT (Árvore Rubro-Negra)
-
-A RBT compartilha a mesma base estrutural das demais, com destaque para a função:
+A **RBT** compartilha a mesma base estrutural das demais, com destaque para a função:
 
 - `fixUp`: aplicada após inserções, é responsável por manter as propriedades da árvore rubro-negra (ex.: raiz preta, ausência de nós vermelhos consecutivos, mesmo número de nós pretos nos caminhos até as folhas).
 
@@ -256,11 +254,10 @@ As funções auxiliares fornecem suporte essencial à manipulação das estrutur
 
 ### Cálculo e Recomputação de Altura
 
-- `computeNodeHeight(node, NIL)`: Retorna a altura de um nó a partir das alturas de seus filhos.
 - `getHeight(node, NIL)`: Retorna a altura armazenada no nó, ou -1 se for `NIL`.
 - `recomputeHeight(node, NIL)`: Recalcula e atualiza a altura do nó com base na altura de seus filhos.
-- `recomputeHeightTree(node, NIL)`: Recalcula a altura de todos os ancestrais de um nó até a raiz.
-- `recomputeHeightAll(node, NIL)`: Recalcula a altura de todos os nós da árvore recursivamente.
+- `recomputeHeightTree(node, NIL)`: Recalcula a altura de todos os ancestrais de um nó até a raiz (usada na BST). 
+- `recomputeHeightTreeIfNeeded(node, NIL)`: Recalcula a altura apenas se for necessário (usada na RBT).
 
 ### Balanceamento
 
@@ -299,7 +296,7 @@ O programa foi desenvolvido com os seguintes comandos:
 * `<arvore>`: nome do executável da estrutura (ex: bst, avl, rbt)
 * `search`: comando que permite realizar buscas por palavras
 * `stats`: comando que gera estatísticas de desempenho durante a indexação
-* `view` : comando para visualizar a árvore do índice invertido
+* `view` : comando para visualizar a árvore ou o índice invertido
 * `<n_docs>`: número de documentos a indexar
 * `<diretório>`: caminho para a pasta contendo os arquivos .txt
 
@@ -339,7 +336,7 @@ As métricas exibidas incluem:
 ```bash
 ./<arvore> view <n_docs> <diretório>:
 ```
-chama a função printTree, e mostra a visualização da árvore com n_docs documentos
+chama a função `printTree`, e mostra a visualização da árvore com n_docs documentos ou a função `printIndex` que imprime o índice invertido da árvore em ordem alfabética.
 
 ### 6.2 Análise
 
@@ -364,10 +361,11 @@ Fluxo de execução dos scripts
 - Registra métricas de desempenho como:
   - Total de comparações na inserção
   - Tempo total de inserção
-  - Número de rotações (quando aplicável)
+  - Número de rotações
   - Total de palavras únicas
+  - Total de palavras com repetição
   - Total de comparações durante as buscas
-  - Tempo total de busca
+  - Tempo médio de busca
   - Altura da árvore
   - Profundidade mínima e máxima da árvore
 
