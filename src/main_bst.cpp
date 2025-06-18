@@ -129,8 +129,23 @@ int main(int argc, char* argv[]) {
                 insert(tree, word, id);   // inserir os n_docs documentos do diretorio
             }
         }
-        printTree(tree);        
-    }    else {
+        std::cout << "Selecione o tipo de visualizacao: " << std::endl;
+        std::cout << "1 - Estrutura da arvore" << std::endl;
+        std::cout << "2 - Indice invertido" << std::endl;
+        int chooseView;
+        std::cin >> chooseView;
+        if (chooseView == 1){
+            printTree(tree);
+        }
+        else if (chooseView == 2) {
+            printIndex(tree);
+        }
+        else{
+            std::cout << "Comando invalido. Digite o tipo de visualizacao (1 ou 2)" << std::endl;
+            return 1;
+        }  
+            
+    } else {
         std::cout << "Comando invalido: " << comando << std::endl;
         std::cout << "Use: search, stats ou view" << std::endl;
         return 1;

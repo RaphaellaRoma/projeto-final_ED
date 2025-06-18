@@ -341,6 +341,48 @@ As métricas exibidas incluem:
 ```
 chama a função printTree, e mostra a visualização da árvore com n_docs documentos
 
+### 6.2 Análise
+
+Além das interfaces de linha de comando, o projeto inclui três programas específicos para análise de desempenho quantitativa das árvores: AVL, BST e RBT. Estes programas estão na pasta `analysis/` e têm como objetivo gerar métricas para diferentes volumes de documentos.
+
+Fluxo de execução dos scripts
+
+1. Abertura de arquivo CSV de resultados
+- Cada script cria um arquivo .csv na pasta results/ para armazenar os dados brutos.
+
+2. Leitura dos documentos
+- Até 10.000 documentos da pasta data_new/ são lidos usando read_documents().
+
+3. Criação da árvore
+- Cada script cria a árvore da respectiva estrutura utilizando: AVL::create(), BST::create() ou RBT::create().
+
+4. Loop de teste incremental
+- Para cada faixa de documentos (de 100 a 10.000 documentos, de 100 em 100):
+
+- Insere todas as palavras de cada documento na árvore.
+- Após cada inserção, faz uma busca pela mesma palavra.
+- Registra métricas de desempenho como:
+  - Total de comparações na inserção
+  - Tempo total de inserção
+  - Número de rotações (quando aplicável)
+  - Total de palavras únicas
+  - Total de comparações durante as buscas
+  - Tempo total de busca
+  - Altura da árvore
+  - Profundidade mínima e máxima da árvore
+
+5. Cálculo de médias
+- Tempo médio de inserção por palavra
+- Tempo médio de busca por palavra
+
+6. Gravação dos resultados
+- Os resultados de cada etapa são registrados em uma nova linha no CSV.
+
+7. Liberação de memória
+- Ao final, a árvore é destruída com as funções destroy() específicas de cada estrutura.
+
+Essa coleta de métricas foi essencial para as comparações apresentadas nas seções de Resultados e Análise Comparativa.
+
 ## 7. Resultados
 
 ### 7.1. Tabelas de Desempenho
