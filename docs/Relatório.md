@@ -278,7 +278,7 @@ As funções auxiliares fornecem suporte essencial à manipulação das estrutur
 
 ### Visualização e Impressão
 
-- `printIndex(tree)`: Percorre a árvore em ordem e imprime o índice de palavras com os IDs dos documentos. Indica se o nó é vermelho (R) ou preto (B), útil para RBTs.
+- `printIndex(tree)`: Percorre a árvore em ordem e imprime o índice de palavras com os IDs dos documentos.
 - `printTree(tree)`: Exibe graficamente a estrutura da árvore em texto, com indentação para mostrar os ramos e indicações visuais da hierarquia e da cor dos nós.
 - `minDeph(root, NIL)`: Retorna a menor profundidade até uma folha, útil para avaliação estrutural ou estatística da árvore.
 
@@ -425,7 +425,90 @@ Essa coleta de métricas foi essencial para as comparações apresentadas nas se
 Pequeno texto adicional **aqui**
 ### 7.2. Gráficos
 
-Inserir **aqui** os gráficos comparativos (tempo, altura, comparações, etc.).
+### Comparação entre Tempo de Busca Observado e Esperado
+
+A seguir, comparamos os tempos de busca observados nos testes com os comportamentos teóricos esperados para cada estrutura de dados:
+
+<img src="./graphs_tables/tempo_busca.png" width="800"/>
+
+#### BST 
+
+- **Comportamento esperado:**
+  - No pior dos casos, a BST pode se degenerar em uma estrutura linear (semelhante a uma lista encadeada), fazendo com que o tempo de busca atinja **O(n)**, como visto anteriormente nesse relatório.
+
+- **Comportamento observado:**
+  - O **tempo médio de busca** foi o menor entre as três estruturas, o que indica que muitos termos foram encontrados nos níveis superiores da árvore. Isso não contradiz a teoria: se as árvores fossem balanceadas, haveria uma pequena variação entre o caminho mais curto e o mais longo, o que resultaria em tempos de busca similares para diferentes palavras.
+  - No entanto, como a BST **não realiza balanceamento automático**, alguns ramos mais curtos acabam "compensando" o tempo de busca dos ramos mais longos na média geral.
+  - Por outro lado, o **tempo máximo de busca** apresentou um **salto brusco** a partir de 6000 documentos, sinalizando **degeneração da estrutura** — exatamente como previsto teoricamente.
+
+#### AVL 
+
+- **Comportamento esperado:**
+  - Tempo de busca garantido em **O(log n)**, devido as rotações constantes.
+  
+- **Comportamento observado:**
+  - **Tempo máximo de busca** foi o menor e mais estável dentre todas as estruturas.
+  - **Tempo médio** também cresceu de forma controlada, confirmando a **eficiência esperada** da AVL em manter a altura mínima.
+
+#### RBT
+
+- **Comportamento esperado:**
+  - O tempo de busca é garantido em **O(log n)** no pior caso, com a altura da árvore limitada a, no máximo, **2·log₂(n)**.
+  - A estrutura é **menos rigorosa que a AVL no balanceamento**, mas costuma ser **mais eficiente em inserções e remoções**, devido à sua estratégia de balanceamento mais flexível.
+
+- **Comportamento observado:**
+  - Tanto o **tempo máximo** quanto o **tempo médio** de busca foram **estáveis e muito próximos aos valores da AVL**.
+  - Embora, teoricamente, se espere um desempenho ligeiramente inferior ao da AVL, **isso não é garantido em todos os casos**, e os resultados observados demonstram que a **RBT pode alcançar desempenho comparável ou equivalente**, especialmente em cenários bem distribuídos.
+
+#### Tempo de Inserção
+
+<img src="./graphs_tables/vocabulario_insercao.png" width="800"/>
+
+Os gráficos acima mostram o **tempo total de inserção** para as estruturas BST, AVL e RBT, com diferentes intervalos de vocabulário.
+
+- O gráfico à esquerda apresenta os dados em uma escala menor (até 84.000 palavras).
+- O gráfico à direita mostra uma faixa mais ampla de palavras distintas (até 200.000).
+
+#### AVL
+
+- **Comportamento esperado:**
+  - A AVL realiza **rotações frequentes** para manter o balanceamento, o que **aumenta o custo das inserções**.
+  - Espera-se que o tempo de inserção seja maior que nas demais estruturas, visto que a RBT possui uma quantidade menor de rotações.
+
+- **Comportamento observado:**
+  - A AVL apresentou o **maior tempo total de inserção** em ambos os intervalos.
+  - Isso confirma o comportamento teórico: o alto custo das rotações para manter o balanceamento resulta em inserções mais lentas, especialmente com grandes volumes de dados.
+
+#### RBT
+
+- **Comportamento esperado:**
+  - A RBT realiza **menos rotações** que a AVL, mantendo um balanceamento mais flexível.
+  - Espera-se que o tempo de inserção seja **menor que o da AVL**, mas **ligeiramente maior que o da BST**.
+
+- **Comportamento observado:**
+  - Com até **84.000 palavras distintas**, a RBT apresentou inserções **ligeiramente mais rápidas que a BST**, o que pode ser atribuído a casos específicos de distribuição de dados.
+  - No entanto, ao considerar um vocabulário mais amplo (até **200.000 palavras**), a RBT teve desempenho **intermediário**: **mais rápida que a AVL**, mas **mais lenta que a BST**, como previsto teoricamente.
+
+#### BST
+
+- **Comportamento esperado:**
+  - Como não realiza rebalanceamento, a BST possui **inserções muito rápidas**, principalmente em entradas aleatórias ou bem distribuídas.
+  - É esperado que tenha o **menor tempo de inserção**, apesar do possível custo em busca.
+
+- **Comportamento observado:**
+  - A BST apresentou, de fato, o **menor tempo total de inserção** no caso maior.
+  - Isso confirma a expectativa: a ausência de rebalanceamento torna a operação de inserção simples e eficiente.
+
+### Conclusão Geral
+
+| Estrutura | Tempo de Inserção | Comentário |
+|-----------|--------------------|------------|
+| **BST**   | Baixo              | Inserção rápida, sem reestruturações |
+| **RBT**   | Médio              | Bom compromisso entre performance e balanceamento |
+| **AVL**   | Alto               | Inserções mais custosas devido ao balanceamento rigoroso |
+
+Os resultados observados confirmam os comportamentos teóricos esperados para cada estrutura, reforçando suas **vantagens e limitações** em contextos de inserção massiva.
+
 
 ## 8. Análise Comparativa
 
