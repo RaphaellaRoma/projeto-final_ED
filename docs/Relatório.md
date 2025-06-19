@@ -111,6 +111,7 @@ projeto-final_ED/
 │   ├── analysis_avl.cpp              # Código que executa os testes e coleta dados da AVL
 │   ├── analysis_bst.cpp              # Código que executa os testes e coleta dados da BST
 │   ├── analysis_rbt.cpp              # Código que executa os testes e coleta dados da RBT
+│   ├── analysis_general.cpp          # Código que executa a coleta de dados até 100 e grava no CSV para todos
 │   ├── metrics.cpp / metrics.h       # Funções auxiliares para coletar métricas (tempos, comparações, altura etc.)
 │   ├── Makefile                      # Para compilar os arquivos da pasta analysis
 │   ├── results/                 
@@ -416,7 +417,7 @@ Essa coleta de métricas foi essencial para as comparações apresentadas nas se
 
 ### 7.1. Tabelas de Desempenho
 
-10000
+Para a tabela de desempenho a seguir, foram considerados os dados obtidos após a inserção de **10.000 documentos** da base de dados presente no diretório `data_new/`, conforme registrado nos arquivos CSV gerados durante os testes.
 
 | Estrutura | Tempo Total de Inserção (ms) | Tempo Médio de Busca (ms) | Comparações (Inserção) | Comparações (Busca) | Altura |
 |-----------|------------------------------|---------------------------|------------------------|---------------------|--------|
@@ -424,9 +425,17 @@ Essa coleta de métricas foi essencial para as comparações apresentadas nas se
 | AVL       |         266174.909117        |          0.000556         |       401436310        |      401509211      |   20   |
 | RBT       |         258220.942663        |          0.000555         |       402110830        |      402199837      |   21   |
 
-Pequeno texto adicional **aqui**
+- A **BST** apresenta o menor tempo total de inserção, mas ao custo de uma **altura muito elevada**, o que gera um número significativamente maior de comparações.
+- A **AVL**, embora tenha o maior tempo de inserção, apresenta a **menor altura**, o que favorece buscas rápidas e estáveis.
+- A **RBT** surge como uma solução de equilíbrio, com desempenho próximo ao da AVL em buscas, mas com inserções mais eficientes que a AVL e altura apenas ligeiramente superior.
 
 ### 7.2. Gráficos
+
+Para comparar o desempenho e as características estruturais das árvores **BST**, **AVL** e **RBT**, foram gerados gráficos com base em dados coletados durante a execução do programa em C++.
+
+Durante os testes, o programa processou diferentes quantidades de documentos e registrou diversas métricas, como **empo de inserção e busca**, **número de comparações**, **altura da árvore**, **tamanho dos galhos**, **número de rotações** e **número de palavras distintas**. Os dados foram exportados em arquivos CSV e analisados com Python (`pandas`, `NumPy` e `matplotlib`).
+
+Os gráficos consideram aumentos de 1000 em 1000 documentos, iniciando em 100 até chegar a 10.000. Em alguns casos, utilizamos o número de palavras distintas (nós) como referência no eixo X. Também foi criado um CSV adicional com dados dos primeiros 100 documentos para análise mais detalhada em menor escala.
 
 ### 7.2.1 Crescimento de palavras com o numero de documentos
 
@@ -468,7 +477,8 @@ O gráfico a seguir mostra a relação entre o **número de rotações realizada
 
 <img src="./graphs_tables/rotacoes_insercao.png" width="1000"/>
 
-- **AVL**: O tempo de inserção está mais diretamente **proporcional ao número de rotações**, o que era esperado, dado o seu balanceamento estrito.
+- **AVL**: Como previsto, teve o maior tempo de inserção, reflexo direto de seu balanceamento estrito via rotações frequentes.
+
 - **RBT**: Aparentemente mais eficiente em rotações, mas **com maior custo por rotação** quando o volume de dados é alto, o que pode estar relacionado à complexidade extra na manutenção das propriedades rubro-negras.
 
 ### 7.2.3 Tempo de inserção por documento
@@ -564,11 +574,23 @@ A seguir, comparamos os tempos de busca observados nos testes com os comportamen
   - Tanto o **tempo máximo** quanto o **tempo médio** de busca foram **estáveis e muito próximos aos valores da AVL**.
   - Embora, teoricamente, se espere um desempenho ligeiramente inferior ao da AVL, **isso não é garantido em todos os casos**, e os resultados observados demonstram que a **RBT pode alcançar desempenho comparável ou equivalente**, especialmente em cenários bem distribuídos.
 
+A fim de observar com maior precisão o comportamento das estruturas nas fases iniciais da construção da árvore, os gráficos abaixo destacam o tempo de busca para os 100 primeiros documentos:
+
+<img src="./graphs_tables/tempo_busca_int.png" width="1000"/>
+
+A AVL mantém um tempo máximo consistentemente menor, o que reforça sua estabilidade estrutural.
+
+A RBT, embora com leve oscilação inicial, logo estabiliza e se aproxima da AVL em desempenho.
+
+A BST apresenta tempo médio inicial inferior às demais, mas com tendência clara de crescimento e oscilações visíveis no tempo máximo, o que já antecipa sua posterior degeneração estrutural.
+
+Essa análise confirma que mesmo em fases iniciais, o balanceamento impacta diretamente a previsibilidade e eficiência das buscas.
+
 ### 7.2.5 Altura
 
 <img src="./graphs_tables/altura.png" width="1000"/>
 
-Como discutido anteriormente, a **altura da BST** é visivelmente **maior** que a das outras duas estruturas, pois **não realiza rebalanceamento** durante as inserções.
+Como já detalhado anteriormente, a altura da **BST** cresce acentuadamente devido à ausência de rebalanceamento.
 
 Tanto a **AVL** quanto a **RBT** são **reajustadas com frequência**, o que ajuda a controlar o crescimento vertical. Contudo, a **AVL apresenta a menor altura** entre todas as árvores, devido ao seu **critério mais rigoroso de balanceamento**, que garante que a diferença de altura entre subárvores nunca exceda 1.
 
@@ -684,15 +706,12 @@ No eixo **x**, temos o número de palavras distintas inseridas; no eixo **y**, a
 
 ## 8. Análise Comparativa
 
-- **BST**: [vantagens e limitações observadas]
-- **AVL**: [vantagens e limitações observadas]
-- **RBT**: [vantagens e limitações observadas]
+- **BST**: É a melhor árvore para a incerção, devido à sua estrutura simples e ausência de operações de balanceamento. Porém, por não se balancear, sua altura pode crescer excessivamente em casos desfavoráveis, o que torna o tempo de busca mais imprevisível e, potencialmente, menos eficiente.
+- **AVL**: É a árvore com a incerção mais demorada devido ao seu frequente rebalanceamento. No entanto, isso garante um alto grau de balanceamento, o que resulta em alturas menores e mais previsíveis. Por isso, teoricamente, a AVL oferece o melhor desempenho para operações de busca entre as três estruturas.
+- **RBT**: Tem um tempo de inserção intermediário, pois realiza rebalanceamentos de forma mais eficiente e menos frequente que a AVL. Seu balanceamento é menos rigoroso, o que resulta em uma altura maior que a da AVL, mas ainda significativamente menor e mais estável que a da BST. Assim, a RBT representa um bom compromisso entre custo de inserção e desempenho nas operações de busca.
 
-Discussão sobre **aqui**:
-- Eficiência nas operações
-- Comportamento com diferentes volumes de dados
-- Impacto da altura da árvore
-- Outros critérios relevantes
+Na inserção, como era esperado, a AVL apresenta o pior desempenho desde o início, devido aos rebalanceamentos frequentes, enquanto a BST tem o melhor desempenho por não realizar nenhum tipo de balanceamento. A RBT, por adotar um critério de balanceamento menos rigoroso, inicia com um tempo de inserção muito próximo ao da BST; no entanto, à medida que a árvore cresce, seu desempenho se estabiliza em um nível intermediário entre outras duas árvores.
+Na operação de busca, como era esperado, o tempo máximo da BST foi bem maior que o das outras duas, cujos tempos se mostraram bastante semelhantes. No entanto, o tempo médio de busca contrariou as expectativas, sendo menor na BST. Isso provavelmente ocorreu pois, devido à ausência de balanceamento, a árvore apresenta muitos galhos curtos, o que faz com que as buscas por palavras nesses ramos compensem, em média, o custo elevado das buscas nos galhos mais profundos.
 
 ## 9. Dificuldades Encontradas
 
