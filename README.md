@@ -44,10 +44,10 @@ projeto-final_ED/
 │   ├── results/                 
 │   │   ├── CSVs gerados com os dados brutos (.csv)
 │   ├── plots/                        # Scripts dos gráficos gerados
-│       ├── plot_analysis.py          # Código Python para ler os CSVs e gerar gráficos
+│       ├── plot_analysis.ipynb       # Código Jupyter em python para ler os CSVs e gerar gráficos
 │
 ├── docs/
-│   ├── Relatório (PDF ou .md)
+│   ├── Relatório.md
 │   ├── graphs_tables/                # Usada para armazenar todos gráficos e tabelas gerados nas analises
 │
 ├── data/

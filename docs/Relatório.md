@@ -50,7 +50,7 @@ A árvore é considerada balanceada no estilo AVL se, e somente se:
 
 Sempre que uma operação causar violação dessa condição, a estrutura da árvore é ajustada automaticamente por meio de **rotações simples ou duplas**, de forma a restaurar o balanceamento.
 
-Uma **árvore rubro-negra** é uma árvore binária de busca que incorpora uma informação adicional em cada nó: sua cor, que pode ser vermelha ou preta. Essa coloração é utilizada para impor regras estruturais que garantem que a árvore permaneça aproximadamente balanceada, mantendo a eficiência das operações básicas (busca, inserção, remoção) com complexidade `O(log n)`.
+Uma **Árvore Rubro-Negra** é uma árvore binária de busca que incorpora uma informação adicional em cada nó: sua cor, que pode ser vermelha ou preta. Essa coloração é utilizada para impor regras estruturais que garantem que a árvore permaneça aproximadamente balanceada, mantendo a eficiência das operações básicas (busca, inserção, remoção) com complexidade `O(log n)`.
 
 Uma árvore rubro-negra deve obedecer às seguintes restrições estruturais:
 
@@ -80,7 +80,7 @@ Conceitos estruturais
 | Stephany Casali Oliveira    | Implementação da BST (insert e search)  e confecção do relatório                                |
 | Samyra Mara Candido Silva   | Implementação da AVL, testes unitários da BST, implementações das funções de métricas para gerar os CSVs de analise                                                 |
 | Raphaella Roma Mendes Alves | Implementação da RBT e Leitura de dados                                                         |
-| Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex, testes unitários da RBT e implementação em Python dos plots para geras gráficos e tabelas comparativas|
+| Beatriz dos Santos Marques  | Implementação da RBT, Implementação das funções printTree e printIndex, testes unitários da RBT e implementação em Python dos plots para gerar gráficos e tabelas comparativas|
 | Elisa de Oliveira Soares    | CLI (main de todas as árvores), Implementação da create e destroy, testes unitários da AVL e suportes gerais     |
 
 Além das tarefas acima citadas, cada integrante foi responsável por documentar suas próprias funções.
@@ -117,10 +117,10 @@ projeto-final_ED/
 │   ├── results/                 
 │   │   ├── CSVs gerados com os dados brutos (.csv)
 │   ├── plots/                        # Scripts dos gráficos gerados
-│       ├── plot_analysis.py          # Código Python para ler os CSVs e gerar gráficos
+│       ├── plot_analysis.ipynb       # Código Jupyter em python para ler os CSVs e gerar gráficos
 │
 ├── docs/
-│   ├── Relatório (PDF ou .md)
+│   ├── Relatório.md
 │   ├── graphs_tables/                # Usada para armazenar todos gráficos e tabelas gerados nas analises
 │
 ├── data/
@@ -140,7 +140,7 @@ projeto-final_ED/
 #### `src/`
 Contém o código-fonte principal:
 
-- `main_bst.cpp`, `main_avl.cpp`, `main_rbt.cpp`: interfaces de linha de comando para indexação, busca e visualização para as árvores BST, AVL e RBT respectivamente.
+- `main_bst.cpp`, `main_avl.cpp`, `main_rbt.cpp`, `analysis_general.cpp`: interfaces de linha de comando para indexação, busca e visualização para as árvores BST, AVL e RBT respectivamente.
 - `bst.cpp`/`bst.h`, `avl.cpp`/`avl.h`, `rbt.cpp`/`rbt.h`: implementações completas das estruturas de árvore.
 - `tree_utils.cpp`/`tree_utils.h`: estruturas auxiliares e funções como criação de nós, cálculo de altura, busca, exibição da árvore etc.
 - `data.cpp`/`data.h`: responsáveis pela leitura do diretório de dados e carregamento dos arquivos `.txt`.
@@ -157,12 +157,12 @@ Scripts responsáveis pela coleta de métricas e análise de desempenho:
 - `Makefile`: compila os arquivos da pasta `analysis/`.
 - `results/`: arquivos `.csv` contendo os dados brutos coletados durante os testes da análise.
 - `plots/`:
-  - `plot_analysis.py`: script Python que gera gráficos a partir dos dados em `.csv`.
+  - `plot_analysis.ipynb`: Código Jupyter em python para ler os CSVs e gerar gráficos
 
 #### `docs/`
 Documentação do projeto:
 
-- `Relatório (PDF ou .md)`: relatório técnico contendo explicações, metodologia, resultados e conclusões.
+- `Relatório.md`: relatório técnico contendo explicações, metodologia, resultados e conclusões.
 - `graphs_tables/`: gráficos e tabelas gerados nas análises.
 
 #### `data/`, `data_new/`, `data_test/`
@@ -195,7 +195,7 @@ Para organizar melhor as informações, criamos uma struct chamada `doc`, que co
 
 A função `read_documents` é responsável por percorrer um diretório, abrir sequencialmente um número `n` de arquivos nomeados no formato `"0.txt"`, `"1.txt"`, ..., e carregar seus conteúdos utilizando a função `ler_palavras`. Caso algum arquivo não seja encontrado ou não possa ser aberto, a função emite uma mensagem de erro e continua o processo com o próximo arquivo.
 
-A leitura dos documentos é realizada nos arquivos `main_bst.cpp`, `main_avl.cpp` e `main_rbt.cpp`, localizados no diretório `src/`. Esses arquivos serão explicados em detalhes mais à frente neste relatório. Também destacamos o uso das funções de leitura na geração dos CSVs de analises que também serâo detalhadas mais a frente.
+A leitura dos documentos é realizada nos arquivos `main_bst.cpp`, `main_avl.cpp` e `main_rbt.cpp`, localizados no diretório `src/`. Esses arquivos serão explicados em detalhes mais à frente neste relatório. Também destacamos o uso das funções de leitura na geração dos CSVs de analises que também serão detalhadas mais a frente.
 
 Nossa base de documentos está organizada em diferentes diretórios para facilitar os testes e experimentos:
 
@@ -337,7 +337,7 @@ As métricas exibidas incluem:
 ```bash
 ./<arvore> view <n_docs> <diretório>:
 ```
-chama a função `printTree`, e mostra a visualização da árvore com n_docs documentos ou a função `printIndex` que imprime o índice invertido da árvore em ordem alfabética.
+Chama a função `printTree`, e mostra a visualização da árvore com n_docs documentos ou a função `printIndex` que imprime o índice invertido da árvore em ordem alfabética.
 
 Exemplos de Saída
 Utilizando o banco de dados presente na pasta `data_test/`, e aplicando cada uma das estruturas já referenciadas neste relatório, obtemos as seguintes representações visuais das árvores:
@@ -433,7 +433,7 @@ Para a tabela de desempenho a seguir, foram considerados os dados obtidos após 
 
 Para comparar o desempenho e as características estruturais das árvores **BST**, **AVL** e **RBT**, foram gerados gráficos com base em dados coletados durante a execução do programa em C++.
 
-Durante os testes, o programa processou diferentes quantidades de documentos e registrou diversas métricas, como **empo de inserção e busca**, **número de comparações**, **altura da árvore**, **tamanho dos galhos**, **número de rotações** e **número de palavras distintas**. Os dados foram exportados em arquivos CSV e analisados com Python (`pandas`, `NumPy` e `matplotlib`).
+Durante os testes, o programa processou diferentes quantidades de documentos e registrou diversas métricas, como **tempo de inserção e busca**, **número de comparações**, **altura da árvore**, **tamanho dos galhos**, **número de rotações** e **número de palavras distintas**. Os dados foram exportados em arquivos CSV e analisados com Python (`pandas`, `NumPy` e `matplotlib`).
 
 Os gráficos consideram aumentos de 1000 em 1000 documentos, iniciando em 100 até chegar a 10.000. Em alguns casos, utilizamos o número de palavras distintas (nós) como referência no eixo X. Também foi criado um CSV adicional com dados dos primeiros 100 documentos para análise mais detalhada em menor escala.
 
@@ -479,7 +479,7 @@ O gráfico a seguir mostra a relação entre o **número de rotações realizada
 
 - **AVL**: Como previsto, teve o maior tempo de inserção, reflexo direto de seu balanceamento estrito via rotações frequentes.
 
-- **RBT**: Aparentemente mais eficiente em rotações, mas **com maior custo por rotação** quando o volume de dados é alto, o que pode estar relacionado à complexidade extra na manutenção das propriedades rubro-negras.
+- **RBT**: Aparentemente mais eficiente em rotações, mas **com maior custo por rotação** quando o volume de dados é alto, o que pode estar relacionado à complexidade extra na manutenção das propriedades da RBT.
 
 ### 7.2.3 Tempo de inserção por documento
 
@@ -498,7 +498,15 @@ Entre as três estruturas:
 
 Podemos perceber que desde o início o tempo de inserção da AVL é maior que o das outras duas estruturas, enquanto os tempos da BST e da RBT permanecem bastante próximos. Essa diferença pode ser atribuída a particularidades do banco de dados, que podem causar degeneração na BST e, consequentemente, aumento no seu tempo de inserção. No entanto, considerando os últimos 1000 documentos, quando a árvore está mais completa e balanceada, confirma-se a ordem observada no gráfico anterior: a AVL apresenta o maior tempo de inserção, enquanto a BST mantém o menor
 
-#### 7.2.4 Tempo de Inserção por vocabulario
+<img src="./graphs_tables/tempo_insercao_100.png" width="1000"/>
+
+Embora a **BST** continue sendo a estrutura com o menor tempo total de inserção, observa-se um crescimento mais acentuado no tempo médio nas fases finais, o que indica que o aumento da altura da árvore (devido à falta de balanceamento) começou a impactar o desempenho.
+
+A **AVL** segue como a estrutura com o maior tempo total de inserção, confirmando o custo adicional das operações de balanceamento.
+
+A **RBT** manteve essa posição intermediária durante toda a execução, com desempenho melhor que a AVL, mas sem atingir a eficiência crua da BST no tempo de inserção.
+
+### 7.2.4 Tempo de Inserção por vocabulario
 
 <img src="./graphs_tables/vocabulario_insercao.png" width="1000"/>
 <img src="./graphs_tables/vocabulario_insercao_int.png" width="1000"/>
@@ -538,8 +546,13 @@ Os gráficos acima mostram o **tempo total de inserção** para as estruturas BS
   - A BST apresentou, de fato, o **menor tempo total de inserção** no caso maior.
   - Isso confirma a expectativa: a ausência de rebalanceamento torna a operação de inserção simples e eficiente.
 
+Mesmo com o crescimento do vocabulário, a **BST** manteve o menor tempo total de inserção, confirmando o baixo custo estrutural da operação de inserção.
 
-### 7.2.4 Tempo de Busca por documento
+A **AVL** permaneceu como a estrutura mais lenta em inserção ao longo de toda a amostra, com o tempo total crescendo de forma constante e sempre acima das outras duas estruturas.
+
+À medida que o vocabulário cresceu, a **RBT** se manteve em uma posição intermediária, com desempenho melhor que a AVL, mas inferior à BST, como previsto teoricamente.
+
+### 7.2.5 Tempo de Busca por documento
 
 A seguir, comparamos os tempos de busca observados nos testes com os comportamentos teóricos esperados para cada estrutura de dados:
 
@@ -576,17 +589,18 @@ A seguir, comparamos os tempos de busca observados nos testes com os comportamen
 
 A fim de observar com maior precisão o comportamento das estruturas nas fases iniciais da construção da árvore, os gráficos abaixo destacam o tempo de busca para os 100 primeiros documentos:
 
-<img src="./graphs_tables/tempo_busca_int.png" width="1000"/>
+<img src="./graphs_tables/tempo_busca_100.png" width="1000"/>
 
-A AVL mantém um tempo máximo consistentemente menor, o que reforça sua estabilidade estrutural.
+A **BST** apresentou tempos máximos de busca muito baixos e menores que os da AVL e da RBT, estabilizando-se abaixo de 0,1 ms.
+Isso pode ocorrer, porque, nas fases iniciais de construção, o tamanho da árvore ainda é pequeno e a degeneração estrutural ainda não acontece.
 
-A RBT, embora com leve oscilação inicial, logo estabiliza e se aproxima da AVL em desempenho.
+A **AVL** teve os maiores tempos máximos iniciais, com picos acima de 0,25 ms.
+Esses valores podem ser explicados pelo custo das rotações de balanceamento, que são mais frequentes no início da construção da árvore, quando ela ainda está se ajustando a cada nova inserção.
 
-A BST apresenta tempo médio inicial inferior às demais, mas com tendência clara de crescimento e oscilações visíveis no tempo máximo, o que já antecipa sua posterior degeneração estrutural.
+A **RBT** apresentou um crescimento abrupto inicial no tempo máximo de busca, mas rapidamente estabilizou-se em torno de 0,16 ms.
+Isso sugere que, durante as primeiras inserções, o balanceamento ainda não tinha atingido um estado estável.
 
-Essa análise confirma que mesmo em fases iniciais, o balanceamento impacta diretamente a previsibilidade e eficiência das buscas.
-
-### 7.2.5 Altura
+### 7.2.6 Altura
 
 <img src="./graphs_tables/altura.png" width="1000"/>
 
@@ -596,7 +610,7 @@ Tanto a **AVL** quanto a **RBT** são **reajustadas com frequência**, o que aju
 
 Além disso, é possível notar que a altura das árvores **não cresce de forma acentuada** ao longo do intervalo de 1000 a 10000 documentos. Isso ocorre porque muitas das palavras inseridas ao longo dos documentos **já estavam presentes na árvore**, resultando apenas em atualizações dos nós existentes e não na criação de novos caminhos longos. Como consequência, há **formação de ramos menores e mais distribuídos**, o que reduz a necessidade de expansão vertical significativa.
 
-### 7.2.6 Tamanho do maior e menor galho
+### 7.2.7 Tamanho do maior e menor galho
 
 <img src="./graphs_tables/tamanho_galho.png" width="1000"/>
 
@@ -609,13 +623,13 @@ No gráfico, observamos uma **maior regularidade nos galhos da AVL e da RBT**, e
 
 No entanto, essa diferença entre os menores galhos **não é garantida estruturalmente**, e sim uma observação empírica dos dados testados. Em outras palavras, **a RBT pode apresentar galhos mínimos mais curtos**, mas **isso não é uma regra absoluta**.
 
-### 7.2.7 Relação entre o maior e o menor galho
+### 7.2.8 Relação entre o maior e o menor galho
 
 <img src="./graphs_tables/relacao_galho.png" width="1000"/>
 
 Agora podemos demonstrar matematicamente o comportamento observado no gráfico anterior: como o maior galho da BST é significativamente maior que o menor, tanto a razão quanto a diferença entre esses dois valores são relativamente altas. Em contraste, nas árvores AVL e RBT, que mantêm algum grau de balanceamento, esses valores são consideravelmente menores. É interessante observar também que, como para 6000 documentos a AVL e a RBT tem mesmo tamanho de galhos, para esse número de documentos a razão e a diferença dos dois são iguais.
 
-### 7.2.8 Comparações altura por busca e inserção
+### 7.2.9 Comparações altura por busca e inserção
 
 <img src="./graphs_tables/num_comparacoes_altura_insercao.png" width="1000"/>
 <img src="./graphs_tables/num_comparacoes_altura_busca.png" width="1000"/>
@@ -628,7 +642,7 @@ Nos gráficos acima, observamos uma **relação direta entre a altura da árvore
 
 - A **RBT** também apresenta uma altura controlada, variando entre **17 e 21**, graças à sua **estratégia de balanceamento mais flexível**. Essa abordagem exige **menos rotações que a AVL**, o que pode resultar em **melhor desempenho prático** em alguns cenários.
 
-### 7.2.9 Comparações
+### 7.2.10 Comparações
 
 <img src="./graphs_tables/num_comparacoes.png" width="1000"/>
 
@@ -652,7 +666,7 @@ Essa diferença pode estar relacionada à **organização interna dos dados na b
 
 Apesar disso, ambas as árvores mantêm **desempenho bastante eficiente** em comparação com a BST, validando o uso de **estruturas balanceadas** para aplicações que exigem **buscas e inserções rápidas em grandes volumes de dados**.
 
-### 7.2.10 Altura por Palavras Distintas
+### 7.2.11 Altura por Palavras Distintas
 
 <img src="./graphs_tables/alt_pal_dist.png" width="1000"/>
 
@@ -741,7 +755,19 @@ Quanto à CLI, a principal dificuldade esteve na estruturação da lógica de fu
 
 ## 10. Conclusão
 
-**aqui**
+Ao longo deste trabalho, exploramos a implementação de um índice invertido utilizando três estruturas de dados baseadas em árvores binárias: a Árvore Binária de Busca (BST), a Árvore AVL e a Árvore Rubro-Negra (RBT). Também analisamos e comparamos o desempenho dessas estruturas em diversos aspectos, como tempo de inserção, tempo de busca, altura e número de comparações, utilizando diferentes conjuntos de dados.
+
+A partir dos resultados obtidos, algumas observações importantes podem ser destacadas:
+
+    A BST, embora simples e fácil de implementar, apresenta como principal desvantagem a possibilidade de degeneração da árvore, o que compromete a eficiência das operações de busca e remoção;
+
+    A AVL é a estrutura mais eficiente em termos de balanceamento, o que garante um tempo de busca mais estável. No entanto, esse rigor no balanceamento implica um custo maior nas operações de inserção;
+
+    A RBT apresentou um comportamento intermediário: mais equilibrada que a BST e menos complexa que a AVL. Isso pode resultar em um melhor desempenho prático, especialmente em cenários com grande volume de dados.
+
+De forma geral, a escolha da estrutura ideal depende diretamente do contexto da aplicação. Para sistemas mais simples, a BST pode ser suficiente. Já para mecanismos de busca e sistemas de recuperação da informação que lidam com grandes volumes de dados e realizam operações frequentes de inserção e consulta, a AVL ou a RBT são opções mais adequadas — sendo a RBT frequentemente preferida em ambientes de produção, devido à sua robustez, desempenho estável e flexibilidade.
+
+Por fim, foi especialmente interessante observar, na prática, uma aplicação concreta das estruturas de árvore no contexto de um índice invertido, evidenciando a importância desses conceitos na área de estruturas de dados e recuperação da informação.
 
 ## 11. Referências
 
