@@ -500,11 +500,11 @@ Podemos perceber que desde o início o tempo de inserção da AVL é maior que o
 
 <img src="./graphs_tables/tempo_insercao_100.png" width="1000"/>
 
-Embora a **BST** continue sendo a estrutura com o menor tempo total de inserção, observa-se um crescimento mais acentuado no tempo médio nas fases finais, o que indica que o aumento da altura da árvore (devido à falta de balanceamento) começou a impactar o desempenho.
+Embora a **BST** continue sendo a estrutura com o maior tempo total de inserção, observa-se um crescimento mais acentuado no tempo médio nas fases finais, o que indica que o aumento da altura da árvore (devido à falta de balanceamento) começou a impactar o desempenho.
 
-A **AVL** segue como a estrutura com o maior tempo total de inserção, confirmando o custo adicional das operações de balanceamento.
+A **AVL** segue como a estrutura com o meio tempo total de inserção, confirmando o custo adicional das operações de balanceamento.
 
-A **RBT** manteve essa posição intermediária durante toda a execução, com desempenho melhor que a AVL, mas sem atingir a eficiência crua da BST no tempo de inserção.
+A **RBT** tem o tempo menor durante toda a execução, com desempenho melhor que a AVL, mas sem atingir a eficiência crua da BST no tempo de inserção.
 
 ### 7.2.4 Tempo de Inserção por vocabulario
 
