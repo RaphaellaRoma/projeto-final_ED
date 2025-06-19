@@ -549,6 +549,8 @@ Os gráficos acima mostram o **tempo total de inserção** para as estruturas BS
 
 Mesmo com o crescimento do vocabulário, a **BST** manteve o menor tempo total de inserção, confirmando o baixo custo estrutural da operação de inserção.
 
+<img src="./graphs_tables/vocabulario_insercao_int.png" width="1000"/>
+
 A **AVL** permaneceu como a estrutura mais lenta em inserção ao longo de toda a amostra, com o tempo total crescendo de forma constante e sempre acima das outras duas estruturas.
 
 À medida que o vocabulário cresceu, a **RBT** se manteve em uma posição intermediária, com desempenho melhor que a AVL, mas inferior à BST, como previsto teoricamente.
