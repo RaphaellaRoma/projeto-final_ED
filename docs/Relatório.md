@@ -547,9 +547,9 @@ Os gráficos acima mostram o **tempo total de inserção** para as estruturas BS
   - A BST apresentou, de fato, o **menor tempo total de inserção** no caso maior.
   - Isso confirma a expectativa: a ausência de rebalanceamento torna a operação de inserção simples e eficiente.
 
-Mesmo com o crescimento do vocabulário, a **BST** manteve o menor tempo total de inserção, confirmando o baixo custo estrutural da operação de inserção.
+<img src="./graphs_tables/vocabulario_insercao_100.png" width="1000"/>
 
-<img src="./graphs_tables/vocabulario_insercao_int.png" width="1000"/>
+Mesmo com o crescimento do vocabulário, a **BST** manteve o menor tempo total de inserção, confirmando o baixo custo estrutural da operação de inserção.
 
 A **AVL** permaneceu como a estrutura mais lenta em inserção ao longo de toda a amostra, com o tempo total crescendo de forma constante e sempre acima das outras duas estruturas.
 
@@ -598,7 +598,7 @@ A **BST** apresentou tempos máximos de busca muito baixos e menores que os da A
 Isso pode ocorrer, porque, nas fases iniciais de construção, o tamanho da árvore ainda é pequeno e a degeneração estrutural ainda não acontece.
 
 A **AVL** teve os maiores tempos máximos iniciais, com picos acima de 0,25 ms.
-Esses valores podem ser explicados pelo custo das rotações de balanceamento, que são mais frequentes no início da construção da árvore, quando ela ainda está se ajustando a cada nova inserção.
+Esses valores podem ser explicados pois buscamos logo apos inserir e por ser mais custoso a inserção, a Arvore AVL gerada pode alocar o novo no em um galho de altura profundidade maior em relação a BST.
 
 A **RBT** apresentou um crescimento abrupto inicial no tempo máximo de busca, mas rapidamente estabilizou-se em torno de 0,16 ms.
 Isso sugere que, durante as primeiras inserções, o balanceamento ainda não tinha atingido um estado estável.
