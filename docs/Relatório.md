@@ -416,17 +416,27 @@ Essa coleta de métricas foi essencial para as comparações apresentadas nas se
 
 ### 7.1. Tabelas de Desempenho
 
-| Estrutura | Tempo Total de Inserção (ms) | Tempo Médio de Busca (ms) | Comparações (Inserção) | Comparações (Busca) | Altura Média |
-|-----------|------------------------------|---------------------------|------------------------|---------------------|--------------|
-| BST       |                              |                           |                        |                     |              |
-| AVL       |                              |                           |                        |                     |              |
-| RBT       |                              |                           |                        |                     |              |
+10000
+
+| Estrutura | Tempo Total de Inserção (ms) | Tempo Médio de Busca (ms) | Comparações (Inserção) | Comparações (Busca) | Altura |
+|-----------|------------------------------|---------------------------|------------------------|---------------------|--------|
+| BST       |         249763.682006        |          0.000481         |       412032644        |      412232508      |   45   |
+| AVL       |         266174.909117        |          0.000556         |       401436310        |      401509211      |   20   |
+| RBT       |         258220.942663        |          0.000555         |       402110830        |      402199837      |   21   |
 
 Pequeno texto adicional **aqui**
 
 ### 7.2. Gráficos
 
-### Número de Rotações
+### 7.2.1 Crescimento de palavras com o numero de documentos
+
+<img src="./graphs_tables/palavras_docs.png" width="1000"/>
+
+Observa-se que o número total de palavras é praticamente constante entre os documentos. No entanto, conforme mais documentos são analisados, grande parte das palavras já terá sido inserida anteriormente. Por isso, o número de **palavras distintas** cresce de forma mais lenta ao longo do tempo.
+
+Isso significa que, para os documentos mais recentes, muitas palavras não geram a criação de novos nós, mas sim a **atualização dos nós existentes** com a inclusão do novo identificador de documento.
+
+### 7.2.2 Número de Rotações
 
 As imagens a seguir apresentam o número total de rotações realizadas por cada estrutura balanceada **AVL** e **RBT**:
 
@@ -461,10 +471,27 @@ O gráfico a seguir mostra a relação entre o **número de rotações realizada
 - **AVL**: O tempo de inserção está mais diretamente **proporcional ao número de rotações**, o que era esperado, dado o seu balanceamento estrito.
 - **RBT**: Aparentemente mais eficiente em rotações, mas **com maior custo por rotação** quando o volume de dados é alto, o que pode estar relacionado à complexidade extra na manutenção das propriedades rubro-negras.
 
-#### Tempo de Inserção
+### 7.2.3 Tempo de inserção por documento
+
+<img src="./graphs_tables/tempo_insercao.png" width="1000"/>
+
+O tempo total de inserção exibe uma curva com **inclinação crescente**, o que é esperado, já que o valor acumulado aumenta com cada operação.
+
+Entre as três estruturas:
+
+- A **BST** apresenta o **menor tempo total de inserção**, pois não realiza rebalanceamento.
+- A **AVL** apresenta o **maior tempo**, devido à execução constante de rotações para manter o balanceamento.
+- A **RBT** fica em uma posição intermediária, com menos rotações que a AVL, mas com custo estrutural maior que a BST.
+
+<img src="./graphs_tables/tempo_total_insercao_int.png" width="1000"/>
+<img src="./graphs_tables/tempo_medio_insercao_int.png" width="1000"/>
+
+Podemos perceber que desde o início o tempo de inserção da AVL é maior que o das outras duas estruturas, enquanto os tempos da BST e da RBT permanecem bastante próximos. Essa diferença pode ser atribuída a particularidades do banco de dados, que podem causar degeneração na BST e, consequentemente, aumento no seu tempo de inserção. No entanto, considerando os últimos 1000 documentos, quando a árvore está mais completa e balanceada, confirma-se a ordem observada no gráfico anterior: a AVL apresenta o maior tempo de inserção, enquanto a BST mantém o menor
+
+#### 7.2.4 Tempo de Inserção por vocabulario
 
 <img src="./graphs_tables/vocabulario_insercao.png" width="1000"/>
-<img src="./graphs_tables/vocabulario_insercao_int.png.png" width="1000"/>
+<img src="./graphs_tables/vocabulario_insercao_int.png" width="1000"/>
 
 Os gráficos acima mostram o **tempo total de inserção** para as estruturas BST, AVL e RBT, com diferentes intervalos de vocabulário.
 
@@ -502,7 +529,7 @@ Os gráficos acima mostram o **tempo total de inserção** para as estruturas BS
   - Isso confirma a expectativa: a ausência de rebalanceamento torna a operação de inserção simples e eficiente.
 
 
-### Comparação entre Tempo de Busca Observado e Esperado
+### 7.2.4 Comparação entre Tempo de Busca Observado e Esperado
 
 A seguir, comparamos os tempos de busca observados nos testes com os comportamentos teóricos esperados para cada estrutura de dados:
 
@@ -537,6 +564,34 @@ A seguir, comparamos os tempos de busca observados nos testes com os comportamen
   - Tanto o **tempo máximo** quanto o **tempo médio** de busca foram **estáveis e muito próximos aos valores da AVL**.
   - Embora, teoricamente, se espere um desempenho ligeiramente inferior ao da AVL, **isso não é garantido em todos os casos**, e os resultados observados demonstram que a **RBT pode alcançar desempenho comparável ou equivalente**, especialmente em cenários bem distribuídos.
 
+### 7.2.5 Altura
+
+<img src="./graphs_tables/altura.png" width="1000"/>
+
+Como discutido anteriormente, a **altura da BST** é visivelmente **maior** que a das outras duas estruturas, pois **não realiza rebalanceamento** durante as inserções.
+
+Tanto a **AVL** quanto a **RBT** são **reajustadas com frequência**, o que ajuda a controlar o crescimento vertical. Contudo, a **AVL apresenta a menor altura** entre todas as árvores, devido ao seu **critério mais rigoroso de balanceamento**, que garante que a diferença de altura entre subárvores nunca exceda 1.
+
+Além disso, é possível notar que a altura das árvores **não cresce de forma acentuada** ao longo do intervalo de 1000 a 10000 documentos. Isso ocorre porque muitas das palavras inseridas ao longo dos documentos **já estavam presentes na árvore**, resultando apenas em atualizações dos nós existentes e não na criação de novos caminhos longos. Como consequência, há **formação de ramos menores e mais distribuídos**, o que reduz a necessidade de expansão vertical significativa.
+
+### 7.2.6 Tamanho do maior e menor galho
+
+<img src="./graphs_tables/tamanho_galho.png" width="1000"/>
+
+Como a **BST não é rebalanceada**, seu **maior galho tende a ser significativamente mais longo** que o menor. Isso ocorre porque a árvore pode degenerar em certos casos, formando ramos desproporcionalmente profundos.
+
+No gráfico, observamos uma **maior regularidade nos galhos da AVL e da RBT**, estruturas que são rebalanceadas dinamicamente. Porém, há um detalhe importante:
+
+- O **maior galho (altura)** da **AVL nunca é maior que o da RBT**.
+- Por outro lado, o **menor galho** da **RBT tende a ser menor que o da AVL**, indicando que a RBT forma caminhos mínimos mais curtos em diversos cenários.
+
+No entanto, essa diferença entre os menores galhos **não é garantida estruturalmente**, e sim uma observação empírica dos dados testados. Em outras palavras, **a RBT pode apresentar galhos mínimos mais curtos**, mas **isso não é uma regra absoluta**.
+
+### 7.2.7 Relação entre o maior e o menor galho
+
+<img src="./graphs_tables/relacao_galho.png" width="1000"/>
+
+Agora podemos demonstrar matematicamente o comportamento observado no gráfico anterior: como o maior galho da BST é significativamente maior que o menor, tanto a razão quanto a diferença entre esses dois valores são relativamente altas. Em contraste, nas árvores AVL e RBT, que mantêm algum grau de balanceamento, esses valores são consideravelmente menores. É interessante observar também que, como para 6000 documentos a AVL e a RBT tem mesmo tamanho de galhos, para esse número de documentos a razão e a diferença dos dois são iguais.
 
 ## 8. Análise Comparativa
 
