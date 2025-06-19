@@ -29,6 +29,8 @@ namespace BST {
     * @return InsertResult Estrutura contendo informações sobre a inserção:
     *         - numComparisons: número de comparações realizadas;
     *         - executionTime: tempo gasto na operação, em segundos.
+    *         - alreadyInsert: indica se a palavra já existia na árvore (1) ou se foi criada (0);
+    *         - numRotations: número de rotações realizadas durante a inserção (se aplicável).
     */ 
     InsertResult insert(BinaryTree* tree, const std::string& word, int documentId);
 

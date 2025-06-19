@@ -17,7 +17,7 @@ struct Node {
 
 struct BinaryTree {
     Node* root;
-    Node* NIL;  // usado na RBT (Opcional)
+    Node* NIL;  // usado na RBT 
 };
 
 struct InsertResult {
@@ -32,7 +32,6 @@ struct SearchResult {
     std::vector<int> documentIds;
     double executionTime;
     int numComparisons;
-    //<Possíveis outras variáveis>
 };
 
 struct NodeDepth {
