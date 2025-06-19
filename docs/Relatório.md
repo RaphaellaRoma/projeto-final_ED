@@ -529,7 +529,7 @@ Os gráficos acima mostram o **tempo total de inserção** para as estruturas BS
   - Isso confirma a expectativa: a ausência de rebalanceamento torna a operação de inserção simples e eficiente.
 
 
-### 7.2.4 Comparação entre Tempo de Busca Observado e Esperado
+### 7.2.4 Tempo de Busca por documento
 
 A seguir, comparamos os tempos de busca observados nos testes com os comportamentos teóricos esperados para cada estrutura de dados:
 
@@ -592,6 +592,95 @@ No entanto, essa diferença entre os menores galhos **não é garantida estrutur
 <img src="./graphs_tables/relacao_galho.png" width="1000"/>
 
 Agora podemos demonstrar matematicamente o comportamento observado no gráfico anterior: como o maior galho da BST é significativamente maior que o menor, tanto a razão quanto a diferença entre esses dois valores são relativamente altas. Em contraste, nas árvores AVL e RBT, que mantêm algum grau de balanceamento, esses valores são consideravelmente menores. É interessante observar também que, como para 6000 documentos a AVL e a RBT tem mesmo tamanho de galhos, para esse número de documentos a razão e a diferença dos dois são iguais.
+
+### 7.2.8 Comparações altura por busca e inserção
+
+<img src="./graphs_tables/num_comparacoes_altura_insercao.png" width="1000"/>
+<img src="./graphs_tables/num_comparacoes_altura_busca.png" width="1000"/>
+
+Nos gráficos acima, observamos uma **relação direta entre a altura da árvore** e o **número de comparações realizadas** durante as operações de **inserção** e **busca**.
+
+- A **BST**, com altura atingindo até **45**, confirma seu comportamento **não balanceado**, podendo se assemelhar a uma **lista encadeada** nos piores casos. Esse cenário resulta em **complexidade O(n)** tanto para inserções quanto para buscas.
+
+- A **AVL** mantém a altura entre **17 e 20**, mesmo com um volume elevado de dados. Isso é resultado de seu **balanceamento rigoroso**, que controla o crescimento vertical da árvore ainda que com o custo adicional de rotações frequentes.
+
+- A **RBT** também apresenta uma altura controlada, variando entre **17 e 21**, graças à sua **estratégia de balanceamento mais flexível**. Essa abordagem exige **menos rotações que a AVL**, o que pode resultar em **melhor desempenho prático** em alguns cenários.
+
+### 7.2.9 Comparações
+
+<img src="./graphs_tables/num_comparacoes.png" width="1000"/>
+
+O gráfico acima apresenta o comportamento do **número total de comparações** realizadas à medida que aumenta o número de documentos inseridos.
+
+Como esperado, esse aumento está diretamente ligado ao **crescimento da altura da árvore**, o que impacta diretamente o número de comparações envolvidas nas operações de **busca** e **inserção**.
+
+- A **BST**, cuja altura cresce rapidamente, atinge valores próximos a **45** com **10.000 documentos**, o que a torna altamente desbalanceada. Esse comportamento resulta em um **número de comparações significativamente maior**, conforme visualizado no gráfico.
+
+- Em contrapartida, as estruturas **AVL** e **RBT** mantêm um **crescimento de altura muito mais controlado**, o que reflete diretamente em uma **quantidade menor de comparações**, mesmo nos cenários mais extremos — como nos últimos documentos, onde a árvore está quase cheia e os caminhos já são mais profundos.
+
+<img src="./graphs_tables/num_comparacoes_menor.png" width="1000"/>
+
+No gráfico acima, o foco está apenas nos **últimos 1000 documentos**, em intervalos de 100, com o objetivo de observar o **comportamento das estruturas sob carga pesada**, quando as árvores já estão mais densas e próximas de sua configuração final.
+
+- É possível notar de forma clara o **distanciamento da BST** em relação às demais, com um **número de comparações muito mais elevado**, reflexo direto de sua estrutura desbalanceada.
+
+- Embora **AVL** e **RBT** apresentem valores próximos, um **detalhe interessante** chama atenção: **esperava-se que a AVL tivesse um desempenho ligeiramente superior**, dado seu **balanceamento mais rigoroso**. Contudo, os dados indicam que a **RBT realizou menos comparações** em alguns cenários.
+
+Essa diferença pode estar relacionada à **organização interna dos dados na base utilizada**. A depender da **ordem das palavras inseridas**, a **estrutura flexível da RBT** pode favorecer a formação de caminhos mais equilibrados. Por outro lado, a AVL pode formar **ramos mais longos que não são completamente compensados** por outros menores, o que leva a um número um pouco maior de comparações.
+
+Apesar disso, ambas as árvores mantêm **desempenho bastante eficiente** em comparação com a BST, validando o uso de **estruturas balanceadas** para aplicações que exigem **buscas e inserções rápidas em grandes volumes de dados**.
+
+### 7.2.10 Altura por Palavras Distintas
+
+<img src="./graphs_tables/alt_pal_dist.png" width="1000"/>
+
+Neste gráfico, analisamos como a altura das três árvores — BST, AVL e RBT — varia à medida que aumenta o número de palavras distintas inseridas.
+
+As árvores analisadas são:
+
+- **BST**: árvore binária de busca simples, sem rebalanceamento  
+- **AVL**: árvore balanceada com critério rigoroso  
+- **RBT**: árvore com balanceamento mais flexível (vermelho-preto)
+
+No eixo **x**, temos o número de palavras distintas inseridas; no eixo **y**, a **altura da árvore** correspondente.
+
+#### BST
+
+- A altura da BST cresce de forma **quase linear**, refletindo a ausência de balanceamento.
+- A **altura máxima observada** foi **45**.
+- Sua forma final depende fortemente da **ordem de inserção** dos dados:
+  - Se os elementos estiverem ordenados, a árvore se degenera em uma lista encadeada, com altura $h = n$.
+  - Em nosso caso, com dados aparentemente aleatórios, o crescimento é mais moderado, mas ainda **instável**.
+- Tentamos ajustar uma função linear do tipo $c \cdot n$, mas o ajuste **não foi satisfatório**, o que confirma que o crescimento linear ocorre apenas em **casos extremos**.
+- Na prática, sua altura fica entre $\log n$ e $n$, com alta variação.
+
+#### AVL
+
+- A AVL apresenta o **crescimento mais lento e estável**, conforme esperado.
+- Teoricamente, sua altura é limitada por cerca de $1{,}44 \cdot \log_2(n)$.
+- Ajustamos aos dados uma função da forma $c \cdot \log_2(n)$.
+
+> **Constante estimada**: $c \approx 1{,}143$
+
+- O gráfico mostra excelente aderência à curva logarítmica, confirmando o **controle rígido de altura**.
+- **Altura máxima observada**: **20**
+- Ideal para aplicações onde a **eficiência de busca** é crítica.
+
+<img src="./graphs_tables/alt_pal_log_AVL.png" width="1000"/>
+
+#### RBT
+
+- Também apresenta **crescimento controlado**, com altura ligeiramente superior à AVL.
+- Teoricamente, sua altura está limitada por $2 \cdot \log_2(n + 1)$.
+- Ajustamos uma função do tipo $c \cdot \log_2(n + 1)$ aos dados:
+
+> **Constante estimada**: $c \approx 1{,}165$
+
+- O ajuste se mostra bastante coerente, validando o **bom desempenho prático** da RBT.
+- **Altura máxima observada**: **21**
+- Seu **balanceamento mais flexível** favorece **inserções rápidas**, ainda mantendo **buscas eficientes**.
+
+<img src="./graphs_tables/alt_pal_log_RBT.png" width="1000"/>
 
 ## 8. Análise Comparativa
 
