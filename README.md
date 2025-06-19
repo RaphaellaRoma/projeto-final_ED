@@ -38,6 +38,7 @@ projeto-final_ED/
 │   ├── analysis_avl.cpp              # Código que executa os testes e coleta dados da AVL
 │   ├── analysis_bst.cpp              # Código que executa os testes e coleta dados da BST
 │   ├── analysis_rbt.cpp              # Código que executa os testes e coleta dados da RBT
+│   ├── analysis_general.cpp          # Código que executa a coleta de dados até 100 e grava no CSV para todos
 │   ├── metrics.cpp / metrics.h       # Funções auxiliares para coletar métricas (tempos, comparações, altura etc.)
 │   ├── Makefile                      # Para compilar os arquivos da pasta analysis
 │   ├── results/                 
