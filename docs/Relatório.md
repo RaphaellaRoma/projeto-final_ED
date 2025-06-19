@@ -516,6 +516,7 @@ Os gráficos acima mostram o **tempo total de inserção** para as estruturas BS
 - O gráfico à esquerda apresenta os dados em uma escala menor (até 84.000 palavras).
 - O gráfico à direita mostra uma faixa mais ampla de palavras distintas (até 200.000).
 
+
 #### AVL
 
 - **Comportamento esperado:**
